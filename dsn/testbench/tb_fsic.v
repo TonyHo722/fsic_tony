@@ -53,8 +53,14 @@ module tb_fsic #( parameter BITS=32,
   reg           vssd1;
   reg           vssd2;
   reg           user_clock2;
-
+	reg [31:0] mem1 [0:255];
+	reg [31:0] mem2 [0:255];
+	reg [31:0] mem3 [0:255];
+	
 	wire coreclk;
+	assign wb_clk = coreclk;
+	assign wb_rst = resetb;
+	
 	fsic_clock_div soc_clock_div (
 	.resetb(resetb),
 	.in(ioclk),
@@ -92,7 +98,8 @@ FSIC #(
 		.user_clock2(user_clock2)
 	);
 
-
+	integer index;
+	
     initial begin
         resetb = 0;
         ioclk = 0;
@@ -111,13 +118,73 @@ FSIC #(
 		vssd2 = 1;
 		user_clock2 = 0;
         
+
+		wbs_adr = 32'b0;
+		wbs_wdata = 32'b0;
+		wbs_sel = 4'b0;
+		wbs_cyc = 1'b0;
+		wbs_stb = 1'b0;
+		wbs_we = 1'b0;		
+		
+		for ( index = 0; index < 256; index = index + 1)
+		begin
+			mem1[index] = index;
+			mem2[index] = index;
+			mem3[index] = index;
+		end
+		
 		#100;
 		resetb = 1;
-		
+
+	
+		#200;
+
+		@ (posedge coreclk);
+		wbs_adr <= 32'h3000_3000;
+		wbs_wdata <= 32'h0000_0001;
+		wbs_sel <= 4'b0001;
+		wbs_cyc <= 1'b1;
+		wbs_stb <= 1'b1;
+		wbs_we <= 1'b1;		
+
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		@ (posedge coreclk);
+		wbs_adr <= 32'h3000_3000;
+		wbs_wdata <= 32'h0000_0003;
+		wbs_sel <= 4'b0001;
+		wbs_cyc <= 1'b1;
+		wbs_stb <= 1'b1;
+		wbs_we <= 1'b1;		
+
         
     end
     
-    
+	//WB Master wb_ack_o handling
+	always @( posedge wb_clk or negedge wb_rst) begin
+		if ( !wb_rst ) begin
+			wbs_adr <= 32'h0;
+			wbs_wdata <= 32'h0;
+			wbs_sel <= 4'b0;
+			wbs_cyc <= 1'b0;
+			wbs_stb <= 1'b0;
+			wbs_we <= 1'b0;			
+		end else begin 
+			if ( wbs_ack ) begin
+				wbs_adr <= 32'h0;
+				wbs_wdata <= 32'h0;
+				wbs_sel <= 4'b0;
+				wbs_cyc <= 1'b0;
+				wbs_stb <= 1'b0;
+				wbs_we <= 1'b0;
+			end
+		end
+	end    
 	always #(ioclk_pd/2) ioclk = ~ioclk;
 
 
