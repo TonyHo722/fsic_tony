@@ -139,29 +139,29 @@ FSIC #(
 	
 		#200;
 
-		@ (posedge coreclk);
-		wbs_adr <= 32'h3000_3000;
+		repeat (6) @ (posedge coreclk);		
+		wbs_adr <= 32'h3000_3000;			//ioserdes rxen
 		wbs_wdata <= 32'h0000_0001;
 		wbs_sel <= 4'b0001;
 		wbs_cyc <= 1'b1;
 		wbs_stb <= 1'b1;
 		wbs_we <= 1'b1;		
 
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		@ (posedge coreclk);
-		wbs_adr <= 32'h3000_3000;
+		repeat (6) @ (posedge coreclk);
+		wbs_adr <= 32'h3000_3000;			//ioserdes txen
 		wbs_wdata <= 32'h0000_0003;
 		wbs_sel <= 4'b0001;
 		wbs_cyc <= 1'b1;
 		wbs_stb <= 1'b1;
 		wbs_we <= 1'b1;		
 
+		repeat (6) @ (posedge coreclk);
+		wbs_adr <= 32'h3000_2000;			//aa mailbox
+		wbs_wdata <= 32'ha5a5_a5a5;
+		wbs_sel <= 4'b1111;
+		wbs_cyc <= 1'b1;
+		wbs_stb <= 1'b1;
+		wbs_we <= 1'b1;		
         
     end
     
