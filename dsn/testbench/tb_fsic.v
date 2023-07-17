@@ -36,7 +36,7 @@ module tb_fsic #( parameter BITS=32,
     real ioclk_pd = IOCLK_Period;
 
   reg 			resetb;	
-  reg 			ioclk;	
+  wire 			ioclk;	
   wire           wb_rst;
   wire           wb_clk;
   reg   [31: 0] wbs_adr;
@@ -60,6 +60,7 @@ module tb_fsic #( parameter BITS=32,
 	wire coreclk;
 	assign wb_clk = coreclk;
 	assign wb_rst = resetb;
+	assign ioclk = user_clock2;
 	
 	fsic_clock_div soc_clock_div (
 	.resetb(resetb),
@@ -102,7 +103,6 @@ FSIC #(
 	
     initial begin
         resetb = 0;
-        ioclk = 0;
 		wbs_adr = 0;
 		wbs_wdata = 0;
 		wbs_sel = 0;
@@ -156,12 +156,20 @@ FSIC #(
 		wbs_we <= 1'b1;		
 
 		repeat (6) @ (posedge coreclk);
-		wbs_adr <= 32'h3000_2000;			//aa mailbox
+		wbs_adr <= 32'h3000_2000;			//aa mailbox write
 		wbs_wdata <= 32'ha5a5_a5a5;
 		wbs_sel <= 4'b1111;
 		wbs_cyc <= 1'b1;
 		wbs_stb <= 1'b1;
 		wbs_we <= 1'b1;		
+
+		repeat (10) @ (posedge coreclk);
+		wbs_adr <= 32'h3000_0000;			//aa read
+		wbs_wdata <= 32'ha5a5_a5a5;
+		wbs_sel <= 4'b1111;
+		wbs_cyc <= 1'b1;
+		wbs_stb <= 1'b1;
+		wbs_we <= 1'b0;		
         
     end
     
@@ -185,7 +193,7 @@ FSIC #(
 			end
 		end
 	end    
-	always #(ioclk_pd/2) ioclk = ~ioclk;
+	always #(ioclk_pd/2) user_clock2 = ~user_clock2;
 
 
 endmodule

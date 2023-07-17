@@ -7,7 +7,7 @@
 module FSIC #( parameter BITS=32
              )
 (
-  input  wire           ioclk,
+//  input  wire           ioclk,
   input  wire           wb_rst,
   input  wire           wb_clk,
   input  wire   [31: 0] wbs_adr,
