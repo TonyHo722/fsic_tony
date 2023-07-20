@@ -346,10 +346,11 @@ FSIC #(
 
 	task test001;
 		begin
+			$display("test001: soc cfg write test", i);
+
 			#100;
 			soc_apply_reset(40,40);
 			fpga_apply_reset(40,40);
-
 
 		
 			#200;
@@ -409,9 +410,12 @@ FSIC #(
 				#200;
 				fpga_as_is_tdata = 32'h5a5a5a5a;
 				#40;
+				#200;
 
 				fork
-					test002_fpga();					//fpga issue data to soc
+					//test002_fpga();					//fpga issue data to soc
+					//test003_fpga_cfg_read();
+					test004_fpga_axis_req();
 				join	
 				#200;
 			end
@@ -423,27 +427,180 @@ FSIC #(
 	task test002_fpga;
 		//input [7:0] compare_data;
 
+		//FPGA to SOC Axilite test
 		begin
 			@ (posedge soc_coreclk);
-			fpga_as_is_tready = 1;
+			fpga_as_is_tready <= 1;
 			
-			for(idx1=0; idx1<16; idx1=idx1+1)begin
-				fpga_as_is_tdata <=  idx1 * 32'h11111111;
-				fpga_as_is_tstrb <=  idx1 * 4'h1;
-				fpga_as_is_tkeep <=  idx1 * 4'h1;
-				fpga_as_is_tid <=  idx1 * 2'h1;
-				fpga_as_is_tuser <=  idx1 * 2'h1;
-				fpga_as_is_tlast <=  idx1 * 1'h1;
-				fpga_as_is_tvalid <= 1;
-
-				@ (posedge fpga_coreclk);
-				while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
-						@ (posedge fpga_coreclk);
-				end
+			for(idx1=0; idx1<32/4; idx1=idx1+1)begin		//
+				fpga_axilite_write(28'h0000_2000 + idx1*4, 4'b1111, 32'h11111111 * idx1);
+					//mailbox supported range address = 0x0000_2000 ~ 0000_201F
+					//BE = 4'b1111
+					//data = 32'h11111111 * idx1
 			end
-			fpga_as_is_tvalid <= 0;
 
 			$display($time, "=> test002_fpga done");
+		end
+	endtask
+
+	task fpga_axilite_write;
+		input [27:0] address;
+		input [3:0] BE;
+		input [31:0] data;
+		begin
+			fpga_as_is_tdata <= (BE<<28) + address;	//for axilite write address phase
+			//$strobe($time, "=> fpga_as_is_tdata in address phase = %x", fpga_as_is_tdata);
+			fpga_as_is_tstrb <=  4'b0000;
+			fpga_as_is_tkeep <=  4'b0000;
+			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  2'b01;		//for axilite write
+			fpga_as_is_tlast <=  1'b0;
+			fpga_as_is_tvalid <= 1;
+
+			@ (posedge fpga_coreclk);
+			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
+					@ (posedge fpga_coreclk);
+			end
+
+			fpga_as_is_tdata <=  data;	//for axilite write data phase
+			fpga_as_is_tstrb <=  4'b0000;
+			fpga_as_is_tkeep <=  4'b0000;
+			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  2'b01;		//for axilite write
+			fpga_as_is_tlast <=  1'b0;
+			fpga_as_is_tvalid <= 1;
+
+			@ (posedge fpga_coreclk);
+			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
+					@ (posedge fpga_coreclk);
+			end
+			fpga_as_is_tvalid <= 0;
+		
+		end
+	endtask
+
+	reg[31:0]idx2;
+
+	task test003_fpga_cfg_read;
+		//input [7:0] compare_data;
+
+		//FPGA to SOC Axilite test
+		begin
+
+			@ (posedge soc_coreclk);
+			fpga_as_is_tready <= 1;
+			
+			for(idx2=0; idx2<32/4; idx2=idx2+1)begin		//
+				fpga_axilite_read_req(32'h0000_3000 + idx2*4);
+					//read address = h0000_3000 ~ h0000_301F for io serdes
+				fpga_is_as_data_valid();
+			end
+			$display($time, "=> test003_fpga_cfg_read done");
+		end
+	endtask
+
+
+	task fpga_axilite_read_req;
+		input [31:0] address;
+		begin
+			fpga_as_is_tdata <= address;	//for axilite read address req phase
+			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x", fpga_as_is_tdata);
+			fpga_as_is_tstrb <=  4'b0000;
+			fpga_as_is_tkeep <=  4'b0000;
+			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  2'b10;		//for axilite read req
+			fpga_as_is_tlast <=  1'b0;
+			fpga_as_is_tvalid <= 1;
+
+			@ (posedge fpga_coreclk);
+			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
+					@ (posedge fpga_coreclk);
+			end
+			fpga_as_is_tvalid <= 0;
+		
+		end
+	endtask
+
+	task fpga_is_as_data_valid;
+		// input [31:0] address;
+		begin
+			fpga_as_is_tready <= 1;		//TODO change to other location for set fpga_as_is_tready
+			//force fpga_is_as_tvalid=1;
+			
+			$strobe($time, "=> fpga_is_as_data_valid wait fpga_is_as_tvalid");
+			@ (posedge fpga_coreclk);
+			while (fpga_is_as_tvalid == 0) begin		// wait util fpga_is_as_tvalid == 1 
+					@ (posedge fpga_coreclk);
+			end
+			$strobe($time, "=> fpga_is_as_data_valid wait fpga_is_as_tvalid done, fpga_is_as_tvalid = %b", fpga_is_as_tvalid);
+		
+		end
+	endtask
+
+	reg[31:0]idx3;
+
+	task test004_fpga_axis_req;
+		//input [7:0] compare_data;
+
+		//FPGA to SOC Axilite test
+		begin
+			//force User project up_as_tready = 1;
+			force dut.AXIS_SW0.up_as_tready = 1;
+
+			@ (posedge soc_coreclk);
+			fpga_as_is_tready <= 1;
+			
+			for(idx3=0; idx3<32; idx3=idx3+1)begin		//
+				fpga_axis_req(32'h11111111 * idx3, 2'b00);		//target to User Project
+				//if (idx3 > 12 ) 			force dut.AXIS_SW0.up_as_tready = 1;
+			end
+			release dut.AXIS_SW0.up_as_tready;
+			
+			$display($time, "=> test004_fpga_axis_req done");
+		end
+	endtask
+
+	task fpga_axis_req;
+		input [31:0] data;
+		input [1:0] tid;
+		begin
+			fpga_as_is_tdata <= data;	//for axis write data
+			$strobe($time, "=> fpga_axis_req fpga_as_is_tdata = %x", fpga_as_is_tdata);
+			fpga_as_is_tstrb <=  4'b0000;
+			fpga_as_is_tkeep <=  4'b0000;
+			fpga_as_is_tid <=  tid;		//set target
+			fpga_as_is_tuser <=  2'b00;		//for axis req
+			fpga_as_is_tlast <=  1'b0;
+			fpga_as_is_tvalid <= 1;
+
+			@ (posedge fpga_coreclk);
+			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
+					@ (posedge fpga_coreclk);
+			end
+			fpga_as_is_tvalid <= 0;
+		
+		end
+	endtask
+
+// soc_axis_loopback
+initial begin
+	soc_axis_loopback();
+end
+
+	task soc_axis_loopback;
+		//input [31:0] data;
+		//input [1:0] tid;
+		begin
+			$display($time, "=> soc_axis_loopback force dut.AXIS_SW0.up_as_tvalid = 1");
+			force dut.AXIS_SW0.up_as_tvalid = dut.AXIS_SW0.as_up_tvalid;
+			force dut.AXIS_SW0.up_as_tdata = dut.AXIS_SW0.as_up_tdata;
+			force dut.AXIS_SW0.up_as_tstrb =  dut.AXIS_SW0.as_up_tstrb;
+			force dut.AXIS_SW0.up_as_tkeep =  dut.AXIS_SW0.as_up_tkeep;
+			//force dut.AXIS_SW0.up_as_tid =    dut.AXIS_SW0.as_up_tid;
+			force dut.AXIS_SW0.up_as_tuser =  dut.AXIS_SW0.as_up_tuser;
+			force dut.AXIS_SW0.up_as_tlast =  dut.AXIS_SW0.as_up_tlast;
+
+		
 		end
 	endtask
 
@@ -468,6 +625,7 @@ FSIC #(
 		end
 	endtask
 */
+
 
 /*	
 	task test00n;
