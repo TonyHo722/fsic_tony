@@ -358,7 +358,7 @@ FSIC #(
 			soc_is_cfg_write(0, 1);				//ioserdes rxen
 
 			soc_is_cfg_write(0, 3);				//ioserdes txen
-
+/*
 			repeat (6) @ (posedge soc_coreclk);
 			wbs_adr <= 32'h3000_2000;			//aa mailbox write
 			wbs_wdata <= 32'ha5a5_a5a5;
@@ -366,6 +366,7 @@ FSIC #(
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;		
+*/
 
 			repeat (10) @ (posedge soc_coreclk);
 			wbs_adr <= 32'h3000_0000;			//aa read
@@ -414,8 +415,8 @@ FSIC #(
 
 				fork
 					//test002_fpga();					//fpga issue data to soc
-					//test003_fpga_cfg_read();
-					test004_fpga_axis_req();
+					test003_fpga_cfg_read();
+					//test004_fpga_axis_req();
 				join	
 				#200;
 			end
