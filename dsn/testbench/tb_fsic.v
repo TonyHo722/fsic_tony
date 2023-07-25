@@ -62,7 +62,7 @@ module tb_fsic #( parameter BITS=32,
 	wire fpga_coreclk;
 	
 	assign wb_clk = soc_coreclk;
-	assign wb_rst = soc_resetb;
+	assign wb_rst = ~soc_resetb;		//wb_rst is high active
 	assign ioclk = user_clock2;
 	
 //-------------------------------------------------------------------------------------
@@ -329,8 +329,8 @@ FSIC #(
     end
     
 	//WB Master wb_ack_o handling
-	always @( posedge wb_clk or negedge wb_rst) begin
-		if ( !wb_rst ) begin
+	always @( posedge wb_clk or posedge wb_rst) begin
+		if ( wb_rst ) begin
 			wbs_adr <= 32'h0;
 			wbs_wdata <= 32'h0;
 			wbs_sel <= 4'b0;
