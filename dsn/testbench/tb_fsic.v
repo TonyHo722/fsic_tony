@@ -61,10 +61,6 @@ module tb_fsic #( parameter BITS=32,
 	wire soc_coreclk;
 	wire fpga_coreclk;
 	
-	assign wb_clk = soc_coreclk;
-	assign wb_rst = ~soc_resetb;		//wb_rst is high active
-	assign ioclk = user_clock2;
-	
 //-------------------------------------------------------------------------------------
 
 	//reg soc_rst;
@@ -299,6 +295,10 @@ FSIC #(
 		.is_as_tready(fpga_is_as_tready)
 	);
 
+	assign wb_clk = soc_coreclk;
+	assign wb_rst = ~soc_resetb;		//wb_rst is high active
+	assign ioclk = user_clock2;
+	
 
 	
     initial begin
