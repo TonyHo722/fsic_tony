@@ -32,7 +32,7 @@ module tb_fsic #( parameter BITS=32,
 	)
 (
 );
-		localparam TEST002_CNT	= 4;
+		localparam CoreClkPhaseLoop	= 4;
 
     real ioclk_pd = IOCLK_Period;
 
@@ -314,8 +314,10 @@ FSIC #(
 		vssd2 = 1;
 		user_clock2 = 0;
         
-		test001();
-		test002();
+		test001();	//soc cfg write test
+		test002();	//test002_fpga_axis_req
+		test003();	//test003_fpga_cfg_read
+		test004();	//test004_fpga_mail_box_write
 		
 		#400;
 		$finish;
@@ -358,6 +360,15 @@ FSIC #(
 			soc_is_cfg_write(0, 1);				//ioserdes rxen
 
 			soc_is_cfg_write(0, 3);				//ioserdes txen
+
+			repeat (10) @ (posedge soc_coreclk);
+			wbs_adr <= 32'h3000_2100;			//aa_local_reg read
+			wbs_wdata <= 32'ha5a5_a5a5;
+			wbs_sel <= 4'b1111;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b0;		
+
 /*
 			repeat (6) @ (posedge soc_coreclk);
 			wbs_adr <= 32'h3000_2000;			//aa mailbox write
@@ -369,23 +380,24 @@ FSIC #(
 */
 
 			repeat (10) @ (posedge soc_coreclk);
-			wbs_adr <= 32'h3000_0000;			//aa read
+			wbs_adr <= 32'h3000_0000;			//up read
 			wbs_wdata <= 32'ha5a5_a5a5;
 			wbs_sel <= 4'b1111;
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b0;		
+			repeat (10) @ (posedge soc_coreclk);
 		end
 	endtask
 
 	reg[31:0] i;
 
-	task test002;
+	task test004;
 		//input [7:0] compare_data;
 
 		begin
-			for (i=0;i<TEST002_CNT;i=i+1) begin
-				$display("test002: TX/RX test - loop %02d", i);
+			for (i=0;i<CoreClkPhaseLoop;i=i+1) begin
+				$display("test004: TX/RX test - loop %02d", i);
 				fork 
 					soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
 					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
@@ -413,11 +425,7 @@ FSIC #(
 				#40;
 				#200;
 
-				fork
-					//test002_fpga();					//fpga issue data to soc
-					test003_fpga_cfg_read();
-					//test004_fpga_axis_req();
-				join	
+				test004_fpga_mail_box_write();		//target to AA
 				#200;
 			end
 		end
@@ -425,7 +433,7 @@ FSIC #(
 
 	reg[31:0]idx1;
 
-	task test002_fpga;
+	task test004_fpga_mail_box_write;
 		//input [7:0] compare_data;
 
 		//FPGA to SOC Axilite test
@@ -440,7 +448,7 @@ FSIC #(
 					//data = 32'h11111111 * idx1
 			end
 
-			$display($time, "=> test002_fpga done");
+			$display($time, "=> test004_fpga_mail_box_write done");
 		end
 	endtask
 
@@ -480,9 +488,50 @@ FSIC #(
 		end
 	endtask
 
+
+	task test003;
+		//input [7:0] compare_data;
+
+		begin
+			for (i=0;i<CoreClkPhaseLoop;i=i+1) begin
+				$display("test003: fpga_cfg_read test - loop %02d", i);
+				fork 
+					soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
+					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
+				join
+				#40;
+				//soc_cc_is_enable=1;
+				fpga_cc_is_enable=1;
+				fork 
+					soc_is_cfg_write(0, 1);				//ioserdes rxen
+					fpga_cfg_write(0,1,1,0);
+				join
+				$display($time, "=> soc rxen_ctl=1");
+				$display($time, "=> fpga rxen_ctl=1");
+
+				#400;
+				fork 
+					soc_is_cfg_write(0, 3);				//ioserdes txen
+					fpga_cfg_write(0,3,1,0);
+				join
+				$display($time, "=> soc txen_ctl=1");
+				$display($time, "=> fpga txen_ctl=1");
+
+				#200;
+				fpga_as_is_tdata = 32'h5a5a5a5a;
+				#40;
+				#200;
+
+				test003_fpga_cfg_read();
+
+				#200;
+			end
+		end
+	endtask
+
 	reg[31:0]idx2;
 
-	task test003_fpga_cfg_read;
+	task test003_fpga_cfg_read;		//target to io serdes
 		//input [7:0] compare_data;
 
 		//FPGA to SOC Axilite test
@@ -538,9 +587,49 @@ FSIC #(
 		end
 	endtask
 
+	task test002;		//test002_fpga_axis_req
+		//input [7:0] compare_data;
+
+		begin
+			for (i=0;i<CoreClkPhaseLoop;i=i+1) begin
+				$display("test002: fpga_axis_req - loop %02d", i);
+				fork 
+					soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
+					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
+				join
+				#40;
+				//soc_cc_is_enable=1;
+				fpga_cc_is_enable=1;
+				fork 
+					soc_is_cfg_write(0, 1);				//ioserdes rxen
+					fpga_cfg_write(0,1,1,0);
+				join
+				$display($time, "=> soc rxen_ctl=1");
+				$display($time, "=> fpga rxen_ctl=1");
+
+				#400;
+				fork 
+					soc_is_cfg_write(0, 3);				//ioserdes txen
+					fpga_cfg_write(0,3,1,0);
+				join
+				$display($time, "=> soc txen_ctl=1");
+				$display($time, "=> fpga txen_ctl=1");
+
+				#200;
+				fpga_as_is_tdata = 32'h5a5a5a5a;
+				#40;
+				#200;
+
+				test002_fpga_axis_req();		//target to Axis Switch
+
+				#200;
+			end
+		end
+	endtask
+
 	reg[31:0]idx3;
 
-	task test004_fpga_axis_req;
+	task test002_fpga_axis_req;
 		//input [7:0] compare_data;
 
 		//FPGA to SOC Axilite test
@@ -557,7 +646,7 @@ FSIC #(
 			end
 			release dut.AXIS_SW0.up_as_tready;
 			
-			$display($time, "=> test004_fpga_axis_req done");
+			$display($time, "=> test002_fpga_axis_req done");
 		end
 	endtask
 
@@ -605,27 +694,7 @@ end
 		end
 	endtask
 
-/*
-	reg[31:0]idx2;
 
-	task test002_fpga;
-		//input [7:0] compare_data;
-
-		begin
-			fpga_as_is_tready = 1;
-			@ (posedge fpga_coreclk);
-			//for Axis Switch Rx
-			for(idx2=0; idx2<16; idx2=idx2+1)begin
-				@ (posedge fpga_coreclk);
-				while ( fpga_is_as_tvalid == 0) begin
-					@ (posedge fpga_coreclk);
-				end
-				$display($time, "=> fpga idx2=%x", idx2);
-			end
-		$display($time, "=> test002_fpga done");
-		end
-	endtask
-*/
 
 
 /*	
