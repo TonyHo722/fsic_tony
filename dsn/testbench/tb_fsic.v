@@ -33,7 +33,11 @@ module tb_fsic #( parameter BITS=32,
 (
 );
 		localparam CoreClkPhaseLoop	= 4;
-
+		localparam UP_BASE=32'h3000_0000;
+		localparam AA_BASE=32'h3000_2000;
+		localparam IS_BASE=32'h3000_3000;
+		
+		
     real ioclk_pd = IOCLK_Period;
 
   wire 			ioclk;	
@@ -357,36 +361,17 @@ FSIC #(
 		
 			#200;
 
-			soc_is_cfg_write(0, 1);				//ioserdes rxen
+			soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 
-			soc_is_cfg_write(0, 3);				//ioserdes txen
+			soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
 
-			repeat (10) @ (posedge soc_coreclk);
-			wbs_adr <= 32'h3000_2100;			//aa_local_reg read
-			wbs_wdata <= 32'ha5a5_a5a5;
-			wbs_sel <= 4'b1111;
-			wbs_cyc <= 1'b1;
-			wbs_stb <= 1'b1;
-			wbs_we <= 1'b0;		
+			soc_aa_cfg_write(0, 4'b1111, 32'ha5a5_a5a5);				//offset 0x00~0xff for mail box write to AA
 
-/*
-			repeat (6) @ (posedge soc_coreclk);
-			wbs_adr <= 32'h3000_2000;			//aa mailbox write
-			wbs_wdata <= 32'ha5a5_a5a5;
-			wbs_sel <= 4'b1111;
-			wbs_cyc <= 1'b1;
-			wbs_stb <= 1'b1;
-			wbs_we <= 1'b1;		
-*/
+			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box write to AA
 
-			repeat (10) @ (posedge soc_coreclk);
-			wbs_adr <= 32'h3000_0000;			//up read
-			wbs_wdata <= 32'ha5a5_a5a5;
-			wbs_sel <= 4'b1111;
-			wbs_cyc <= 1'b1;
-			wbs_stb <= 1'b1;
-			wbs_we <= 1'b0;		
-			repeat (10) @ (posedge soc_coreclk);
+			soc_up_cfg_read(0, 4'b1111);				
+
+			#100;
 		end
 	endtask
 
@@ -406,7 +391,7 @@ FSIC #(
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
-					soc_is_cfg_write(0, 1);				//ioserdes rxen
+					soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 					fpga_cfg_write(0,1,1,0);
 				join
 				$display($time, "=> soc rxen_ctl=1");
@@ -414,7 +399,7 @@ FSIC #(
 
 				#400;
 				fork 
-					soc_is_cfg_write(0, 3);				//ioserdes txen
+					soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
 					fpga_cfg_write(0,3,1,0);
 				join
 				$display($time, "=> soc txen_ctl=1");
@@ -503,7 +488,7 @@ FSIC #(
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
-					soc_is_cfg_write(0, 1);				//ioserdes rxen
+					soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 					fpga_cfg_write(0,1,1,0);
 				join
 				$display($time, "=> soc rxen_ctl=1");
@@ -511,7 +496,7 @@ FSIC #(
 
 				#400;
 				fork 
-					soc_is_cfg_write(0, 3);				//ioserdes txen
+					soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
 					fpga_cfg_write(0,3,1,0);
 				join
 				$display($time, "=> soc txen_ctl=1");
@@ -601,7 +586,7 @@ FSIC #(
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
-					soc_is_cfg_write(0, 1);				//ioserdes rxen
+					soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 					fpga_cfg_write(0,1,1,0);
 				join
 				$display($time, "=> soc rxen_ctl=1");
@@ -609,7 +594,7 @@ FSIC #(
 
 				#400;
 				fork 
-					soc_is_cfg_write(0, 3);				//ioserdes txen
+					soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
 					fpga_cfg_write(0,3,1,0);
 				join
 				$display($time, "=> soc txen_ctl=1");
@@ -747,22 +732,80 @@ end
 
 	task soc_is_cfg_write;
 		input [11:2] offset;
+		input [3:0] sel;
 		input [31:0] data;
 		
 		begin
 			repeat (6) @ (posedge soc_coreclk);		
-			wbs_adr <= 32'h3000_3000;			//is base
-			wbs_adr[11:2] <= offset;			//offset
+			wbs_adr <= IS_BASE;			
+			wbs_adr[11:2] <= offset;
 			
 			wbs_wdata <= data;
-			wbs_sel <= 4'b0001;
+			wbs_sel <= sel;
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;	
 			
-			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_wdata=%b", wbs_adr, wbs_wdata); 
+			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
+
+	task soc_aa_cfg_write;
+		input [11:2] offset;
+		input [3:0] sel;
+		input [31:0] data;
+		
+		begin
+			repeat (6) @ (posedge soc_coreclk);		
+			wbs_adr <= AA_BASE;
+			wbs_adr[11:2] <= offset;
+			
+			wbs_wdata <= data;
+			wbs_sel <= sel;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b1;	
+			
+			$strobe($time, "=> soc_aa_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
+		end
+	endtask
+
+	task soc_aa_cfg_read;
+		input [11:2] offset;
+		input [3:0] sel;
+		
+		begin
+			repeat (6) @ (posedge soc_coreclk);		
+			wbs_adr <= AA_BASE;
+			wbs_adr[11:2] <= offset;
+			
+			wbs_sel <= sel;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b0;		
+			
+			$strobe($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+		end
+	endtask
+
+	task soc_up_cfg_read;
+		input [11:2] offset;
+		input [3:0] sel;
+		
+		begin
+			repeat (6) @ (posedge soc_coreclk);		
+			wbs_adr <= UP_BASE;
+			wbs_adr[11:2] <= offset;
+			
+			wbs_sel <= sel;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b0;		
+			
+			$strobe($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+		end
+	endtask
+
 
 	task fpga_cfg_write;		//input addr, data, strb and valid_delay 
 		input [pADDR_WIDTH+1:2] axi_awaddr;
