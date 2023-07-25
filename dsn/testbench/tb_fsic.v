@@ -22,7 +22,7 @@
 
 module tb_fsic #( parameter BITS=32,
 		parameter pSERIALIO_WIDTH   = 12,
-		parameter pADDR_WIDTH   = 10,
+		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter IOCLK_Period	= 10,
 		// parameter DLYCLK_Period	= 1,
