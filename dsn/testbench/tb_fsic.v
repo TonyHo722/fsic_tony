@@ -175,6 +175,7 @@ module tb_fsic #( parameter BITS=32,
 	wire [1:0] fpga_is_as_tuser;
 	wire fpga_is_as_tready;		//when remote side axis switch Rxfifo size <= threshold then is_as_tready=0, this flow control mechanism is for notify local side do not provide data with as_is_tvalid=1
 
+	wire	wbs_ack;
 
 	//wire [7:0] Serial_Data_Out_ad_delay1;
 	//wire txclk_delay1;
@@ -745,7 +746,12 @@ end
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;	
-			
+
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
+
 			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
@@ -766,6 +772,11 @@ end
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;	
 			
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
+
 			$strobe($time, "=> soc_aa_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
@@ -784,6 +795,10 @@ end
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b0;		
 			
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
 			$strobe($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
@@ -801,6 +816,11 @@ end
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b0;		
+			
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
 			
 			$strobe($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
