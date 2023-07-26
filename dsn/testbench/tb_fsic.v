@@ -367,7 +367,7 @@ FSIC #(
 
 			soc_aa_cfg_write(0, 4'b1111, 32'ha5a5_a5a5);				//offset 0x00~0xff for mail box write to AA
 
-			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box write to AA
+			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
 
 			soc_up_cfg_read(0, 4'b1111);				
 
@@ -756,7 +756,7 @@ end
 		input [31:0] data;
 		
 		begin
-			repeat (6) @ (posedge soc_coreclk);		
+			repeat (10) @ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
 			wbs_adr[11:2] <= offset;
 			
@@ -775,7 +775,7 @@ end
 		input [3:0] sel;
 		
 		begin
-			repeat (6) @ (posedge soc_coreclk);		
+			repeat (10) @ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
 			wbs_adr[11:2] <= offset;
 			
