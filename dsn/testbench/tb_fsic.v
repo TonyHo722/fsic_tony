@@ -370,7 +370,7 @@ FSIC #(
 
 			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
 
-			soc_up_cfg_read(0, 4'b1111);				
+			//soc_up_cfg_read(0, 4'b1111);				
 
 			#100;
 		end
