@@ -1,0 +1,70 @@
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: D:/Xilinx_Software/Vivado/2020.2/bin/unwrapped/win64.o/xelab.exe -wto 28a404a939cb401a82f62295c4c615ab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_fsic_behav xil_defaultlib.tb_fsic xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 128 for port 'la_data_out' [D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v:231]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 3 for port 'user_irq' [D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v:232]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 38 for port 'io_out' [D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v:233]
+WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 38 for port 'io_oeb' [D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v:234]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 10 for port 'axi_awaddr' [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:382]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 10 for port 'axi_araddr' [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:387]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 12 for port 'axi_awaddr' [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:431]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 12 for port 'axi_araddr' [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:436]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 10 for port 'axi_awaddr' [D:/kgfu_fsic_tony/dsn/testbench/fpga.v:116]
+WARNING: [VRFC 10-3091] actual bit length 15 differs from formal bit length 10 for port 'axi_araddr' [D:/kgfu_fsic_tony/dsn/testbench/fpga.v:121]
+WARNING: [VRFC 10-5021] port 'uck2_rst_n' is not connected on this instance [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:169]
+WARNING: [VRFC 10-5021] port 'axi_arvalid' is not connected on this instance [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:296]
+WARNING: [VRFC 10-5021] port 'uck2_rst_n' is not connected on this instance [D:/kgfu_fsic_tony/dsn/rtl/fsic.v:459]
+Completed static elaboration
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" Line 7. Module AXIL_AXIS(pADDR_WIDTH=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv" Line 9. Module axilite_master doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv" Line 9. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 111. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0101100,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" Line 9. Module axis_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" Line 9. Module axi_ctrl_logic doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0110100,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0100010,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" Line 7. Module AXIL_AXIS(pADDR_WIDTH=10) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv" Line 9. Module axilite_master doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv" Line 9. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 111. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0101100,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" Line 9. Module axis_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" Line 9. Module axi_ctrl_logic doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0110100,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0100010,DEPTH=8'b01000) doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.fsic_clock_div
+Compiling module xil_defaultlib.CFG_CTRL(pADDR_WIDTH=10)
+Compiling module xil_defaultlib.axilite_master
+Compiling module xil_defaultlib.axilite_slave
+Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0101100,DEPTH=...
+Compiling module xil_defaultlib.axis_master
+Compiling module xil_defaultlib.axis_slave
+Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0110100,DEPTH=...
+Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0100010,DEPTH=...
+Compiling module xil_defaultlib.axi_ctrl_logic
+Compiling module xil_defaultlib.AXIL_AXIS(pADDR_WIDTH=10)
+Compiling module xil_defaultlib.AXIS_SW_default
+Compiling module xil_defaultlib.fsic_coreclk_phase_cnt
+Compiling module xil_defaultlib.fsic_io_serdes_rx
+Compiling module xil_defaultlib.IO_SERDES(pADDR_WIDTH=10)
+Compiling module xil_defaultlib.LOGIC_ANLZ
+Compiling module xil_defaultlib.AXIL_SLAV
+Compiling module xil_defaultlib.USER_PRJ
+Compiling module xil_defaultlib.AXIS_SLAV
+Compiling module xil_defaultlib.AXIS_MSTR
+Compiling module xil_defaultlib.IRQ_MUX
+Compiling module xil_defaultlib.LA_MUX
+Compiling module xil_defaultlib.USER_SUBSYS(pADDR_WIDTH=10)
+Compiling module xil_defaultlib.FSIC_CLKRST
+Compiling module xil_defaultlib.FSIC(pADDR_WIDTH=15)
+Compiling module xil_defaultlib.fpga(pADDR_WIDTH=15)
+Compiling module xil_defaultlib.tb_fsic
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_fsic_behav

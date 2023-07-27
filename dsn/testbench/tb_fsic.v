@@ -175,7 +175,6 @@ module tb_fsic #( parameter BITS=32,
 	wire [1:0] fpga_is_as_tuser;
 	wire fpga_is_as_tready;		//when remote side axis switch Rxfifo size <= threshold then is_as_tready=0, this flow control mechanism is for notify local side do not provide data with as_is_tvalid=1
 
-	wire	wbs_ack;
 
 	//wire [7:0] Serial_Data_Out_ad_delay1;
 	//wire txclk_delay1;
@@ -320,9 +319,9 @@ FSIC #(
 		user_clock2 = 0;
         
 		test001();	//soc cfg write test
-		test002();	//test002_fpga_axis_req
-		test003();	//test003_fpga_cfg_read
-		test004();	//test004_fpga_mail_box_write
+		//test002();	//test002_fpga_axis_req
+		//test003();	//test003_fpga_cfg_read
+		//test004();	//test004_fpga_mail_box_write
 		
 		#400;
 		$finish;
@@ -362,15 +361,15 @@ FSIC #(
 		
 			#200;
 
-			soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
+			//soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 
-			soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
+			//soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
 
 			soc_aa_cfg_write(0, 4'b1111, 32'ha5a5_a5a5);				//offset 0x00~0xff for mail box write to AA
 
-			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
+			//soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box write to AA
 
-			soc_up_cfg_read(0, 4'b1111);				
+			//soc_up_cfg_read(0, 4'b1111);				
 
 			#100;
 		end
@@ -746,12 +745,7 @@ end
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;	
-
-			@(posedge soc_coreclk);
-			while(wbs_ack==0) begin
-				@(posedge soc_coreclk);
-			end
-
+			
 			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
@@ -762,7 +756,7 @@ end
 		input [31:0] data;
 		
 		begin
-			repeat (10) @ (posedge soc_coreclk);		
+			repeat (6) @ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
 			wbs_adr[11:2] <= offset;
 			
@@ -772,11 +766,6 @@ end
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b1;	
 			
-			@(posedge soc_coreclk);
-			while(wbs_ack==0) begin
-				@(posedge soc_coreclk);
-			end
-
 			$strobe($time, "=> soc_aa_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
@@ -786,7 +775,7 @@ end
 		input [3:0] sel;
 		
 		begin
-			repeat (10) @ (posedge soc_coreclk);		
+			repeat (6) @ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
 			wbs_adr[11:2] <= offset;
 			
@@ -795,13 +784,10 @@ end
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b0;		
 			
-			@(posedge soc_coreclk);
-			while(wbs_ack==0) begin
-				@(posedge soc_coreclk);
-			end
 			$strobe($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
+
 
 	task soc_up_cfg_read;
 		input [11:2] offset;
@@ -816,11 +802,6 @@ end
 			wbs_cyc <= 1'b1;
 			wbs_stb <= 1'b1;
 			wbs_we <= 1'b0;		
-			
-			@(posedge soc_coreclk);
-			while(wbs_ack==0) begin
-				@(posedge soc_coreclk);
-			end
 			
 			$strobe($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end

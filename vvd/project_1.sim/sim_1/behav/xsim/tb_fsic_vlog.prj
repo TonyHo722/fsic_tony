@@ -1,0 +1,30 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../../dsn/rtl/axis_switch.v" \
+"../../../../../dsn/rtl/config_ctrl.v" \
+"../../../../../dsn/testbench/fpga.v" \
+"../../../../../dsn/rtl/fsic.v" \
+"../../../../../dsn/rtl/fsic_clkrst.v" \
+"../../../../../dsn/rtl/fsic_clock.v" \
+"../../../../../dsn/rtl/fsic_coreclk_phase_cnt.v" \
+"../../../../../dsn/rtl/fsic_io_serdes_rx.v" \
+"../../../../../dsn/rtl/io_serdes.v" \
+"../../../../../dsn/rtl/logic_anlz.dummy_io.v" \
+"../../../../../dsn/rtl/user_subsys.all.v" \
+
+sv xil_defaultlib  \
+"../../../../../dsn/rtl/axi_ctrl_logic.sv" \
+"../../../../../dsn/rtl/axil_axis.sv" \
+"../../../../../dsn/rtl/axilite_master.sv" \
+"../../../../../dsn/rtl/axilite_slave.sv" \
+"../../../../../dsn/rtl/axis_master.sv" \
+"../../../../../dsn/rtl/axis_slave.sv" \
+
+verilog xil_defaultlib  \
+"../../../../../dsn/testbench/tb_fsic.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

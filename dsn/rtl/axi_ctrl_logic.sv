@@ -59,6 +59,9 @@ module axi_ctrl_logic(
 
     logic fifo_ls_wr_vld, fifo_ls_wr_rdy, fifo_ls_rd_vld, fifo_ls_rd_rdy, fifo_ls_clear;
     logic [FIFO_LS_WIDTH-1:0] fifo_ls_data_in, fifo_ls_data_out;
+    //Willy debug - s
+    //logic [FIFO_LS_WIDTH-1:0] fifo_ls_data_out_sync;
+    //Willy debug - e
     logic fifo_ss_wr_vld, fifo_ss_wr_rdy, fifo_ss_rd_vld, fifo_ss_rd_rdy, fifo_ss_clear;
     logic [FIFO_SS_WIDTH-1:0] fifo_ss_data_in, fifo_ss_data_out;
 
@@ -76,6 +79,39 @@ module axi_ctrl_logic(
         .wr_rdy(fifo_ls_wr_rdy),
         .rd_vld(fifo_ls_rd_vld),
         .clear(fifo_ls_clear));
+  
+ always_comb begin
+    $display("fifo_ls_data_out: %x", fifo_ls_data_out);
+  end
+ always_comb begin
+    $display("fifo_out_trans_typ: %x", fifo_out_trans_typ);
+  end
+ always_comb begin
+    $display("fifo_out_waddr: %x", fifo_out_waddr);
+  end
+ always_comb begin
+    $display("fifo_out_raddr: %x", fifo_out_raddr);
+  end
+ always_comb begin
+    $display("fifo_out_wdata: %x", fifo_out_wdata);
+  end
+ always_comb begin
+    $display("fifo_out_wstrb: %x", fifo_out_wstrb);
+  end
+ always_comb begin
+    $display("fifo_ls_rd_rdy: %x", fifo_ls_rd_rdy);
+  end
+ always_comb begin
+    $display("fifo_ls_clear: %x", fifo_ls_clear);
+  end  
+ always_comb begin
+    $display("axi_next_state: %x", axi_next_state);
+  end 
+ always_comb begin
+    $display("axi_state: %x", axi_state);
+  end 
+
+
 
     // data format: 
     // deleted {data_32bit, tstrb_4bit, tkeep_4bit, user_2bit, tlast_1bit}, total 43bit
@@ -124,6 +160,7 @@ module axi_ctrl_logic(
                     axi_next_state = AXI_DECIDE_DEST;
                 end
             AXI_DECIDE_DEST:
+                // assign decide_done = wr_mb | rd_mb | wr_aa | rd_aa | rd_unsupp;
                 if(decide_done)begin
                     axi_next_state = AXI_MOVE_DATA;
                 end
@@ -195,22 +232,62 @@ module axi_ctrl_logic(
             bk_ss_ready = 1'b1;
     end
 
+
+//Willy debug - s
+/*
+    // sync data for ls_data_out
+    always_ff@(posedge axi_aclk or negedge axi_aresetn)begin
+        if(~axi_aresetn)begin
+            fifo_ls_data_out_sync <= 1'b0;
+
+        end
+        else begin
+            if(axi_next_state == AXI_WAIT_DATA)begin
+                fifo_ls_data_out_sync <= 1'b0;
+            end
+            else if(axi_next_state == AXI_DECIDE_DEST)begin
+                fifo_ls_data_out_sync <= fifo_ls_data_out;
+            end
+        end
+    end
+ */
+//Willy debug - e
+
+
+
     logic [14:0] fifo_out_waddr, fifo_out_raddr;
     logic [31:0] fifo_out_wdata;
     logic [3:0] fifo_out_wstrb;
 
     // get data from LS fifo
-    always_comb begin
-        {fifo_out_trans_typ, fifo_out_waddr, fifo_out_raddr, fifo_out_wdata, fifo_out_wstrb} = '0;
-        fifo_ls_rd_rdy = 1'b0;
-        fifo_ls_clear = 1'b0;
+    //always_comb begin
+    always @(fifo_ls_data_out, axi_state, axi_next_state, next_trans) begin
+        //{fifo_out_trans_typ, fifo_out_waddr, fifo_out_raddr, fifo_out_wdata, fifo_out_wstrb} = '0;
+        //{fifo_out_trans_typ, fifo_out_waddr, fifo_out_wdata, fifo_out_wstrb} = '0;
+        //{fifo_out_trans_typ} = '0; //pass
+        //{fifo_out_trans_typ, fifo_out_waddr} = '0; //fail
+        //{fifo_out_trans_typ, fifo_out_wdata} = '0; //pass
+        //{fifo_out_trans_typ, fifo_out_wdata, fifo_out_wstrb} = '0; //pass
+        fifo_out_waddr = '0; //fail
+        //fifo_out_waddr = 15'h2000; //pass
+        $display("1.fifo_out_waddr=%x", fifo_out_waddr);
+        //fifo_ls_rd_rdy = 1'b0;
+        //fifo_ls_clear = 1'b0;
 
         //if(axi_state == AXI_DECIDE_DEST || axi_state == AXI_SEND_BKEND)begin
         if(axi_state != AXI_WAIT_DATA)begin
-            if(fifo_ls_data_out[FIFO_LS_WIDTH-1] == AXI_WR)
+           if(fifo_ls_data_out[FIFO_LS_WIDTH-1] == AXI_WR) begin
                 {fifo_out_trans_typ, fifo_out_waddr, fifo_out_wdata, fifo_out_wstrb} = fifo_ls_data_out;
+                $display("2.fifo_out_waddr=%x", fifo_out_waddr);
+            end
             else if(fifo_ls_data_out[FIFO_LS_WIDTH-1] == AXI_RD)
                 {fifo_out_trans_typ, fifo_out_raddr} = fifo_ls_data_out[FIFO_LS_WIDTH-1:36]; // wdata + wstrb total 36bit
+        end
+        else begin
+            {fifo_out_trans_typ, fifo_out_waddr, fifo_out_raddr, fifo_out_wdata, fifo_out_wstrb} = '0;
+            $display("3.fifo_out_waddr=%x", fifo_out_waddr);
+            fifo_ls_rd_rdy = 1'b0;
+            fifo_ls_clear = 1'b0;        
         end
 
         //if((axi_state == AXI_MOVE_DATA) && (axi_next_state == AXI_WAIT_DATA))begin // can send next data
@@ -240,10 +317,15 @@ module axi_ctrl_logic(
             //{fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_tuser, fifo_out_tlast} = fifo_ss_data_out;
             {fifo_out_tdata, fifo_out_tuser} = fifo_ss_data_out;
         end
+//        else begin
+//            {fifo_out_tdata, fifo_out_tuser} = '0;
+//            fifo_ss_rd_rdy = 1'b0;
+//            fifo_ss_clear = 1'b0;        
+//        end
 
         if(get_next_data_ss)begin // if tuser in SS is 1, AXI_WR need nex trans data
-            fifo_ss_rd_rdy = 1'b1;
-        end
+           fifo_ss_rd_rdy = 1'b1;
+       end
         //else if((axi_state == AXI_DECIDE_DEST) && (axi_next_state == AXI_WAIT_DATA))
         //    fifo_ss_rd_rdy = 1'b1;
         if((axi_state != AXI_WAIT_DATA) && (axi_next_state == AXI_WAIT_DATA) && (next_trans == TRANS_SS))begin // clear fifo when transaction done to fix bug
@@ -304,6 +386,7 @@ module axi_ctrl_logic(
                 TRANS_LS: begin // request come from left side - axilite_slave
                     case(fifo_out_trans_typ)
                         AXI_WR: begin
+                            $display("4.fifo_out_waddr=%x", fifo_out_waddr);
                             if( (fifo_out_waddr >= MB_SUPP_LOW) && 
                                 (fifo_out_waddr <= MB_SUPP_HIGH))begin // local access MB_reg
                                 wr_mb = 1'b1;
@@ -346,6 +429,7 @@ module axi_ctrl_logic(
                                 trig_sm_rd = 1'b1;
                             end
                             else
+                                //Willy: Shound be rd_unsupp. Do_nothing will casue system hang.
                                 do_nothing = 1'b1;
                         end
                     endcase
@@ -544,6 +628,7 @@ module axi_ctrl_logic(
                     // write MB_reg
                     case(next_trans)
                         TRANS_LS: begin
+                            $display("5.fifo_out_waddr=%x", fifo_out_waddr);
                             if(fifo_out_wstrb[0]) mb_regs[fifo_out_waddr[11:0]][7: 0] <= fifo_out_wdata[7:0];
                             if(fifo_out_wstrb[1]) mb_regs[fifo_out_waddr[11:0]][15:8] <= fifo_out_wdata[15:8];
                             if(fifo_out_wstrb[2]) mb_regs[fifo_out_waddr[11:0]][23:16] <= fifo_out_wdata[23:16];
@@ -575,6 +660,7 @@ module axi_ctrl_logic(
                     // write AA_reg
                     case(next_trans)
                         TRANS_LS: begin
+                            $display("6.fifo_out_waddr=%x", fifo_out_waddr);
                              // offset 0
                             if(fifo_out_waddr[11:0] == 12'b0)begin
                                 // bit 0 RW, other bits RO
@@ -637,8 +723,10 @@ module axi_ctrl_logic(
                     bk_ls_rdone <= 1'b1;
                     send_bk_done <= 1'b1;
                 end
+                
                 else if(trig_sm_wr|| sync_trig_sm_wr)begin
                     if(ss_data_cnt == 2'b0)begin
+                        $display("7.fifo_out_waddr=%x", fifo_out_waddr);
                         bk_sm_start <= 1'b1;
                         bk_sm_data <= {fifo_out_wstrb, 13'b0, fifo_out_waddr};
                         bk_sm_user <= 2'b01;
