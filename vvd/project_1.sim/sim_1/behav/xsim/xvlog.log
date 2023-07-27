@@ -1,0 +1,13 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axi_ctrl_logic
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AXIL_AXIS
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axilite_master
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axilite_slave
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axi_fifo
+INFO: [VRFC 10-311] analyzing module axis_master
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axis_slave

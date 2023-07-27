@@ -1,0 +1,23 @@
+0.7
+2020.2
+Nov 18 2020
+09:47:47
+D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv,1690460055,systemVerilog,,D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv,,axi_ctrl_logic,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv,1690459822,systemVerilog,,D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv,,AXIL_AXIS,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv,1690459822,systemVerilog,,D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv,,axilite_master,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv,1690459822,systemVerilog,,D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv,,axilite_slave,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv,1690460147,systemVerilog,,D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv,,axi_fifo;axis_master,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv,1690459822,systemVerilog,,,,axis_slave,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/axis_switch.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/config_ctrl.v,,AXIS_SW,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/config_ctrl.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/testbench/fpga.v,,CFG_CTRL,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/fsic.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v,,FSIC,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v,,FSIC_CLKRST,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v,,fsic_clock_div,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v,,fsic_coreclk_phase_cnt,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v,,fsic_io_serdes_rx,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/logic_anlz.dummy_io.v,,IO_SERDES,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/logic_anlz.dummy_io.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/user_subsys.all.v,,LOGIC_ANLZ,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/rtl/user_subsys.all.v,1690459822,verilog,,,,AXIL_SLAV;AXIS_MSTR;AXIS_SLAV;IRQ_MUX;LA_MUX;USER_PRJ;USER_SUBSYS,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/testbench/fpga.v,1690459822,verilog,,D:/kgfu_fsic_tony/dsn/rtl/fsic.v,,fpga,,uvm,,,,,,
+D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v,1690459822,verilog,,,,tb_fsic,,uvm,,,,,,
+D:/kgfu_fsic_tony/vvd/project_1.sim/sim_1/behav/xsim/glbl.v,1605673889,verilog,,,,glbl,,uvm,,,,,,

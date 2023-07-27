@@ -201,16 +201,17 @@ module axi_ctrl_logic(
 
     // get data from LS fifo
     always_comb begin
-        {fifo_out_trans_typ, fifo_out_waddr, fifo_out_raddr, fifo_out_wdata, fifo_out_wstrb} = '0;
-        fifo_ls_rd_rdy = 1'b0;
-        fifo_ls_clear = 1'b0;
-
         //if(axi_state == AXI_DECIDE_DEST || axi_state == AXI_SEND_BKEND)begin
         if(axi_state != AXI_WAIT_DATA)begin
             if(fifo_ls_data_out[FIFO_LS_WIDTH-1] == AXI_WR)
                 {fifo_out_trans_typ, fifo_out_waddr, fifo_out_wdata, fifo_out_wstrb} = fifo_ls_data_out;
             else if(fifo_ls_data_out[FIFO_LS_WIDTH-1] == AXI_RD)
                 {fifo_out_trans_typ, fifo_out_raddr} = fifo_ls_data_out[FIFO_LS_WIDTH-1:36]; // wdata + wstrb total 36bit
+        end
+        else begin
+            {fifo_out_trans_typ, fifo_out_waddr, fifo_out_raddr, fifo_out_wdata, fifo_out_wstrb} = '0;
+            fifo_ls_rd_rdy = 1'b0;
+            fifo_ls_clear = 1'b0;        
         end
 
         //if((axi_state == AXI_MOVE_DATA) && (axi_next_state == AXI_WAIT_DATA))begin // can send next data
@@ -231,14 +232,16 @@ module axi_ctrl_logic(
     // get data from SS fifo
     always_comb begin
         //{fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_tuser, fifo_out_tlast} = '0;
-        {fifo_out_tdata, fifo_out_tuser} = '0;
-        fifo_ss_rd_rdy = 1'b0;
-        fifo_ss_clear = 1'b0;
 
         //if(axi_state == AXI_DECIDE_DEST || axi_state == AXI_SEND_BKEND)begin
         if(axi_state != AXI_WAIT_DATA)begin
             //{fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_tuser, fifo_out_tlast} = fifo_ss_data_out;
             {fifo_out_tdata, fifo_out_tuser} = fifo_ss_data_out;
+        end
+        else begin
+            {fifo_out_tdata, fifo_out_tuser} = '0;
+            fifo_ss_rd_rdy = 1'b0;
+            fifo_ss_clear = 1'b0;
         end
 
         if(get_next_data_ss)begin // if tuser in SS is 1, AXI_WR need nex trans data

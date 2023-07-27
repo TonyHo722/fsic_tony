@@ -262,13 +262,15 @@ module axis_master(
     // get data from fifo
     always_comb begin
         //{fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_tid, fifo_out_user} = '0;
-        {fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_user} = '0;
-        fifo_rd_rdy = 1'b0;
-        fifo_clear = 1'b0;
 
         if(axis_state == AXIS_SEND_DATA)begin
             //{fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_tid, fifo_out_user} = fifo_data_out;
             {fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_user} = fifo_data_out;
+        end
+        else begin
+            {fifo_out_tdata, fifo_out_tstrb, fifo_out_tkeep, fifo_out_user} = '0;
+            fifo_rd_rdy = 1'b0;
+            fifo_clear = 1'b0;        
         end
 
         if(next_data)begin // receive slave tready, can send next data
