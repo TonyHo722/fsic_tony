@@ -283,9 +283,9 @@ FSIC #(
         
 		//test001();	//soc cfg write test
 		//test002();	//test002_fpga_axis_req
-		test003();	//test003_fpga_cfg_read
+		//test003();	//test003_fpga_cfg_read
 		//test004();	//test004_fpga_mail_box_write
-		//test005();	//soc mailbox cfg read/write test
+		test005();	//soc mailbox cfg read/write test
 		
 		#400;
 		$finish;
