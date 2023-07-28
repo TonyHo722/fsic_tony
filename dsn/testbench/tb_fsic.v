@@ -60,9 +60,16 @@ module tb_fsic #( parameter BITS=32,
 	
 	wire soc_coreclk;
 	wire fpga_coreclk;
+
 	
 //-------------------------------------------------------------------------------------
 
+	reg[31:0] i;
+	
+	reg[31:0] cfg_read_expect_data;
+	reg[31:0] cfg_read_result;
+
+//-------------------------------------------------------------------------------------	
 	//reg soc_rst;
 	reg fpga_rst;
 	reg soc_resetb;		//POR reset
@@ -176,6 +183,7 @@ module tb_fsic #( parameter BITS=32,
 	wire fpga_is_as_tready;		//when remote side axis switch Rxfifo size <= threshold then is_as_tready=0, this flow control mechanism is for notify local side do not provide data with as_is_tvalid=1
 
 	wire	wbs_ack;
+	wire	[pDATA_WIDTH-1: 0] wbs_rdata;
 
 	//wire [7:0] Serial_Data_Out_ad_delay1;
 	//wire txclk_delay1;
@@ -229,6 +237,7 @@ FSIC #(
 		.vssd1(vssd1),
 		.vssd2(vssd2),
 		.wbs_ack(wbs_ack),
+		.wbs_rdata(wbs_rdata),		
 		.la_data_out(la_data_out),
 		.user_irq(user_irq),
 		.io_out(io_out),
@@ -376,50 +385,62 @@ FSIC #(
 			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
 
 			//soc_up_cfg_read(0, 4'b1111);				
+			#100;
 
+			test001_soc_cfg();
 			#100;
 		end
 	endtask
 
-	reg[31:0] i;
-/*	
-	reg[31:0] cfg_read_expect_data;
-	reg[31:0] cfg_read_result;
 
 	task test001_soc_cfg;
 		begin
-			$display("test001_soc_cfg: soc cfg read/write test", i);
+			//Test offset 0x00~0xff for mail box write to AA
+			$display("test001_soc_cfg: soc cfg read/write test");
 
-			#100;
-			soc_apply_reset(40,40);
-			fpga_apply_reset(40,40);
+			$display("test001_soc_cfg: AA Mail Box read/write test - start");
+			for (i=0;i<32'h100;i=i+4) begin
 
-		
-			#200;
-
-			for (i=0;i<256;i=i+1) begin
-
-				//offset 0x00~0xff for mail box write to AA
 				cfg_read_expect_data = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i, 4'b1111, cfg_read_expect_data);				
 				soc_aa_cfg_read(i, 4'b1111);
-				if (cfg_read_result != cfg_read_expect_data) begin
+				if (cfg_read_result != cfg_read_expect_data) 
 					$display($time, "=> test001_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
-				end
+				else
+					$display($time, "=> test001_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				$display("-----------------");
 			end
-			
-			
-			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
+			$display("test001_soc_cfg: AA Mail Box read/write test - end");
+			$display("--------------------------------------------------------------------");
 
-			//soc_up_cfg_read(0, 4'b1111);				
+			//Test offset 0x100~0xfff for AA internal register 
+			$display("test001_soc_cfg: AA internal register read/write test - start");
+			for (i=0;i<32'h100;i=i+4) begin
+
+				cfg_read_expect_data = 	32'ha5a5_a5a5;	
+				soc_aa_cfg_write(i+32'h100, 4'b1111, cfg_read_expect_data);				
+				soc_aa_cfg_read(i+32'h100, 4'b1111);
+				if (cfg_read_result != cfg_read_expect_data) 
+					$display($time, "=> test001_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				else
+					$display($time, "=> test001_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				$display("-----------------");
+			end
+			$display("test001_soc_cfg: AA Mail Box read/write test - end");
+			$display("--------------------------------------------------------------------");
 
 			#100;
 		end
 	endtask
 
-	initial begin
+
+	initial begin		//get wishbone read data result.
+		while (1) begin
+			@(posedge soc_coreclk);
+			if (wbs_ack==1 && wbs_we == 0)
+				cfg_read_result = wbs_rdata ;		//use block assignment
+		end
 	end
-*/
 
 	task test004;
 		//input [7:0] compare_data;
@@ -777,14 +798,14 @@ end
 	endtask
 
 	task soc_is_cfg_write;
-		input [11:2] offset;
+		input [11:0] offset;		//4K range
 		input [3:0] sel;
 		input [31:0] data;
 		
 		begin
-			repeat (6) @ (posedge soc_coreclk);		
+			@ (posedge soc_coreclk);		
 			wbs_adr <= IS_BASE;			
-			wbs_adr[11:2] <= offset;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
 			
 			wbs_wdata <= data;
 			wbs_sel <= sel;
@@ -797,18 +818,18 @@ end
 				@(posedge soc_coreclk);
 			end
 
-			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
+			$display($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
 
 	task soc_is_cfg_read;
-		input [11:2] offset;
+		input [11:0] offset;		//4K range
 		input [3:0] sel;
 		
 		begin
-			repeat (6) @ (posedge soc_coreclk);		
+			@ (posedge soc_coreclk);		
 			wbs_adr <= IS_BASE;			
-			wbs_adr[11:2] <= offset;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
 			
 			wbs_sel <= sel;
 			wbs_cyc <= 1'b1;
@@ -820,19 +841,19 @@ end
 				@(posedge soc_coreclk);
 			end
 
-			$strobe($time, "=> soc_is_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			$display($time, "=> soc_is_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
 
 	task soc_aa_cfg_write;
-		input [11:2] offset;
+		input [11:0] offset;		//4K range
 		input [3:0] sel;
 		input [31:0] data;
 		
 		begin
-			repeat (10) @ (posedge soc_coreclk);		
+			@ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
-			wbs_adr[11:2] <= offset;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
 			
 			wbs_wdata <= data;
 			wbs_sel <= sel;
@@ -845,18 +866,18 @@ end
 				@(posedge soc_coreclk);
 			end
 
-			$strobe($time, "=> soc_aa_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
+			$display($time, "=> soc_aa_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
 		end
 	endtask
 
 	task soc_aa_cfg_read;
-		input [11:2] offset;
+		input [11:0] offset;		//4K range
 		input [3:0] sel;
 		
 		begin
-			repeat (10) @ (posedge soc_coreclk);		
+			@ (posedge soc_coreclk);		
 			wbs_adr <= AA_BASE;
-			wbs_adr[11:2] <= offset;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
 			
 			wbs_sel <= sel;
 			wbs_cyc <= 1'b1;
@@ -867,18 +888,18 @@ end
 			while(wbs_ack==0) begin
 				@(posedge soc_coreclk);
 			end
-			$strobe($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			$display($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
 
 	task soc_up_cfg_read;
-		input [11:2] offset;
+		input [11:0] offset;		//4K range
 		input [3:0] sel;
 		
 		begin
-			repeat (6) @ (posedge soc_coreclk);		
+			@ (posedge soc_coreclk);		
 			wbs_adr <= UP_BASE;
-			wbs_adr[11:2] <= offset;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
 			
 			wbs_sel <= sel;
 			wbs_cyc <= 1'b1;
@@ -890,7 +911,7 @@ end
 				@(posedge soc_coreclk);
 			end
 			
-			$strobe($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			$display($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
 
