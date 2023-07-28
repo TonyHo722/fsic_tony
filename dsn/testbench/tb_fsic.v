@@ -349,6 +349,7 @@ FSIC #(
 			end
 		end
 	end    
+	
 	always #(ioclk_pd/2) user_clock2 = ~user_clock2;
 
 	task test001;
@@ -364,7 +365,11 @@ FSIC #(
 
 			soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
 
+			soc_is_cfg_read(0, 4'b0001);				//ioserdes cfg read
+
 			soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
+
+			soc_is_cfg_read(0, 4'b0001);				//ioserdes cfg read
 
 			soc_aa_cfg_write(0, 4'b1111, 32'ha5a5_a5a5);				//offset 0x00~0xff for mail box write to AA
 
@@ -377,6 +382,44 @@ FSIC #(
 	endtask
 
 	reg[31:0] i;
+/*	
+	reg[31:0] cfg_read_expect_data;
+	reg[31:0] cfg_read_result;
+
+	task test001_soc_cfg;
+		begin
+			$display("test001_soc_cfg: soc cfg read/write test", i);
+
+			#100;
+			soc_apply_reset(40,40);
+			fpga_apply_reset(40,40);
+
+		
+			#200;
+
+			for (i=0;i<256;i=i+1) begin
+
+				//offset 0x00~0xff for mail box write to AA
+				cfg_read_expect_data = 	32'ha5a5_a5a5;	
+				soc_aa_cfg_write(i, 4'b1111, cfg_read_expect_data);				
+				soc_aa_cfg_read(i, 4'b1111);
+				if (cfg_read_result != cfg_read_expect_data) begin
+					$display($time, "=> test001_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				end
+			end
+			
+			
+			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
+
+			//soc_up_cfg_read(0, 4'b1111);				
+
+			#100;
+		end
+	endtask
+
+	initial begin
+	end
+*/
 
 	task test004;
 		//input [7:0] compare_data;
@@ -529,7 +572,8 @@ FSIC #(
 			for(idx2=0; idx2<32/4; idx2=idx2+1)begin		//
 				fpga_axilite_read_req(32'h0000_3000 + idx2*4);
 					//read address = h0000_3000 ~ h0000_301F for io serdes
-				fpga_is_as_data_valid();
+				repeat(100) @ (posedge soc_coreclk);    //TODO wait for read competion to replace the delay	
+				//fpga_is_as_data_valid();
 			end
 			$display($time, "=> test003_fpga_cfg_read done");
 		end
@@ -540,7 +584,7 @@ FSIC #(
 		input [31:0] address;
 		begin
 			fpga_as_is_tdata <= address;	//for axilite read address req phase
-			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x", fpga_as_is_tdata);
+			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x - tvalid", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
@@ -552,6 +596,7 @@ FSIC #(
 			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
 					@ (posedge fpga_coreclk);
 			end
+			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x - transfer", fpga_as_is_tdata);
 			fpga_as_is_tvalid <= 0;
 		
 		end
@@ -753,6 +798,29 @@ end
 			end
 
 			$strobe($time, "=> soc_is_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
+		end
+	endtask
+
+	task soc_is_cfg_read;
+		input [11:2] offset;
+		input [3:0] sel;
+		
+		begin
+			repeat (6) @ (posedge soc_coreclk);		
+			wbs_adr <= IS_BASE;			
+			wbs_adr[11:2] <= offset;
+			
+			wbs_sel <= sel;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b0;	
+
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
+
+			$strobe($time, "=> soc_is_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
 		end
 	endtask
 

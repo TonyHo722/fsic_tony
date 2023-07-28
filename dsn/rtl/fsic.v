@@ -6,7 +6,7 @@
 
 module FSIC #(
 		parameter pSERIALIO_WIDTH   = 12,
-		parameter pADDR_WIDTH   = 10,
+		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter pRxFIFO_DEPTH = 5,
 		parameter pCLK_RATIO =4
@@ -166,7 +166,7 @@ wire           axis_rst_n;
 
 
 
-CFG_CTRL #(.pADDR_WIDTH( 10 ),
+CFG_CTRL #(.pADDR_WIDTH( pADDR_WIDTH ),
            .pDATA_WIDTH( 32 )) U_CFG_CTRL0 (
                                             .aa_cfg_awvalid (m_awvalid_aa_cfg_awvalid),// I  
                                             .aa_cfg_awaddr  (m_awaddr_aa_cfg_awaddr),  // I  32
@@ -236,7 +236,7 @@ CFG_CTRL #(.pADDR_WIDTH( 10 ),
 
 
 
-AXIL_AXIS #(.pADDR_WIDTH( 10 ),
+AXIL_AXIS #(.pADDR_WIDTH( pADDR_WIDTH ),
             .pDATA_WIDTH( 32 )) U_AXIL_AXIS0 (
                                               .m_awvalid    (m_awvalid_aa_cfg_awvalid),// O  
                                               .m_awaddr     (m_awaddr_aa_cfg_awaddr),  // O  32
@@ -293,7 +293,7 @@ AXIL_AXIS #(.pADDR_WIDTH( 10 ),
 
 
 
-AXIS_SW #(.pADDR_WIDTH( 10 ),
+AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
           .pDATA_WIDTH( 32 )) AXIS_SW0 (
                                         .as_aa_tdata  (as_aa_tdata),             // O  32
                                         .as_aa_tstrb  (as_aa_tstrb),             // O  4
@@ -361,7 +361,7 @@ AXIS_SW #(.pADDR_WIDTH( 10 ),
 
 
 IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
-            .pADDR_WIDTH( 10 ),
+            .pADDR_WIDTH( pADDR_WIDTH ),
             .pDATA_WIDTH( 32 ),
             .pRxFIFO_DEPTH( 5 ),
             .pCLK_RATIO      ( 4 )) U_IO_SERDES0 (
@@ -413,7 +413,7 @@ IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
 
 
 
-LOGIC_ANLZ #(.pADDR_WIDTH( 10 ),
+LOGIC_ANLZ #(.pADDR_WIDTH( pADDR_WIDTH ),
              .pDATA_WIDTH( 32 )) U_LOGIC_ANLZ0 (
                                                 .axi_awready  (axi_awready_axi_awready0),// O  
                                                 .axi_wready   (axi_wready_axi_wready0),  // O  
@@ -456,7 +456,7 @@ LOGIC_ANLZ #(.pADDR_WIDTH( 10 ),
 
 
 
-USER_SUBSYS #(.pADDR_WIDTH( 10 ),
+USER_SUBSYS #(.pADDR_WIDTH( pADDR_WIDTH ),
               .pDATA_WIDTH( 32 )) U_USER_SUBSYS0 (
                                                   .axi_awready  (axi_awready_axi_awready2),// O  
                                                   .axi_wready   (axi_wready_axi_wready2),  // O  
