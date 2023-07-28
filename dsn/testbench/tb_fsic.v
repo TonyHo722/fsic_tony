@@ -281,11 +281,11 @@ FSIC #(
 		vssd2 = 1;
 		user_clock2 = 0;
         
-		test001();	//soc cfg write test
-		//test005();	//soc mailbox cfg read/write test
+		//test001();	//soc cfg write test
 		//test002();	//test002_fpga_axis_req
 		test003();	//test003_fpga_cfg_read
 		//test004();	//test004_fpga_mail_box_write
+		//test005();	//soc mailbox cfg read/write test
 		
 		#400;
 		$finish;
@@ -341,15 +341,7 @@ FSIC #(
 			//soc_cc_is_enable=1;
 			fpga_cc_is_enable=1;
 
-			//init fpga as to is signal, set fpga_as_is_tready = 1 for receives mail box write from soc
-			@ (posedge fpga_coreclk);
-			fpga_as_is_tstrb <=  4'b0000;
-			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b00;
-			fpga_as_is_tuser <=  2'b00;
-			fpga_as_is_tlast <=  1'b0;
-			fpga_as_is_tvalid <= 0;
-			fpga_as_is_tready <= 1;
+			fpga_as_to_is_init();
 
 			fork 
 				soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
@@ -414,7 +406,7 @@ FSIC #(
 			$display("test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc cfg read value part");
 
 			$display("test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start");
-			for (i=0;i<32'h100;i=i+4) begin
+			for (i=0;i<32'h20;i=i+4) begin
 
 				cfg_read_data_expect_value = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i, 4'b1111, cfg_read_data_expect_value);				
@@ -431,7 +423,7 @@ FSIC #(
 			$display("test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc to fpga cfg write value part");
 
 			$display("test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start");
-			for (i=0;i<32'h100;i=i+4) begin
+			for (i=0;i<32'h20;i=i+4) begin
 
 				soc_to_fpga_mailbox_write_addr_expect_value =  32'hf000_0000 + (AA_BASE & 32'h0fff_ffff)+ i;				
 				soc_to_fpga_mailbox_write_data_expect_value = 	32'ha5a5_a5a5;
@@ -517,6 +509,7 @@ FSIC #(
 					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
 				join
 				#40;
+				fpga_as_to_is_init();
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
@@ -555,7 +548,7 @@ FSIC #(
 			@ (posedge soc_coreclk);
 			fpga_as_is_tready <= 1;
 			
-			for(idx1=0; idx1<32/4; idx1=idx1+1)begin		//
+			for(idx1=0; idx1<32'h20/4; idx1=idx1+1)begin		//
 				fpga_axilite_write(28'h0000_2000 + idx1*4, 4'b1111, 32'h11111111 * idx1);
 					//mailbox supported range address = 0x0000_2000 ~ 0000_201F
 					//BE = 4'b1111
@@ -613,7 +606,11 @@ FSIC #(
 					soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
 					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
 				join
+				
 				#40;
+				
+				fpga_as_to_is_init();	
+				
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
@@ -640,6 +637,24 @@ FSIC #(
 
 				#200;
 			end
+		end
+	endtask
+
+	task fpga_as_to_is_init;
+		//input [7:0] compare_data;
+
+		begin
+			//init fpga as to is signal, set fpga_as_is_tready = 1 for receives data from soc
+			@ (posedge fpga_coreclk);
+			fpga_as_is_tdata <=  32'h0;
+			fpga_as_is_tstrb <=  4'b0000;
+			fpga_as_is_tkeep <=  4'b0000;
+			fpga_as_is_tid <=  2'b00;
+			fpga_as_is_tuser <=  2'b00;
+			fpga_as_is_tlast <=  1'b0;
+			fpga_as_is_tvalid <= 0;
+			fpga_as_is_tready <= 1;
+			$display($time, "=> fpga_as_to_is_init done");
 		end
 	endtask
 
@@ -716,6 +731,9 @@ FSIC #(
 					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
 				join
 				#40;
+
+				fpga_as_to_is_init();
+				
 				//soc_cc_is_enable=1;
 				fpga_cc_is_enable=1;
 				fork 
