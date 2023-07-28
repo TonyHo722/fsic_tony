@@ -282,9 +282,9 @@ FSIC #(
 		user_clock2 = 0;
         
 		test001();	//soc cfg write test
-		test005();	//soc mailbox cfg read/write test
+		//test005();	//soc mailbox cfg read/write test
 		//test002();	//test002_fpga_axis_req
-		//test003();	//test003_fpga_cfg_read
+		test003();	//test003_fpga_cfg_read
 		//test004();	//test004_fpga_mail_box_write
 		
 		#400;
@@ -655,8 +655,10 @@ FSIC #(
 			fpga_as_is_tready <= 1;
 			
 			for(idx2=0; idx2<32/4; idx2=idx2+1)begin		//
+				//step 1. fpga issue cfg read request to soc
 				fpga_axilite_read_req(32'h0000_3000 + idx2*4);
 					//read address = h0000_3000 ~ h0000_301F for io serdes
+				//step 2. fpga wait for read completion from soc
 				repeat(100) @ (posedge soc_coreclk);    //TODO wait for read competion to replace the delay	
 				//fpga_is_as_data_valid();
 			end
@@ -757,7 +759,7 @@ FSIC #(
 			fpga_as_is_tready <= 1;
 			
 			for(idx3=0; idx3<32; idx3=idx3+1)begin		//
-				fpga_axis_req(32'h11111111 * idx3, 2'b00);		//target to User Project
+				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), 2'b00);		//target to User Project
 				//if (idx3 > 12 ) 			force dut.AXIS_SW0.up_as_tready = 1;
 			end
 			release dut.AXIS_SW0.up_as_tready;
