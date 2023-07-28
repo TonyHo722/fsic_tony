@@ -77,37 +77,11 @@ module tb_fsic #( parameter BITS=32,
 	
 	//reg ioclk;
 	//reg dlyclk;
-/*
-	reg [7:0] soc_compare_data;
-	
-	//write addr channel
-	reg soc_axi_awvalid;
-	reg [pADDR_WIDTH+1:2] soc_axi_awaddr;
-	wire soc_axi_awready;
-	
-	//write data channel
-	reg 	soc_axi_wvalid;
-	reg 	[pDATA_WIDTH-1:0] soc_axi_wdata;
-	reg 	[3:0] soc_axi_wstrb;
-	wire	soc_axi_wready;
-	
-	//read addr channel
-	reg 	soc_axi_arvalid;
-	reg 	[pADDR_WIDTH+1:2] soc_axi_araddr;
-	wire 	soc_axi_arready;
-	
-	//read data channel
-	wire 	soc_axi_rvalid;
-	wire 	[pDATA_WIDTH-1:0] soc_axi_rdata;
-	reg 	soc_axi_rready;
-	
-	reg 	soc_cc_is_enable;		//axi_lite enable
-*/
 
 
 	//write addr channel
 	reg fpga_axi_awvalid;
-	reg [pADDR_WIDTH+1:2] fpga_axi_awaddr;
+	reg [pADDR_WIDTH-1:0] fpga_axi_awaddr;
 	wire fpga_axi_awready;
 	
 	//write data channel
@@ -118,7 +92,7 @@ module tb_fsic #( parameter BITS=32,
 	
 	//read addr channel
 	reg 	fpga_axi_arvalid;
-	reg 	[pADDR_WIDTH+1:2] fpga_axi_araddr;
+	reg 	[pADDR_WIDTH-1:0] fpga_axi_araddr;
 	wire 	fpga_axi_arready;
 	
 	//read data channel
@@ -128,31 +102,6 @@ module tb_fsic #( parameter BITS=32,
 	
 	reg 	fpga_cc_is_enable;		//axi_lite enable
 
-/*
-	reg [pDATA_WIDTH-1:0] soc_as_is_tdata;
-	reg [3:0] soc_as_is_tstrb;
-	reg [3:0] soc_as_is_tkeep;
-	reg soc_as_is_tlast;
-	reg [1:0] soc_as_is_tid;
-	reg soc_as_is_tvalid;
-	reg [1:0] soc_as_is_tuser;
-	reg soc_as_is_tready;		//when local side axis switch Rxfifo size <= threshold then as_is_tready=0; this flow control mechanism is for notify remote side do not provide data with is_as_tvalid=1
-
-//	wire [7:0] soc_Serial_Data_Out_tdata;
-//	wire soc_Serial_Data_Out_tstrb;
-//	wire soc_Serial_Data_Out_tkeep;
-//	wire soc_Serial_Data_Out_tid_tuser;	// tid and tuser	
-//	wire soc_Serial_Data_Out_tlast_tvalid_tready;		//flowcontrol
-
-	wire [pDATA_WIDTH-1:0] soc_is_as_tdata;
-	wire [3:0] soc_is_as_tstrb;
-	wire [3:0] soc_is_as_tkeep;
-	wire soc_is_as_tlast;
-	wire [1:0] soc_is_as_tid;
-	wire soc_is_as_tvalid;
-	wire [1:0] soc_is_as_tuser;
-	wire soc_is_as_tready;		//when remote side axis switch Rxfifo size <= threshold then is_as_tready=0; this flow control mechanism is for notify local side do not provide data with as_is_tvalid=1
-*/
 	wire [pSERIALIO_WIDTH-1:0] soc_serial_txd;
 	wire soc_txclk;
 	wire fpga_txclk;
@@ -329,6 +278,7 @@ FSIC #(
 		user_clock2 = 0;
         
 		test001();	//soc cfg write test
+		test005();	//soc mailbox cfg read/write test
 		test002();	//test002_fpga_axis_req
 		test003();	//test003_fpga_cfg_read
 		test004();	//test004_fpga_mail_box_write
@@ -363,32 +313,52 @@ FSIC #(
 
 	task test001;
 		begin
-			$display("test001: soc cfg write test", i);
+			$display("test001: soc cfg write test");
 
 			#100;
 			soc_apply_reset(40,40);
 			fpga_apply_reset(40,40);
 
+			test001_is_soc_cfg();
+			test001_aa_internal_soc_cfg();
+		end
+	endtask
+
+	task test005;
+		begin
+			$display("test005: soc mail box cfg read/ write test");
+
+			#100;
+			soc_apply_reset(40,40);
+			fpga_apply_reset(40,40);
+
+			#100;
+			
+			//soc_cc_is_enable=1;
+			fpga_cc_is_enable=1;
+
+			fork 
+				soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
+				fpga_cfg_write(0,1,1,0);
+			join
+			$display($time, "=> soc rxen_ctl=1");
+			$display($time, "=> fpga rxen_ctl=1");
+
+			#400;
+			fork 
+				soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
+				fpga_cfg_write(0,3,1,0);
+			join
+			$display($time, "=> soc txen_ctl=1");
+			$display($time, "=> fpga txen_ctl=1");
+
+			#200;
+			fpga_as_is_tdata = 32'h5a5a5a5a;
 		
 			#200;
 
-			soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
-
-			soc_is_cfg_read(0, 4'b0001);				//ioserdes cfg read
-
-			soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
-
-			soc_is_cfg_read(0, 4'b0001);				//ioserdes cfg read
-
-			soc_aa_cfg_write(0, 4'b1111, 32'ha5a5_a5a5);				//offset 0x00~0xff for mail box write to AA
-
-			soc_aa_cfg_read(0, 4'b1111);				//offset 0x00~0xff for mail box read from AA
-
-			//soc_up_cfg_read(0, 4'b1111);				
-			#100;
-			test001_is_soc_cfg();
-
-			test001_aa_soc_cfg();
+			test005_aa_mailbox_soc_cfg();
+			
 			#100;
 		end
 	endtask
@@ -423,40 +393,48 @@ FSIC #(
 	endtask
 
 
-	task test001_aa_soc_cfg;
+
+	task test005_aa_mailbox_soc_cfg;
 		begin
 			//Test offset 0x00~0xff for mail box write to AA
-			$display("test001_aa_soc_cfg: soc cfg read/write test");
+			$display("test005_aa_mailbox_soc_cfg: soc cfg read/write test");
 
-			$display("test001_aa_soc_cfg: AA Mail Box read/write test - start");
+			$display("test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start");
 			for (i=0;i<32'h100;i=i+4) begin
 
 				cfg_read_expect_data = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i, 4'b1111, cfg_read_expect_data);				
 				soc_aa_cfg_read(i, 4'b1111);
 				if (cfg_read_result !== cfg_read_expect_data) 
-					$display($time, "=> test001_aa_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				else
-					$display($time, "=> test001_aa_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				$display("-----------------");
 			end
-			$display("test001_aa_soc_cfg: AA Mail Box read/write test - end");
+			$display("test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - end");
 			$display("--------------------------------------------------------------------");
 
+			#100;
+		end
+	endtask
+
+	task test001_aa_internal_soc_cfg;
+		begin
+
 			//Test offset 0x100~0xfff for AA internal register 
-			$display("test001_aa_soc_cfg: AA internal register read/write test - start");
+			$display("test001_aa_internal_soc_cfg: AA internal register read/write test - start");
 			for (i=0;i<32'h100;i=i+4) begin
 
 				cfg_read_expect_data = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i+32'h100, 4'b1111, cfg_read_expect_data);				
 				soc_aa_cfg_read(i+32'h100, 4'b1111);
 				if (cfg_read_result !== cfg_read_expect_data) 
-					$display($time, "=> test001_aa_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test001_aa_internal_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				else
-					$display($time, "=> test001_aa_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test001_aa_internal_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				$display("-----------------");
 			end
-			$display("test001_aa_soc_cfg: AA Mail Box read/write test - end");
+			$display("test001_aa_internal_soc_cfg: AA Mail Box read/write test - end");
 			$display("--------------------------------------------------------------------");
 
 			#100;
@@ -952,7 +930,7 @@ end
 
 
 	task fpga_cfg_write;		//input addr, data, strb and valid_delay 
-		input [pADDR_WIDTH+1:2] axi_awaddr;
+		input [pADDR_WIDTH-1:0] axi_awaddr;
 		input [pDATA_WIDTH-1:0] axi_wdata;
 		input [3:0] axi_wstrb;
 		input [7:0] valid_delay;

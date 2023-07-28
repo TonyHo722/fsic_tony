@@ -21,7 +21,7 @@
 
 module fpga #(
 		parameter pSERIALIO_WIDTH   = 12,
-		parameter pADDR_WIDTH   = 10,
+		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter pRxFIFO_DEPTH = 5,
 		parameter pCLK_RATIO =4
@@ -36,7 +36,7 @@ module fpga #(
 
 		//write addr channel
 		input wire 	axi_awvalid_s_awvalid,
-		input wire 	[pADDR_WIDTH+1:2] axi_awaddr_s_awaddr,		//axi_awaddr is DW address
+		input wire 	[pADDR_WIDTH-1:0] axi_awaddr_s_awaddr,		//axi_awaddr is DW address
 		output wire	axi_awready_axi_awready3,
 
 		//write data channel
@@ -47,7 +47,7 @@ module fpga #(
 
 		//read addr channel
 		input wire 	axi_arvalid_s_arvalid,
-		input wire 	[pADDR_WIDTH+1:2] axi_araddr_s_araddr,
+		input wire 	[pADDR_WIDTH-1:0] axi_araddr_s_araddr,
 		output wire 	axi_arready_axi_arready3,
 
 		//read data channel
@@ -95,7 +95,7 @@ module fpga #(
 
 
 IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
-            .pADDR_WIDTH( 10 ),
+            .pADDR_WIDTH( pADDR_WIDTH ),
             .pDATA_WIDTH( 32 ),
             .pRxFIFO_DEPTH( 5 ),
             .pCLK_RATIO      ( 4 )) U_IO_SERDES0 (
