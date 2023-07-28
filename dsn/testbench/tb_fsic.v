@@ -386,47 +386,77 @@ FSIC #(
 
 			//soc_up_cfg_read(0, 4'b1111);				
 			#100;
+			test001_is_soc_cfg();
 
-			test001_soc_cfg();
+			test001_aa_soc_cfg();
+			#100;
+		end
+	endtask
+
+	task test001_is_soc_cfg;
+		begin
+			//Test offset 0x00 only for io serdes
+			$display("test001_is_soc_cfg: soc cfg read/write test");
+
+			cfg_read_expect_data = 32'h01;	
+			soc_is_cfg_write(0, 4'b0001, cfg_read_expect_data);				//ioserdes rxen
+			soc_is_cfg_read(0, 4'b1111);
+			if (cfg_read_result !== cfg_read_expect_data) 
+				$display($time, "=> test001_is_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+			else
+				$display($time, "=> test001_is_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+			$display("-----------------");
+
+			cfg_read_expect_data = 32'h03;	
+			soc_is_cfg_write(0, 4'b0001, cfg_read_expect_data);				//ioserdes rxen
+			soc_is_cfg_read(0, 4'b1111);
+			if (cfg_read_result !== cfg_read_expect_data) 
+				$display($time, "=> test001_is_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+			else
+				$display($time, "=> test001_is_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+			$display("-----------------");
+			$display("test001_is_soc_cfg: soc cfg read/write test - end");
+			$display("--------------------------------------------------------------------");
+
 			#100;
 		end
 	endtask
 
 
-	task test001_soc_cfg;
+	task test001_aa_soc_cfg;
 		begin
 			//Test offset 0x00~0xff for mail box write to AA
-			$display("test001_soc_cfg: soc cfg read/write test");
+			$display("test001_aa_soc_cfg: soc cfg read/write test");
 
-			$display("test001_soc_cfg: AA Mail Box read/write test - start");
+			$display("test001_aa_soc_cfg: AA Mail Box read/write test - start");
 			for (i=0;i<32'h100;i=i+4) begin
 
 				cfg_read_expect_data = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i, 4'b1111, cfg_read_expect_data);				
 				soc_aa_cfg_read(i, 4'b1111);
-				if (cfg_read_result != cfg_read_expect_data) 
-					$display($time, "=> test001_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				if (cfg_read_result !== cfg_read_expect_data) 
+					$display($time, "=> test001_aa_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				else
-					$display($time, "=> test001_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test001_aa_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				$display("-----------------");
 			end
-			$display("test001_soc_cfg: AA Mail Box read/write test - end");
+			$display("test001_aa_soc_cfg: AA Mail Box read/write test - end");
 			$display("--------------------------------------------------------------------");
 
 			//Test offset 0x100~0xfff for AA internal register 
-			$display("test001_soc_cfg: AA internal register read/write test - start");
+			$display("test001_aa_soc_cfg: AA internal register read/write test - start");
 			for (i=0;i<32'h100;i=i+4) begin
 
 				cfg_read_expect_data = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(i+32'h100, 4'b1111, cfg_read_expect_data);				
 				soc_aa_cfg_read(i+32'h100, 4'b1111);
-				if (cfg_read_result != cfg_read_expect_data) 
-					$display($time, "=> test001_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+				if (cfg_read_result !== cfg_read_expect_data) 
+					$display($time, "=> test001_aa_soc_cfg [ERROR] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				else
-					$display($time, "=> test001_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
+					$display($time, "=> test001_aa_soc_cfg [PASS] cfg_read_expect_data=%x, cfg_read_result=%x", cfg_read_expect_data, cfg_read_result);
 				$display("-----------------");
 			end
-			$display("test001_soc_cfg: AA Mail Box read/write test - end");
+			$display("test001_aa_soc_cfg: AA Mail Box read/write test - end");
 			$display("--------------------------------------------------------------------");
 
 			#100;
@@ -437,8 +467,11 @@ FSIC #(
 	initial begin		//get wishbone read data result.
 		while (1) begin
 			@(posedge soc_coreclk);
-			if (wbs_ack==1 && wbs_we == 0)
-				cfg_read_result = wbs_rdata ;		//use block assignment
+			if (wbs_ack==1 && wbs_we == 0) begin
+				$display($time, "=> get wishbone read data result be : cfg_read_result =%x, wbs_rdata=%x", cfg_read_result, wbs_rdata);
+				cfg_read_result = wbs_rdata ;		//use non block assignment
+				$display($time, "=> get wishbone read data result af : cfg_read_result =%x, wbs_rdata=%x", cfg_read_result, wbs_rdata);
+			end	
 		end
 	end
 
@@ -842,6 +875,7 @@ end
 			end
 
 			$display($time, "=> soc_is_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			#1;		//add delay to make sure cfg_read_result get the correct data 
 		end
 	endtask
 
@@ -889,6 +923,7 @@ end
 				@(posedge soc_coreclk);
 			end
 			$display($time, "=> soc_aa_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			#1;		//add delay to make sure cfg_read_result get the correct data 
 		end
 	endtask
 
