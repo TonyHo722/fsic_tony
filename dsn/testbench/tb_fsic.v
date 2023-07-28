@@ -436,7 +436,7 @@ FSIC #(
 				soc_to_fpga_mailbox_write_addr_expect_value =  32'hf000_0000 + (AA_BASE & 32'h0fff_ffff)+ i;				
 				soc_to_fpga_mailbox_write_data_expect_value = 	32'ha5a5_a5a5;
 				soc_aa_cfg_write(i, 4'b1111, soc_to_fpga_mailbox_write_data_expect_value);
-				repeat(20) @(posedge fpga_coreclk);		//wait for fpga get the data by delay, 3T should be ok, i use 6T for better margin, TODO use event to snyc it or support pipeline test
+				repeat(20) @(posedge fpga_coreclk);		//wait for fpga get the data by delay, 10T should be ok, i use 20T for better margin, TODO use event to snyc it or support pipeline test
 				if (soc_to_fpga_mailbox_write_addr_expect_value !== soc_to_fpga_mailbox_write_addr_captured) 
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] soc_to_fpga_mailbox_write_addr_expect_value=%x, soc_to_fpga_mailbox_write_addr_captured=%x", soc_to_fpga_mailbox_write_addr_expect_value, soc_to_fpga_mailbox_write_addr_captured);
 				else
@@ -498,7 +498,6 @@ FSIC #(
 				soc_to_fpga_mailbox_write_addr_captured = fpga_is_as_tdata ;		//use non block assignment
 				$display($time, "=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
 				@(posedge fpga_coreclk);
-				soc_to_fpga_mailbox_write_data_captured = fpga_is_as_tdata ;		//use non block assignment
 				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
 				soc_to_fpga_mailbox_write_data_captured = fpga_is_as_tdata ;		//use non block assignment
 				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
