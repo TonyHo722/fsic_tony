@@ -202,23 +202,30 @@ module axilite_master(
     
     // backend interface, combinational logic
     always_comb begin
-        wr_addr_go = 1'b0;
-        bk_wdone = 1'b0;
-        rd_addr_go = 1'b0;
-        bk_rdone = 1'b0;
 
         if((cache_wstart == 1'b1) && (axi_wr_state == WR_WAIT_ADDR))begin
             wr_addr_go = 1'b1;
         end
+        else 
+            wr_addr_go = 1'b0;
         if((axi_wr_state == WR_WRITE_DATA) && (axi_wr_next_state == WR_WAIT_ADDR))begin
             bk_wdone = 1'b1;
         end
+        else 
+            bk_wdone = 1'b0;
+        
         if((cache_rstart == 1'b1) && (axi_rd_state == RD_WAIT_ADDR))begin
             rd_addr_go = 1'b1;
         end
+        else
+            rd_addr_go = 1'b0;
+        
         if((axi_rd_state == RD_READ_DATA) && (axi_rd_next_state == RD_WAIT_ADDR))begin
             bk_rdone = 1'b1;
         end
+        else
+            bk_rdone = 1'b1;
+        
     end
 
 endmodule
