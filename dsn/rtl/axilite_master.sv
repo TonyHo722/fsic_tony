@@ -115,26 +115,38 @@ module axilite_master(
         endcase
     end
 
+
     // FSM state, combinational logic
     always_comb begin
         axi_rd_next_state = axi_rd_state;
-
+		$display($time, "=> checkpoint1 : axi_rd_next_state=%b", axi_rd_next_state);
+		
         case(axi_rd_state)
             RD_WAIT_ADDR:
                 if(rd_addr_go)begin
                     axi_rd_next_state = RD_READ_ADDR;
+					$display($time, "=> checkpoint2 : axi_rd_next_state=%b", axi_rd_next_state);
                 end
             RD_READ_ADDR:
                 if(axi_arvalid && axi_arready)begin
                     axi_rd_next_state = RD_DRIVE_RDY;
+					$display($time, "=> checkpoint3 : axi_rd_next_state=%b", axi_rd_next_state);
                 end
             RD_DRIVE_RDY:
                 if(axi_rvalid && axi_rready)begin
                     axi_rd_next_state = RD_READ_DATA;
+					$display($time, "=> checkpoint4 : axi_rd_next_state=%b", axi_rd_next_state);
                 end
-            RD_READ_DATA: axi_rd_next_state = RD_WAIT_ADDR;
+            RD_READ_DATA: 
+				begin
+					axi_rd_next_state = RD_WAIT_ADDR;
+					$display($time, "=> checkpoint5 : axi_rd_next_state=%b", axi_rd_next_state);
+				end
             default:
-                axi_rd_next_state = RD_WAIT_ADDR;
+				begin
+					axi_rd_next_state = RD_WAIT_ADDR;
+					$display($time, "=> checkpoint6 : axi_rd_next_state=%b", axi_rd_next_state);
+				end 
         endcase
     end
 
@@ -199,9 +211,16 @@ module axilite_master(
             end
         end
     end
+
+
     
     // backend interface, combinational logic
     always_comb begin
+        //wr_addr_go = 1'b0;
+        //bk_wdone = 1'b0;
+        rd_addr_go = 1'b0;
+		$display($time, "=> checkpoint7 : rd_addr_go=%b", rd_addr_go);
+        //bk_rdone = 1'b0;
 
         if((cache_wstart == 1'b1) && (axi_wr_state == WR_WAIT_ADDR))begin
             wr_addr_go = 1'b1;
@@ -216,9 +235,8 @@ module axilite_master(
         
         if((cache_rstart == 1'b1) && (axi_rd_state == RD_WAIT_ADDR))begin
             rd_addr_go = 1'b1;
+			$display($time, "=> checkpoint8 : rd_addr_go=%b", rd_addr_go);
         end
-        else
-            rd_addr_go = 1'b0;
         
         if((axi_rd_state == RD_READ_DATA) && (axi_rd_next_state == RD_WAIT_ADDR))begin
             bk_rdone = 1'b1;
