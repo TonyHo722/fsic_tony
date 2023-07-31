@@ -281,12 +281,12 @@ FSIC #(
 		vssd2 = 1;
 		user_clock2 = 0;
         
-		test001();	//soc cfg write test
+		//test001();	//soc cfg write test
 		//test002();	//test002_fpga_axis_req
 		//test003();	//test003_fpga_cfg_read
 		//test004();	//test004_fpga_mail_box_write
-		test005();	//soc mailbox cfg read/write test
-		
+		//test005();	//soc mailbox cfg read/write test
+		test007();
 		#400;
 		$finish;
         
@@ -314,6 +314,134 @@ FSIC #(
 	end    
 	
 	always #(ioclk_pd/2) user_clock2 = ~user_clock2;
+
+//Willy debug - s
+
+	task test007;
+		begin
+			$display("test007: mailbox interrupt test");
+
+			#100;
+			test007_initial();
+			
+			test007_aa_internal_soc_mb_interrupt_en();
+            test007_fpga_mail_box_write();
+            test007_soc_mb_read();
+            test007_aa_internal_soc_mb_interrupt_status();
+		end
+	endtask
+	
+	
+	task test007_initial;
+	   begin
+           $display("test007: TX/RX test");
+            fork 
+                soc_apply_reset(40, 40);			//change coreclk phase in soc
+                fpga_apply_reset(40, 40);		//fix coreclk phase in fpga
+            join
+            #40;
+            fpga_as_to_is_init();
+            //soc_cc_is_enable=1;
+            fpga_cc_is_enable=1;
+            fork 
+                soc_is_cfg_write(0, 4'b0001, 1);				//ioserdes rxen
+                fpga_cfg_write(0,1,1,0);
+            join
+            $display($time, "=> soc rxen_ctl=1");
+            $display($time, "=> fpga rxen_ctl=1");
+
+            #400;
+            fork 
+                soc_is_cfg_write(0, 4'b0001, 3);				//ioserdes txen
+                fpga_cfg_write(0,3,1,0);
+            join
+            $display($time, "=> soc txen_ctl=1");
+            $display($time, "=> fpga txen_ctl=1");
+
+            #200;
+            fpga_as_is_tdata = 32'h5a5a5a5a;
+            #40;
+            #200;	   
+	   end
+    endtask
+
+	task test007_aa_internal_soc_mb_interrupt_en;
+		begin
+			$display("Enable interrupt, set aa_regs offfset 0, bit 0 = 1"); 
+			cfg_read_data_expect_value = 32'h1;	
+			soc_aa_cfg_write(0+32'h100, 4'b1111, cfg_read_data_expect_value);				
+			soc_aa_cfg_read(0+32'h100, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				$display($time, "=> test007_aa_internal_soc_mb_interrupt_en [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			else
+				$display($time, "=> test007_aa_internal_soc_mb_interrupt_en [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+
+            $display("Read interrupt status, aa_regs offfset 4, bit 0 should be 0 by default"); 
+            soc_aa_cfg_read(4+32'h100, 4'b1111); 
+            $display($time, "=> test007_aa_internal_soc_mb_interrupt_en, read interrupt status, cfg_read_data_captured=%x", cfg_read_data_captured);
+            
+			#100;
+		end
+	endtask
+
+
+
+	task test007_aa_internal_soc_mb_interrupt_status;
+		begin
+			$display("Check interrupt status, read aa_regs offfset 4, bit 0"); 
+			cfg_read_data_expect_value = 32'h1;	
+				
+			soc_aa_cfg_read(4+32'h100, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				$display($time, "=> Read soc_mb_interrupt_status [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			else
+				$display($time, "=> Read soc_mb_interrupt_status [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+
+            $display("Clear interrupt status, write aa_regs offfset 4, bit 0 = 1");	
+			soc_aa_cfg_write(4+32'h100, 4'b1111, 1);
+
+			cfg_read_data_expect_value = 32'h0;	
+				
+			soc_aa_cfg_read(4+32'h100, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				$display($time, "=> Read soc_mb_interrupt_status [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			else
+				$display($time, "=>Read soc_mb_interrupt_status [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+            
+			#100;
+		end
+	endtask
+
+	task test007_fpga_mail_box_write;
+		//input [7:0] compare_data;
+
+		//FPGA to SOC Axilite test
+		begin
+			@ (posedge soc_coreclk);
+			fpga_as_is_tready <= 1;
+			
+            fpga_axilite_write(28'h0000_2000, 4'b1111, 32'h11111111);
+
+			$display($time, "=> test007_fpga_mail_box_write done");
+		end
+	endtask
+
+
+	task test007_soc_mb_read;
+		begin
+			$display("Read mb_regs offfset 0"); 
+			cfg_read_data_expect_value = 32'h11111111;					
+			soc_aa_cfg_read(0+32'h000, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				$display($time, "=> Result: mb_regs offset 0 [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			else
+				$display($time, "=> Result: mb_regs offset 0 [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);            
+			#100;
+		end
+	endtask
+
+//Wi lly debug - e
+
 
 	task test001;
 		begin
