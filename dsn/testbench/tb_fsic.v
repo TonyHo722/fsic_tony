@@ -79,6 +79,7 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_mailbox_write_addr_captured;
 	reg [31:0] soc_to_fpga_mailbox_write_data_captured;
 
+	reg [31:0] error_cnt;
 //-------------------------------------------------------------------------------------	
 	//reg soc_rst;
 	reg fpga_rst;
@@ -286,6 +287,7 @@ FSIC #(
 		vssd1 = 1;
 		vssd2 = 1;
 		user_clock2 = 0;
+		error_cnt = 0;
         
 		test001();	//soc cfg write/read test
 		//test002();	//test002_fpga_axis_req
@@ -295,6 +297,11 @@ FSIC #(
 		test006();	//test006_fpga_to_soc_cfg_write
 		
 		#400;
+		if (error_cnt != 0 ) 
+			$display($time, "=> Final result [FAILED], error_cnt=%x, please search [ERROR] in the log", error_cnt);
+		else
+			$display($time, "=> Final result [PASS], error_cnt=%x", error_cnt);
+		
 		$finish;
         
     end
@@ -385,8 +392,10 @@ FSIC #(
 			cfg_read_data_expect_value = 32'h01;	
 			soc_is_cfg_write(0, 4'b0001, cfg_read_data_expect_value);				//ioserdes rxen
 			soc_is_cfg_read(0, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test001_is_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
 			else
 				$display($time, "=> test001_is_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
@@ -394,8 +403,10 @@ FSIC #(
 			cfg_read_data_expect_value = 32'h03;	
 			soc_is_cfg_write(0, 4'b0001, cfg_read_data_expect_value);				//ioserdes rxen
 			soc_is_cfg_read(0, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test001_is_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
 			else
 				$display($time, "=> test001_is_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
@@ -437,12 +448,16 @@ FSIC #(
 				soc_to_fpga_mailbox_write_data_expect_value = 	32'ha5a5_a5a5;
 				soc_aa_cfg_write(i, 4'b1111, soc_to_fpga_mailbox_write_data_expect_value);
 				repeat(20) @(posedge fpga_coreclk);		//wait for fpga get the data by delay, 10T should be ok, i use 20T for better margin, TODO use event to snyc it or support pipeline test
-				if (soc_to_fpga_mailbox_write_addr_expect_value !== soc_to_fpga_mailbox_write_addr_captured) 
+				if (soc_to_fpga_mailbox_write_addr_expect_value !== soc_to_fpga_mailbox_write_addr_captured) begin
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] soc_to_fpga_mailbox_write_addr_expect_value=%x, soc_to_fpga_mailbox_write_addr_captured=%x", soc_to_fpga_mailbox_write_addr_expect_value, soc_to_fpga_mailbox_write_addr_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=%x, soc_to_fpga_mailbox_write_addr_captured=%x", soc_to_fpga_mailbox_write_addr_expect_value, soc_to_fpga_mailbox_write_addr_captured);
-				if (soc_to_fpga_mailbox_write_data_expect_value !== soc_to_fpga_mailbox_write_data_captured) 
+				if (soc_to_fpga_mailbox_write_data_expect_value !== soc_to_fpga_mailbox_write_data_captured) begin
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] soc_to_fpga_mailbox_write_data_expect_value=%x, soc_to_fpga_mailbox_write_data_captured=%x", soc_to_fpga_mailbox_write_data_expect_value, soc_to_fpga_mailbox_write_data_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=%x, soc_to_fpga_mailbox_write_data_captured=%x", soc_to_fpga_mailbox_write_data_expect_value, soc_to_fpga_mailbox_write_data_captured);
 				$display("-----------------");
@@ -458,8 +473,10 @@ FSIC #(
 				cfg_read_data_expect_value = 	$random;	
 				soc_aa_cfg_write(i, 4'b1111, cfg_read_data_expect_value);				
 				soc_aa_cfg_read(i, 4'b1111);
-				if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 				$display("-----------------");
@@ -475,12 +492,16 @@ FSIC #(
 				soc_to_fpga_mailbox_write_data_expect_value = 	$random;
 				soc_aa_cfg_write(i, 4'b1111, soc_to_fpga_mailbox_write_data_expect_value);
 				repeat(20) @(posedge fpga_coreclk);		//wait for fpga get the data by delay, 10T should be ok, i use 20T for better margin, TODO use event to snyc it or support pipeline test
-				if (soc_to_fpga_mailbox_write_addr_expect_value !== soc_to_fpga_mailbox_write_addr_captured) 
+				if (soc_to_fpga_mailbox_write_addr_expect_value !== soc_to_fpga_mailbox_write_addr_captured) begin
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] soc_to_fpga_mailbox_write_addr_expect_value=%x, soc_to_fpga_mailbox_write_addr_captured=%x", soc_to_fpga_mailbox_write_addr_expect_value, soc_to_fpga_mailbox_write_addr_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=%x, soc_to_fpga_mailbox_write_addr_captured=%x", soc_to_fpga_mailbox_write_addr_expect_value, soc_to_fpga_mailbox_write_addr_captured);
-				if (soc_to_fpga_mailbox_write_data_expect_value !== soc_to_fpga_mailbox_write_data_captured) 
+				if (soc_to_fpga_mailbox_write_data_expect_value !== soc_to_fpga_mailbox_write_data_captured) begin
 					$display($time, "=> test005_aa_mailbox_soc_cfg [ERROR] soc_to_fpga_mailbox_write_data_expect_value=%x, soc_to_fpga_mailbox_write_data_captured=%x", soc_to_fpga_mailbox_write_data_expect_value, soc_to_fpga_mailbox_write_data_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=%x, soc_to_fpga_mailbox_write_data_captured=%x", soc_to_fpga_mailbox_write_data_expect_value, soc_to_fpga_mailbox_write_data_captured);
 				$display("-----------------");
@@ -501,8 +522,10 @@ FSIC #(
 			cfg_read_data_expect_value = 	32'h1;	
 			soc_aa_cfg_write(AA_Internal_Reg_Offset, 4'b1111, cfg_read_data_expect_value);				
 			soc_aa_cfg_read(AA_Internal_Reg_Offset, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test001_aa_internal_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+				end	
 			else
 				$display($time, "=> test001_aa_internal_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
@@ -510,8 +533,10 @@ FSIC #(
 			cfg_read_data_expect_value = 	32'h0;	
 			soc_aa_cfg_write(AA_Internal_Reg_Offset + 4, 4'b1111, cfg_read_data_expect_value);				
 			soc_aa_cfg_read(AA_Internal_Reg_Offset + 4, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test001_aa_internal_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+				end	
 			else
 				$display($time, "=> test001_aa_internal_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
@@ -534,8 +559,10 @@ FSIC #(
 				cfg_read_data_expect_value = 	32'ha5a5_a5a5;	
 				soc_aa_cfg_write(AA_Internal_Reg_Offset + i, 4'b1111, cfg_read_data_expect_value);				
 				soc_aa_cfg_read(AA_Internal_Reg_Offset + i, 4'b1111);
-				if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+				if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 					$display($time, "=> test001_aa_internal_soc_cfg_full_range [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+					error_cnt = error_cnt + 1;
+				end	
 				else
 					$display($time, "=> test001_aa_internal_soc_cfg_full_range [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 				$display("-----------------");
@@ -945,8 +972,10 @@ FSIC #(
 			$display($time, "=> test006_fpga_to_soc_cfg_write - for AA_Internal_Reg default value check");
 			cfg_read_data_expect_value = 	32'h0;			//default value after reset = 0
 			soc_aa_cfg_read(AA_Internal_Reg_Offset, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test006_fpga_to_soc_cfg_write [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
 			else
 				$display($time, "=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
@@ -961,8 +990,10 @@ FSIC #(
 			//fpga_is_as_data_valid();
 
 			soc_aa_cfg_read(AA_Internal_Reg_Offset, 4'b1111);
-			if (cfg_read_data_captured !== cfg_read_data_expect_value) 
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
 				$display($time, "=> test006_fpga_to_soc_cfg_write [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
 			else
 				$display($time, "=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
 			$display("-----------------");
