@@ -196,10 +196,10 @@ FSIC #(
 		.pCLK_RATIO(pCLK_RATIO)
 	)
 	dut (
-		.serial_tclk(soc_txclk),
-		.serial_rclk(fpga_txclk),
-		.serial_txd(soc_serial_txd),
-		.serial_rxd(fpga_serial_txd),
+		//.serial_tclk(soc_txclk),
+		//.serial_rclk(fpga_txclk),
+		//.serial_txd(soc_serial_txd),
+		//.serial_rxd(fpga_serial_txd),
 		.wb_rst(wb_rst),
 		.wb_clk(wb_clk),
 		.wbs_adr(wbs_adr),
@@ -234,8 +234,8 @@ FSIC #(
 	fpga_fsic(
 		.axis_rst_n(~fpga_rst),
 		.axi_reset_n(~fpga_rst),
-		.serial_tclk(fpga_txclk),
-		.serial_rclk(soc_txclk),
+		//.serial_tclk(fpga_txclk),
+		//.serial_rclk(soc_txclk),
 		.ioclk(ioclk),
 		.axis_clk(fpga_coreclk),
 		.axi_clk(fpga_coreclk),
@@ -272,8 +272,8 @@ FSIC #(
 		.as_is_tvalid(fpga_as_is_tvalid),
 		.as_is_tuser(fpga_as_is_tuser),
 		.as_is_tready(fpga_as_is_tready),
-		.serial_txd(fpga_serial_txd),
-		.serial_rxd(soc_serial_txd),
+		//.serial_txd(fpga_serial_txd),
+		//.serial_rxd(soc_serial_txd),
 		.is_as_tdata(fpga_is_as_tdata),
 		.is_as_tstrb(fpga_is_as_tstrb),
 		.is_as_tkeep(fpga_is_as_tkeep),
@@ -1293,8 +1293,21 @@ FSIC #(
 
 // soc_axis_loopback
 initial begin
+	connect_fpga_soc_serdes();
 	soc_axis_loopback();
 end
+
+	task connect_fpga_soc_serdes;
+		begin
+			$display($time, "=> connect_fpga_soc_serdes connect serdes tx/rx");
+			force fpga_fsic.serial_rclk = dut.serial_tclk;
+			force dut.serial_rclk = fpga_fsic.serial_tclk;
+
+			force fpga_fsic.serial_rxd = dut.serial_txd;
+			force dut.serial_rxd = fpga_fsic.serial_txd;
+		end
+	endtask
+
 
 	task soc_axis_loopback;
 		//input [31:0] data;

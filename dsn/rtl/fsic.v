@@ -11,12 +11,12 @@ module FSIC #(
 		parameter pRxFIFO_DEPTH = 5,
 		parameter pCLK_RATIO =4
 	) (
-		output wire		  serial_tclk,
-		output wire  [pSERIALIO_WIDTH-1: 0] serial_txd,
+		//output wire		  serial_tclk,
+		//output wire  [pSERIALIO_WIDTH-1: 0] serial_txd,
 
 		//Rx path
-		input  wire		  serial_rclk,
-		input  wire  [pSERIALIO_WIDTH-1: 0] serial_rxd,
+		//input  wire		  serial_rclk,
+		//input  wire  [pSERIALIO_WIDTH-1: 0] serial_rxd,
 
 //  input  wire           ioclk,
   input  wire           wb_rst,
@@ -133,8 +133,8 @@ wire           as_is_tvalid;
 wire    [1: 0] as_is_tuser;
 wire           as_is_tready;
 wire           ioclk;
-//wire   [11: 0] serial_rxd;
-//wire           serial_rclk;
+wire   [11: 0] serial_rxd;
+wire           serial_rclk;
 wire           cc_la_enable;
 wire           as_la_tready_m_tready;
 wire   [63: 0] up_la_data;
@@ -150,8 +150,8 @@ wire           as_up_tready_m_tready;
 wire   [63: 0] la_up_data;
 wire           mb_irq;
 wire           low__pri_irq;
-//wire   [11: 0] serial_txd;
-//wire           serial_tclk;
+wire   [11: 0] serial_txd;
+wire           serial_tclk;
 wire           axi_clk;
 wire           axi_reset_n;
 wire           axis_clk;
