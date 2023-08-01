@@ -44,6 +44,18 @@ module tb_fsic #( parameter BITS=32,
 		localparam AA_MailBox_Reg_Offset=12'h000;
 		localparam AA_Internal_Reg_Offset=12'h100;
 		
+		localparam TUSER_AXIS = 2'b00;
+		localparam TUSER_AXILITE_WRITE = 2'b01;
+		localparam TUSER_AXILITE_READ_REQ = 2'b10;
+		localparam TUSER_AXILITE_READ_CPL = 2'b11;
+
+		localparam TID_DN_UP = 2'b00;
+		localparam TID_DN_AA = 2'b01;
+		localparam TID_UP_UP = 2'b00;
+		localparam TID_UP_AA = 2'b01;
+		localparam TID_UP_LA = 2'b10;
+		
+		
     real ioclk_pd = IOCLK_Period;
 
   wire 			ioclk;	
@@ -787,10 +799,10 @@ FSIC #(
 	end
 
 
-	initial begin		//get soc_to_fpga_mailbox_write
+	initial begin		//get upstream soc_to_fpga_mailbox_write to AA
 		while (1) begin
 			@(posedge fpga_coreclk);
-			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == 3'b001 && fpga_is_as_tuser == 3'b01 && fpga_is_as_tlast == 0) begin
+			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_AA && fpga_is_as_tuser == TUSER_AXILITE_WRITE && fpga_is_as_tlast == 0) begin
 				$display($time, "=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
 				soc_to_fpga_mailbox_write_addr_captured = fpga_is_as_tdata ;		//use non block assignment
 				$display($time, "=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
@@ -873,8 +885,8 @@ FSIC #(
 			//$strobe($time, "=> fpga_as_is_tdata in address phase = %x", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
-			fpga_as_is_tuser <=  2'b01;		//for axilite write
+			fpga_as_is_tid <=  TID_DN_AA ;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  TUSER_AXILITE_WRITE;		//for axilite write
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
 
@@ -886,8 +898,8 @@ FSIC #(
 			fpga_as_is_tdata <=  data;	//for axilite write data phase
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
-			fpga_as_is_tuser <=  2'b01;		//for axilite write
+			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  TUSER_AXILITE_WRITE;		//for axilite write
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
 
@@ -954,8 +966,8 @@ FSIC #(
 			fpga_as_is_tdata <=  32'h0;
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b00;
-			fpga_as_is_tuser <=  2'b00;
+			fpga_as_is_tid <=  TID_DN_UP;
+			fpga_as_is_tuser <=  TUSER_AXIS;
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 0;
 			fpga_as_is_tready <= 1;
@@ -994,8 +1006,8 @@ FSIC #(
 			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x - tvalid", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
-			fpga_as_is_tuser <=  2'b10;		//for axilite read req
+			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  TUSER_AXILITE_READ_REQ;		//for axilite read req
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
 
@@ -1082,7 +1094,7 @@ FSIC #(
 			fpga_as_is_tready <= 1;
 			
 			for(idx3=0; idx3<32; idx3=idx3+1)begin		//
-				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), 2'b00);		//target to User Project
+				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP);		//target to User Project
 				//if (idx3 > 12 ) 			force dut.AXIS_SW0.up_as_tready = 1;
 			end
 			release dut.AXIS_SW0.up_as_tready;
@@ -1100,7 +1112,7 @@ FSIC #(
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  tid;		//set target
-			fpga_as_is_tuser <=  2'b00;		//for axis req
+			fpga_as_is_tuser <=  TUSER_AXIS;		//for axis req
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
 
@@ -1213,8 +1225,8 @@ FSIC #(
 			$strobe($time, "=> fpga_axilite_write_req in address phase = %x - tvalid", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
-			fpga_as_is_tuser <=  2'b01;		//for axilite write req
+			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  TUSER_AXILITE_WRITE;		//for axilite write req
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
 
@@ -1228,8 +1240,8 @@ FSIC #(
 			$strobe($time, "=> fpga_axilite_write_req in data phase = %x - tvalid", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
-			fpga_as_is_tid <=  2'b01;		//target to Axis-Axilite
-			fpga_as_is_tuser <=  2'b01;		//for axilite write req
+			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
+			fpga_as_is_tuser <=  TUSER_AXILITE_WRITE;		//for axilite write req
 			fpga_as_is_tlast <=  1'b1;		//tlast = 1
 			fpga_as_is_tvalid <= 1;
 
