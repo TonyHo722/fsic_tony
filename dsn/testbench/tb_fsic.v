@@ -92,6 +92,9 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_mailbox_write_addr_captured;
 	reg [31:0] soc_to_fpga_mailbox_write_data_captured;
 
+	reg [31:0] soc_to_fpga_axilite_read_cpl_captured;
+	event soc_to_fpga_axilite_read_cpl_event;
+
 	reg [31:0] error_cnt;
 //-------------------------------------------------------------------------------------	
 	//reg soc_rst;
@@ -304,7 +307,7 @@ FSIC #(
         
 		test001();	//soc cfg write/read test
 		test002();	//test002_fpga_axis_req
-		test003();	//test003_fpga_to_soc_cfg_read
+		//test003();	//test003_fpga_to_soc_cfg_read
 		test004();	//test004_fpga_to_soc_mail_box_write
 		test005();	//test005_aa_mailbox_soc_cfg
 		test006();	//test006_fpga_to_soc_cfg_write
@@ -815,6 +818,19 @@ FSIC #(
 	end
 
 
+	initial begin		//get upstream soc_to_fpga_axilite_read_completion
+		while (1) begin
+			@(posedge fpga_coreclk);
+			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_AA && fpga_is_as_tuser == TUSER_AXILITE_READ_CPL) begin
+				$display($time, "=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_axilite_read_cpl_captured, fpga_is_as_tdata);
+				soc_to_fpga_axilite_read_cpl_captured = fpga_is_as_tdata ;		//use non block assignment
+				$display($time, "=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_axilite_read_cpl_captured, fpga_is_as_tdata);
+				-> soc_to_fpga_axilite_read_cpl_event;
+			end	
+		end
+	end
+
+
 	task test004;
 		//input [7:0] compare_data;
 
@@ -991,7 +1007,10 @@ FSIC #(
 				fpga_axilite_read_req(FPGA_to_SOC_IS_BASE + idx2*4);
 					//read address = h0000_3000 ~ h0000_301F for io serdes
 				//step 2. fpga wait for read completion from soc
-				repeat(100) @ (posedge soc_coreclk);    //TODO wait for read competion to replace the delay	
+				@(soc_to_fpga_axilite_read_cpl_event);
+				$display($time, "=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=%x", soc_to_fpga_axilite_read_cpl_captured);
+				//repeat(100) @ (posedge soc_coreclk);    //TODO wait for read competion to replace the delay	
+				
 				//fpga_is_as_data_valid();
 			end
 			$display($time, "=> test003_fpga_to_soc_cfg_read done");
