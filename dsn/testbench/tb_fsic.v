@@ -483,6 +483,9 @@ FSIC #(
 			soc_apply_reset(40,40);
 			fpga_apply_reset(40,40);
 
+            soc_up_cfg_write(0, 4'b1111, 32'ha5a5a5a5);
+            soc_up_cfg_read( 0, 4'b1111);    
+
 			test001_is_soc_cfg();
 			test001_aa_internal_soc_cfg();
 			//test001_aa_internal_soc_cfg_full_range();
@@ -1380,6 +1383,31 @@ end
 			#1;		//add delay to make sure cfg_read_data_captured get the correct data 
 		end
 	endtask
+	
+	task soc_up_cfg_write;
+		input [11:0] offset;		//4K range
+		input [3:0] sel;
+		input [31:0] data;
+		
+		begin
+			@ (posedge soc_coreclk);		
+			wbs_adr <= UP_BASE;
+			wbs_adr[11:2] <= offset[11:2];	//only provide DW address 
+			
+			wbs_wdata <= data;
+			wbs_sel <= sel;
+			wbs_cyc <= 1'b1;
+			wbs_stb <= 1'b1;
+			wbs_we <= 1'b1;	
+			
+			@(posedge soc_coreclk);
+			while(wbs_ack==0) begin
+				@(posedge soc_coreclk);
+			end
+
+			$display($time, "=> soc_up_cfg_write : wbs_adr=%x, wbs_sel=%b, wbs_wdata=%x", wbs_adr, wbs_sel, wbs_wdata); 
+		end
+	endtask	
 
 	task soc_up_cfg_read;
 		input [11:0] offset;		//4K range
