@@ -483,12 +483,11 @@ FSIC #(
 			soc_apply_reset(40,40);
 			fpga_apply_reset(40,40);
 
-            soc_up_cfg_write(0, 4'b1111, 32'ha5a5a5a5);
-            soc_up_cfg_read( 0, 4'b1111);    
 
 			test001_is_soc_cfg();
 			test001_aa_internal_soc_cfg();
 			//test001_aa_internal_soc_cfg_full_range();
+			test001_up_soc_cfg();
 		end
 	endtask
 
@@ -566,6 +565,38 @@ FSIC #(
 		end
 	endtask
 
+	task test001_up_soc_cfg;
+		begin
+			//Test offset 0x00 for user project
+			$display("test001_up_soc_cfg: soc cfg read/write test");
+
+			cfg_read_data_expect_value = 32'ha5a5a5a5;	
+			soc_up_cfg_write(0, 4'b1111, cfg_read_data_expect_value);
+			soc_up_cfg_read(0, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
+				$display($time, "=> test001_up_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
+			else
+				$display($time, "=> test001_up_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			$display("-----------------");
+
+			cfg_read_data_expect_value = $random;	
+			soc_up_cfg_write(0, 4'b1111, cfg_read_data_expect_value);
+			soc_up_cfg_read(0, 4'b1111);
+			if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
+				$display($time, "=> test001_up_soc_cfg [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+				error_cnt = error_cnt + 1;
+			end	
+			else
+				$display($time, "=> test001_up_soc_cfg [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			$display("-----------------");
+			$display("test001_up_soc_cfg: soc cfg read/write test - end");
+			$display("--------------------------------------------------------------------");
+
+			#100;
+		end
+	endtask
 
 
 	task test005_aa_mailbox_soc_cfg;
@@ -1429,6 +1460,8 @@ end
 			end
 			
 			$display($time, "=> soc_up_cfg_read : wbs_adr=%x, wbs_sel=%b", wbs_adr, wbs_sel); 
+			#1;		//add delay to make sure cfg_read_data_captured get the correct data 
+			
 		end
 	endtask
 
