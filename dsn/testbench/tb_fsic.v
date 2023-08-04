@@ -310,7 +310,7 @@ FSIC #(
         
 		test001();	//soc cfg write/read test
 		test002();	//test002_fpga_axis_req
-		//test003();	//test003_fpga_to_soc_cfg_read
+		test003();	//test003_fpga_to_soc_cfg_read
 		test004();	//test004_fpga_to_soc_mail_box_write
 		test005();	//test005_aa_mailbox_soc_cfg
 		test006();	//test006_fpga_to_soc_cfg_write
