@@ -18,7 +18,9 @@
 // Additional Comments:
 // 
 //////////////////////////////////////////////////////////////////////////////////
-
+//20230804 1. use #0 for create event to avoid potencial race condition. I didn't found issue right now, just update the code to improve it.
+//	reference https://blog.csdn.net/seabeam/article/details/41078023, the source is come from http://www.deepchip.com/items/0466-07.html
+//	 Not using #0 is a good guideline, except for event data types.  In Verilog, there is no way to defer the event triggering to the nonblocking event queue.
 
 module tb_fsic #( parameter BITS=32,
 		parameter pSERIALIO_WIDTH   = 12,
@@ -807,7 +809,7 @@ FSIC #(
 				//$display($time, "=> get wishbone read data result be : cfg_read_data_captured =%x, wbs_rdata=%x", cfg_read_data_captured, wbs_rdata);
 				cfg_read_data_captured = wbs_rdata ;		//use block assignment
 				//$display($time, "=> get wishbone read data result af : cfg_read_data_captured =%x, wbs_rdata=%x", cfg_read_data_captured, wbs_rdata);
-				-> soc_cfg_read_event;
+				#0 -> soc_cfg_read_event;
 				$display($time, "=> soc wishbone read data result : send soc_cfg_read_event"); 
 			end	
 		end
@@ -825,7 +827,7 @@ FSIC #(
 				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
 				soc_to_fpga_mailbox_write_data_captured = fpga_is_as_tdata ;		//use block assignment
 				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
-				-> soc_to_fpga_mailbox_write_event;
+				#0 -> soc_to_fpga_mailbox_write_event;
 				$display($time, "=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event");
 
 			end	
@@ -840,7 +842,7 @@ FSIC #(
 				$display($time, "=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_axilite_read_cpl_captured, fpga_is_as_tdata);
 				soc_to_fpga_axilite_read_cpl_captured = fpga_is_as_tdata ;		//use block assignment
 				$display($time, "=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_axilite_read_cpl_captured, fpga_is_as_tdata);
-				-> soc_to_fpga_axilite_read_cpl_event;
+				#0 -> soc_to_fpga_axilite_read_cpl_event;
 				$display($time, "=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event");
 			end	
 		end
@@ -1023,6 +1025,7 @@ FSIC #(
 				fpga_axilite_read_req(FPGA_to_SOC_IS_BASE + idx2*4);
 					//read address = h0000_3000 ~ h0000_301F for io serdes
 				//step 2. fpga wait for read completion from soc
+				$display($time, "=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event");
 				@(soc_to_fpga_axilite_read_cpl_event);		//wait for fpga get the read cpl.
 				$display($time, "=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event");
 
