@@ -1017,7 +1017,7 @@ FSIC #(
 		//FPGA to SOC Axilite test
 		begin
 
-			@ (posedge soc_coreclk);
+			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
 			for(idx2=0; idx2<32/4; idx2=idx2+1)begin		//
@@ -1231,6 +1231,7 @@ FSIC #(
 
 
 			//step 2. fpga issue fpga to soc cfg write request
+			@ (posedge fpga_coreclk);
 			cfg_read_data_expect_value = 	32'h1;	
 			fpga_axilite_write_req(FPGA_to_SOC_AA_BASE + AA_Internal_Reg_Offset , 4'b0001, cfg_read_data_expect_value);
 				//write address = h0000_2100 ~ h0000_2FFF for AA internal register
