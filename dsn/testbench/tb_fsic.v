@@ -473,7 +473,7 @@ FSIC #(
 
 		//FPGA to SOC Axilite test
 		begin
-			@ (posedge soc_coreclk);
+			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
             fpga_axilite_write(FPGA_to_SOC_AA_BASE + AA_MailBox_Reg_Offset, 4'b1111, 32'h11111111);
@@ -896,7 +896,7 @@ FSIC #(
 
 		//FPGA to SOC Axilite test
 		begin
-			@ (posedge soc_coreclk);
+			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
 			for(idx1=0; idx1<32'h20/4; idx1=idx1+1)begin		//
@@ -1127,7 +1127,7 @@ FSIC #(
 			//force User project up_as_tready = 1;
 			force dut.AXIS_SW0.up_as_tready = 1;
 
-			@ (posedge soc_coreclk);
+			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
 			for(idx3=0; idx3<32; idx3=idx3+1)begin		//
@@ -1214,7 +1214,7 @@ FSIC #(
 		//FPGA to SOC Axilite test
 		begin
 
-			@ (posedge soc_coreclk);
+			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
 			//step 1. check default value
