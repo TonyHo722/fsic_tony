@@ -97,6 +97,7 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_mailbox_write_data_captured;
 	event soc_to_fpga_mailbox_write_event;
 
+	reg [31:0] soc_to_fpga_axilite_read_cpl_expect_value;
 	reg [31:0] soc_to_fpga_axilite_read_cpl_captured;
 	event soc_to_fpga_axilite_read_cpl_event;
 
@@ -1022,6 +1023,7 @@ FSIC #(
 			
 			for(idx2=0; idx2<32/4; idx2=idx2+1)begin		//
 				//step 1. fpga issue cfg read request to soc
+				soc_to_fpga_axilite_read_cpl_expect_value = 32'h3;
 				fpga_axilite_read_req(FPGA_to_SOC_IS_BASE + idx2*4);
 					//read address = h0000_3000 ~ h0000_301F for io serdes
 				//step 2. fpga wait for read completion from soc
@@ -1030,6 +1032,14 @@ FSIC #(
 				$display($time, "=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event");
 
 				$display($time, "=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=%x", soc_to_fpga_axilite_read_cpl_captured);
+				//Data part
+				if ( soc_to_fpga_axilite_read_cpl_expect_value !== soc_to_fpga_axilite_read_cpl_captured) begin
+					$display($time, "=> test003_fpga_to_soc_cfg_read [ERROR] soc_to_fpga_axilite_read_cpl_expect_value=%x, soc_to_fpga_axilite_read_cpl_captured[27:0]=%x", soc_to_fpga_axilite_read_cpl_expect_value, soc_to_fpga_axilite_read_cpl_captured[27:0]);
+					error_cnt = error_cnt + 1;
+				end	
+				else
+					$display($time, "=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=%x, soc_to_fpga_axilite_read_cpl_captured[27:0]=%x", soc_to_fpga_axilite_read_cpl_expect_value, soc_to_fpga_axilite_read_cpl_captured[27:0]);
+				
 			end
 			$display($time, "=> test003_fpga_to_soc_cfg_read done");
 		end
@@ -1563,3 +1573,4 @@ end
 	endtask
 
 endmodule
+
