@@ -6,7 +6,6 @@
 module FSIC_CLKRST (
   input  wire  [4: 0] user_prj_sel,
   input  wire         mb_irq,
-  input  wire         user_prj_irq,
   input  wire         wb_rst,
   input  wire         wb_clk,
   output wire  [2: 0] user_irq,
@@ -17,17 +16,19 @@ module FSIC_CLKRST (
   input  wire         user_clock2,
   output wire         uck2_rst_n,
 
-  input  wire         axi_clk,
+  output  wire         axi_clk,
   output wire         axi_reset_n,
 
-  input  wire         axis_clk,
+  output  wire         axis_clk,
   output wire         axis_rst_n,
 
+  input  wire         io_clk,
   output wire         ioclk
 );
 
 
-
+  assign axi_clk = wb_clk;
+  assign axis_clk = wb_clk;  
 
 // ----------------------------------------------------------
 // AXI-Lite
@@ -67,9 +68,9 @@ assign uck2_rst_n = uck2_rst_nr[2];
 
 // ----------------------------------------------------------
 // IRQ
-assign user_irq[0] = user_prj_irq;
-assign user_irq[1] = mb_irq;
-assign user_irq[2] = 1'b0;           // TBD
+assign user_irq[2] = high_pri_irq;
+assign user_irq[1] = low__pri_irq;
+assign user_irq[0] = mb_irq;
 
 
 // ----------------------------------------------------------
@@ -85,7 +86,8 @@ always @(posedge user_clock2 or negedge uck2_rst_n)
     div2_clk <= ~div2_clk; 
 */
 
-
-assign ioclk = user_clock2;
+// TBD
+assign ioclk = io_clk;
 
 endmodule // FSIC_CLKRST
+
