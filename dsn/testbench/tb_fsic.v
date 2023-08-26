@@ -60,7 +60,6 @@ module tb_fsic #( parameter BITS=32,
 		
     real ioclk_pd = IOCLK_Period;
 
-  wire 			ioclk;	
   wire           wb_rst;
   wire           wb_clk;
   reg   [31: 0] wbs_adr;
@@ -71,15 +70,21 @@ module tb_fsic #( parameter BITS=32,
   reg           wbs_we;
   reg  [127: 0] la_data_in;
   reg  [127: 0] la_oenb;
-  reg   [37: 0] io_in;
+  wire   [37: 0] io_in;
   reg           vccd1;
   reg           vccd2;
   reg           vssd1;
   reg           vssd2;
   reg           user_clock2;
+  reg           ioclk_source;
+	
+	wire  [37: 0] io_oeb;	
+	wire  [37: 0] io_out;	
 	
 	wire soc_coreclk;
 	wire fpga_coreclk;
+	
+	wire [37:0] mprj_io;
 
 	
 //-------------------------------------------------------------------------------------
@@ -181,13 +186,13 @@ module tb_fsic #( parameter BITS=32,
 //-------------------------------------------------------------------------------------	
 	fsic_clock_div soc_clock_div (
 	.resetb(soc_resetb),
-	.in(ioclk),
+	.in(ioclk_source),
 	.out(soc_coreclk)
 	);
 
 	fsic_clock_div fpga_clock_div (
 	.resetb(fpga_resetb),
-	.in(ioclk),
+	.in(ioclk_source),
 	.out(fpga_coreclk)
 	);
 
@@ -239,7 +244,7 @@ FSIC #(
 		.axi_reset_n(~fpga_rst),
 		//.serial_tclk(fpga_txclk),
 		//.serial_rclk(soc_txclk),
-		.ioclk(ioclk),
+		.ioclk(ioclk_source),
 		.axis_clk(fpga_coreclk),
 		.axi_clk(fpga_coreclk),
 		
@@ -289,11 +294,26 @@ FSIC #(
 
 	assign wb_clk = soc_coreclk;
 	assign wb_rst = ~soc_resetb;		//wb_rst is high active
-	assign ioclk = user_clock2;
+	//assign ioclk = ioclk_source;
 	
+    assign mprj_io[37] = ioclk_source;
+    assign mprj_io[20] = fpga_txclk;
+    assign mprj_io[19:8] = fpga_serial_txd;
 
+    assign soc_txclk = mprj_io[33];
+    assign soc_serial_txd = mprj_io[32:21];
+
+	//connect input part : mprj_io to io_in
+	assign io_in[37] = mprj_io[37];
+	assign io_in[20] = mprj_io[20];
+	assign io_in[19:8] = mprj_io[19:8];
+
+	//connect output part : io_out to mprj_io
+	assign mprj_io[33] = io_out[33];
+	assign mprj_io[32:21] = io_out[32:21];
 	
     initial begin
+		ioclk_source=0;
         soc_resetb = 0;
 		wbs_adr = 0;
 		wbs_wdata = 0;
@@ -303,7 +323,6 @@ FSIC #(
 		wbs_we = 0;
 		la_data_in = 0;
 		la_oenb = 0;
-		io_in = 0;
 		vccd1 = 1;
 		vccd2 = 1;
 		vssd1 = 1;
@@ -358,8 +377,7 @@ FSIC #(
 		end
 	end    
 	
-	always #(ioclk_pd/2) user_clock2 = ~user_clock2;
-
+	always #(ioclk_pd/2) ioclk_source = ~ioclk_source;
 //Willy debug - s
 
 	task test007;
@@ -1307,10 +1325,11 @@ FSIC #(
 
 // soc_axis_loopback
 initial begin
-	connect_fpga_soc_serdes();
+	//connect_fpga_soc_serdes();
 	soc_axis_loopback();
 end
 
+/*
 	task connect_fpga_soc_serdes;
 		begin
 			$display($time, "=> connect_fpga_soc_serdes connect serdes tx/rx");
@@ -1321,7 +1340,7 @@ end
 			force dut.serial_rxd = fpga_fsic.serial_txd;
 		end
 	endtask
-
+*/
 
 	task soc_axis_loopback;
 		//input [31:0] data;
@@ -1573,4 +1592,5 @@ end
 	endtask
 
 endmodule
+
 
