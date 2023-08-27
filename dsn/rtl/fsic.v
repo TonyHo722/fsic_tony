@@ -44,7 +44,7 @@ module FSIC #(
 );
 
 wire           io_clk;
-
+wire 		   uck2_rst_n;
 wire           m_awvalid_aa_cfg_awvalid;
 wire   [31: 0] m_awaddr_aa_cfg_awaddr;
 wire           m_wvalid_aa_cfg_wvalid;
@@ -226,6 +226,7 @@ CFG_CTRL #(.pADDR_WIDTH( pADDR_WIDTH ),
                                             .wbs_ack        (wbs_ack),                 // O  
                                             .wbs_rdata      (wbs_rdata),               // O  32
                                             .user_clock2    (user_clock2),             // I  
+                                            .uck2_rst_n     (uck2_rst_n),              // I 
                                             .axi_clk        (axi_clk),                 // I  
                                             .axi_reset_n    (axi_reset_n)              // I  
                                            );
@@ -493,6 +494,7 @@ USER_SUBSYS #(.pADDR_WIDTH( pADDR_WIDTH ),
                                                   .la_up_data   (la_up_data),              // I  64
                                                   .low__pri_irq (low__pri_irq),            // O  
                                                   .user_clock2  (user_clock2),             // I  
+                                                  .uck2_rst_n   (uck2_rst_n),              // I  
                                                   .axi_clk      (axi_clk),                 // I  
                                                   .axi_reset_n  (axi_reset_n),             // I  
                                                   .axis_clk     (axis_clk),                // I  
@@ -517,6 +519,7 @@ FSIC_CLKRST  U_FSIC_CLKRST0 (
                              .wb_clk       (wb_clk),                  // I  
                              .user_irq     (user_irq),                // O  3
                              .user_clock2  (user_clock2),             // I  
+                             .uck2_rst_n   (uck2_rst_n),              // O
                              .axi_clk      (axi_clk),                 // O  
                              .axi_reset_n  (axi_reset_n),             // O  
                              .axis_clk     (axis_clk),                // O  
@@ -545,6 +548,8 @@ MPRJ_IO #(.pADDR_WIDTH( pADDR_WIDTH ),
                                           .io_out       (io_out),                  // O  38
                                           .io_oeb       (io_oeb),                  // O  38
                                           .io_clk       (io_clk),                  // O  
+                                          .user_clock2  (user_clock2),             // I  
+                                          .uck2_rst_n   (uck2_rst_n),              // I
                                           .axi_clk      (axi_clk),                 // I  
                                           .axi_reset_n  (axi_reset_n),             // I  
                                           .axis_clk     (axis_clk),                // I  
@@ -555,3 +560,4 @@ MPRJ_IO #(.pADDR_WIDTH( pADDR_WIDTH ),
 
 
 endmodule // FSIC
+
