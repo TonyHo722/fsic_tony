@@ -1,0 +1,1872 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_fsic_xelab.wdb" id="1">
+         <top_modules>
+            <top_module name="tb_fsic" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="17,239.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="17,992.001 ns"></ZoomEndTime>
+      <Cursor1Time time="17,485.000 ns"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="112"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wave_markers>
+      <marker label="" time="17485000" />
+   </wave_markers>
+   <wvobject type="group" fp_name="group301">
+      <obj_property name="label">FPGA to SOC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="group" fp_name="group205">
+         <obj_property name="label">FPGA AS to IS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tvalid">
+            <obj_property name="ElementShortName">as_is_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_is_tvalid</obj_property>
+            <obj_property name="CustomSignalColor">#FF0000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tready">
+            <obj_property name="ElementShortName">is_as_tready</obj_property>
+            <obj_property name="ObjectShortName">is_as_tready</obj_property>
+            <obj_property name="CustomSignalColor">#FF0000</obj_property>
+            <obj_property name="UseCustomSignalColor">true</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tdata">
+            <obj_property name="ElementShortName">as_is_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tstrb">
+            <obj_property name="ElementShortName">as_is_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tkeep">
+            <obj_property name="ElementShortName">as_is_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tlast">
+            <obj_property name="ElementShortName">as_is_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_is_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tid">
+            <obj_property name="ElementShortName">as_is_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="group" fp_name="group208">
+            <obj_property name="label">FLOW COONTROL</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tuser">
+               <obj_property name="ElementShortName">as_is_tuser[1:0]</obj_property>
+               <obj_property name="ObjectShortName">as_is_tuser[1:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tready">
+            <obj_property name="ElementShortName">as_is_tready</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group430">
+         <obj_property name="label">FPGA U IS txen rxen</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxen_ctl">
+            <obj_property name="ElementShortName">rxen_ctl</obj_property>
+            <obj_property name="ObjectShortName">rxen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rx_received_data">
+            <obj_property name="ElementShortName">rx_received_data</obj_property>
+            <obj_property name="ObjectShortName">rx_received_data</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txen_ctl">
+            <obj_property name="ElementShortName">txen_ctl</obj_property>
+            <obj_property name="ObjectShortName">txen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txen">
+            <obj_property name="ElementShortName">txen</obj_property>
+            <obj_property name="ObjectShortName">txen</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group160">
+         <obj_property name="label">mprj_io</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/wb_rst">
+            <obj_property name="ElementShortName">wb_rst</obj_property>
+            <obj_property name="ObjectShortName">wb_rst</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/mprj_io">
+            <obj_property name="ElementShortName">mprj_io[37:0]</obj_property>
+            <obj_property name="ObjectShortName">mprj_io[37:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group327">
+         <obj_property name="label">SOC IS txen rxen</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxen_ctl">
+            <obj_property name="ElementShortName">rxen_ctl</obj_property>
+            <obj_property name="ObjectShortName">rxen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rx_received_data">
+            <obj_property name="ElementShortName">rx_received_data</obj_property>
+            <obj_property name="ObjectShortName">rx_received_data</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txen">
+            <obj_property name="ElementShortName">txen</obj_property>
+            <obj_property name="ObjectShortName">txen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txen_ctl">
+            <obj_property name="ElementShortName">txen_ctl</obj_property>
+            <obj_property name="ObjectShortName">txen_ctl</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group490">
+         <obj_property name="label">U_MPRJ_IO</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/serial_rxd">
+            <obj_property name="ElementShortName">serial_rxd[11:0]</obj_property>
+            <obj_property name="ObjectShortName">serial_rxd[11:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/serial_rclk">
+            <obj_property name="ElementShortName">serial_rclk</obj_property>
+            <obj_property name="ObjectShortName">serial_rclk</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/user_prj_sel">
+            <obj_property name="ElementShortName">user_prj_sel[4:0]</obj_property>
+            <obj_property name="ObjectShortName">user_prj_sel[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/serial_txd">
+            <obj_property name="ElementShortName">serial_txd[11:0]</obj_property>
+            <obj_property name="ObjectShortName">serial_txd[11:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/serial_tclk">
+            <obj_property name="ElementShortName">serial_tclk</obj_property>
+            <obj_property name="ObjectShortName">serial_tclk</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/io_in">
+            <obj_property name="ElementShortName">io_in[37:0]</obj_property>
+            <obj_property name="ObjectShortName">io_in[37:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/vccd1">
+            <obj_property name="ElementShortName">vccd1</obj_property>
+            <obj_property name="ObjectShortName">vccd1</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/vccd2">
+            <obj_property name="ElementShortName">vccd2</obj_property>
+            <obj_property name="ObjectShortName">vccd2</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/vssd1">
+            <obj_property name="ElementShortName">vssd1</obj_property>
+            <obj_property name="ObjectShortName">vssd1</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/vssd2">
+            <obj_property name="ElementShortName">vssd2</obj_property>
+            <obj_property name="ObjectShortName">vssd2</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/io_out">
+            <obj_property name="ElementShortName">io_out[37:0]</obj_property>
+            <obj_property name="ObjectShortName">io_out[37:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/io_oeb">
+            <obj_property name="ElementShortName">io_oeb[37:0]</obj_property>
+            <obj_property name="ObjectShortName">io_oeb[37:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/io_clk">
+            <obj_property name="ElementShortName">io_clk</obj_property>
+            <obj_property name="ObjectShortName">io_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/axi_clk">
+            <obj_property name="ElementShortName">axi_clk</obj_property>
+            <obj_property name="ObjectShortName">axi_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/axi_reset_n">
+            <obj_property name="ElementShortName">axi_reset_n</obj_property>
+            <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_MPRJ_IO0/axis_rst_n">
+            <obj_property name="ElementShortName">axis_rst_n</obj_property>
+            <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/pADDR_WIDTH">
+            <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/pDATA_WIDTH">
+            <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group441">
+         <obj_property name="label">SOC IS rx_fc</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/axis_rst_n">
+            <obj_property name="ElementShortName">axis_rst_n</obj_property>
+            <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxclk">
+            <obj_property name="ElementShortName">rxclk</obj_property>
+            <obj_property name="ObjectShortName">rxclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/coreclk">
+            <obj_property name="ElementShortName">coreclk</obj_property>
+            <obj_property name="ObjectShortName">coreclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/Serial_Data_in">
+            <obj_property name="ElementShortName">Serial_Data_in</obj_property>
+            <obj_property name="ObjectShortName">Serial_Data_in</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxdata_out">
+            <obj_property name="ElementShortName">rxdata_out[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rxdata_out[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxdata_out_valid">
+            <obj_property name="ElementShortName">rxdata_out_valid</obj_property>
+            <obj_property name="ObjectShortName">rxdata_out_valid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr">
+            <obj_property name="ElementShortName">w_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">w_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_pre">
+            <obj_property name="ElementShortName">w_ptr_pre</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_pre</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_sync">
+            <obj_property name="ElementShortName">w_ptr_sync</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_sync</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_reg_valid">
+            <obj_property name="ElementShortName">rx_shift_reg_valid</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_reg_valid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_graycode_bit0">
+            <obj_property name="ElementShortName">w_ptr_graycode_bit0</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_graycode_bit0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/RxFifo">
+            <obj_property name="ElementShortName">RxFifo[4:0]</obj_property>
+            <obj_property name="ObjectShortName">RxFifo[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_start">
+            <obj_property name="ElementShortName">rx_start</obj_property>
+            <obj_property name="ObjectShortName">rx_start</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/r_ptr">
+            <obj_property name="ElementShortName">r_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">r_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_reg">
+            <obj_property name="ElementShortName">rx_shift_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_reg[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_phase_cnt">
+            <obj_property name="ElementShortName">rx_shift_phase_cnt[1:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_phase_cnt[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_start_delay">
+            <obj_property name="ElementShortName">rx_start_delay[2:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_start_delay[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_sync_fifo">
+            <obj_property name="ElementShortName">rx_sync_fifo[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_sync_fifo[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_sync_fifo_valid">
+            <obj_property name="ElementShortName">rx_sync_fifo_valid</obj_property>
+            <obj_property name="ObjectShortName">rx_sync_fifo_valid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/pRxFIFO_DEPTH">
+            <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/pCLK_RATIO">
+            <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group295">
+         <obj_property name="label">SOC IS to AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group115">
+      <obj_property name="label">tb_fsic</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="other" fp_name="/tb_fsic/ioclk_pd">
+         <obj_property name="ElementShortName">ioclk_pd</obj_property>
+         <obj_property name="ObjectShortName">ioclk_pd</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wb_rst">
+         <obj_property name="ElementShortName">wb_rst</obj_property>
+         <obj_property name="ObjectShortName">wb_rst</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wb_clk">
+         <obj_property name="ElementShortName">wb_clk</obj_property>
+         <obj_property name="ObjectShortName">wb_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_adr">
+         <obj_property name="ElementShortName">wbs_adr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_adr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_wdata">
+         <obj_property name="ElementShortName">wbs_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_sel">
+         <obj_property name="ElementShortName">wbs_sel[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_sel[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_cyc">
+         <obj_property name="ElementShortName">wbs_cyc</obj_property>
+         <obj_property name="ObjectShortName">wbs_cyc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_stb">
+         <obj_property name="ElementShortName">wbs_stb</obj_property>
+         <obj_property name="ObjectShortName">wbs_stb</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_we">
+         <obj_property name="ElementShortName">wbs_we</obj_property>
+         <obj_property name="ObjectShortName">wbs_we</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/la_data_in">
+         <obj_property name="ElementShortName">la_data_in[127:0]</obj_property>
+         <obj_property name="ObjectShortName">la_data_in[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/la_oenb">
+         <obj_property name="ElementShortName">la_oenb[127:0]</obj_property>
+         <obj_property name="ObjectShortName">la_oenb[127:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/io_in">
+         <obj_property name="ElementShortName">io_in[37:0]</obj_property>
+         <obj_property name="ObjectShortName">io_in[37:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/vccd1">
+         <obj_property name="ElementShortName">vccd1</obj_property>
+         <obj_property name="ObjectShortName">vccd1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/vccd2">
+         <obj_property name="ElementShortName">vccd2</obj_property>
+         <obj_property name="ObjectShortName">vccd2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/vssd1">
+         <obj_property name="ElementShortName">vssd1</obj_property>
+         <obj_property name="ObjectShortName">vssd1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/vssd2">
+         <obj_property name="ElementShortName">vssd2</obj_property>
+         <obj_property name="ObjectShortName">vssd2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/user_clock2">
+         <obj_property name="ElementShortName">user_clock2</obj_property>
+         <obj_property name="ObjectShortName">user_clock2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/ioclk_source">
+         <obj_property name="ElementShortName">ioclk_source</obj_property>
+         <obj_property name="ObjectShortName">ioclk_source</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/io_oeb">
+         <obj_property name="ElementShortName">io_oeb[37:0]</obj_property>
+         <obj_property name="ObjectShortName">io_oeb[37:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/io_out">
+         <obj_property name="ElementShortName">io_out[37:0]</obj_property>
+         <obj_property name="ObjectShortName">io_out[37:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/soc_coreclk">
+         <obj_property name="ElementShortName">soc_coreclk</obj_property>
+         <obj_property name="ObjectShortName">soc_coreclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_coreclk">
+         <obj_property name="ElementShortName">fpga_coreclk</obj_property>
+         <obj_property name="ObjectShortName">fpga_coreclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/mprj_io">
+         <obj_property name="ElementShortName">mprj_io[37:0]</obj_property>
+         <obj_property name="ObjectShortName">mprj_io[37:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/i">
+         <obj_property name="ElementShortName">i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/cfg_read_data_expect_value">
+         <obj_property name="ElementShortName">cfg_read_data_expect_value[31:0]</obj_property>
+         <obj_property name="ObjectShortName">cfg_read_data_expect_value[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/cfg_read_data_captured">
+         <obj_property name="ElementShortName">cfg_read_data_captured[31:0]</obj_property>
+         <obj_property name="ObjectShortName">cfg_read_data_captured[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_mailbox_write_addr_expect_value">
+         <obj_property name="ElementShortName">soc_to_fpga_mailbox_write_addr_expect_value[27:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_mailbox_write_addr_expect_value[27:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_mailbox_write_addr_BE_expect_value">
+         <obj_property name="ElementShortName">soc_to_fpga_mailbox_write_addr_BE_expect_value[3:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_mailbox_write_addr_BE_expect_value[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_mailbox_write_data_expect_value">
+         <obj_property name="ElementShortName">soc_to_fpga_mailbox_write_data_expect_value[31:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_mailbox_write_data_expect_value[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_mailbox_write_addr_captured">
+         <obj_property name="ElementShortName">soc_to_fpga_mailbox_write_addr_captured[31:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_mailbox_write_addr_captured[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_mailbox_write_data_captured">
+         <obj_property name="ElementShortName">soc_to_fpga_mailbox_write_data_captured[31:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_mailbox_write_data_captured[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_axilite_read_cpl_expect_value">
+         <obj_property name="ElementShortName">soc_to_fpga_axilite_read_cpl_expect_value[31:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_axilite_read_cpl_expect_value[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_to_fpga_axilite_read_cpl_captured">
+         <obj_property name="ElementShortName">soc_to_fpga_axilite_read_cpl_captured[31:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_to_fpga_axilite_read_cpl_captured[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/error_cnt">
+         <obj_property name="ElementShortName">error_cnt[31:0]</obj_property>
+         <obj_property name="ObjectShortName">error_cnt[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_rst">
+         <obj_property name="ElementShortName">fpga_rst</obj_property>
+         <obj_property name="ObjectShortName">fpga_rst</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/soc_resetb">
+         <obj_property name="ElementShortName">soc_resetb</obj_property>
+         <obj_property name="ObjectShortName">soc_resetb</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_resetb">
+         <obj_property name="ElementShortName">fpga_resetb</obj_property>
+         <obj_property name="ObjectShortName">fpga_resetb</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_awvalid">
+         <obj_property name="ElementShortName">fpga_axi_awvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_awvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_axi_awaddr">
+         <obj_property name="ElementShortName">fpga_axi_awaddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_awaddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_awready">
+         <obj_property name="ElementShortName">fpga_axi_awready</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_awready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_wvalid">
+         <obj_property name="ElementShortName">fpga_axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_axi_wdata">
+         <obj_property name="ElementShortName">fpga_axi_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_axi_wstrb">
+         <obj_property name="ElementShortName">fpga_axi_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_wready">
+         <obj_property name="ElementShortName">fpga_axi_wready</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_wready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_arvalid">
+         <obj_property name="ElementShortName">fpga_axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_axi_araddr">
+         <obj_property name="ElementShortName">fpga_axi_araddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_araddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_arready">
+         <obj_property name="ElementShortName">fpga_axi_arready</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_arready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_rvalid">
+         <obj_property name="ElementShortName">fpga_axi_rvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_rvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_axi_rdata">
+         <obj_property name="ElementShortName">fpga_axi_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_axi_rready">
+         <obj_property name="ElementShortName">fpga_axi_rready</obj_property>
+         <obj_property name="ObjectShortName">fpga_axi_rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_cc_is_enable">
+         <obj_property name="ElementShortName">fpga_cc_is_enable</obj_property>
+         <obj_property name="ObjectShortName">fpga_cc_is_enable</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/soc_serial_txd">
+         <obj_property name="ElementShortName">soc_serial_txd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">soc_serial_txd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/soc_txclk">
+         <obj_property name="ElementShortName">soc_txclk</obj_property>
+         <obj_property name="ObjectShortName">soc_txclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_txclk">
+         <obj_property name="ElementShortName">fpga_txclk</obj_property>
+         <obj_property name="ObjectShortName">fpga_txclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_as_is_tdata">
+         <obj_property name="ElementShortName">fpga_as_is_tdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_as_is_tstrb">
+         <obj_property name="ElementShortName">fpga_as_is_tstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_as_is_tkeep">
+         <obj_property name="ElementShortName">fpga_as_is_tkeep[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tkeep[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_as_is_tlast">
+         <obj_property name="ElementShortName">fpga_as_is_tlast</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tlast</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_as_is_tid">
+         <obj_property name="ElementShortName">fpga_as_is_tid[1:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tid[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_as_is_tvalid">
+         <obj_property name="ElementShortName">fpga_as_is_tvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_as_is_tuser">
+         <obj_property name="ElementShortName">fpga_as_is_tuser[1:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tuser[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_as_is_tready">
+         <obj_property name="ElementShortName">fpga_as_is_tready</obj_property>
+         <obj_property name="ObjectShortName">fpga_as_is_tready</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_serial_txd">
+         <obj_property name="ElementShortName">fpga_serial_txd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_serial_txd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_is_as_tdata">
+         <obj_property name="ElementShortName">fpga_is_as_tdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_is_as_tstrb">
+         <obj_property name="ElementShortName">fpga_is_as_tstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_is_as_tkeep">
+         <obj_property name="ElementShortName">fpga_is_as_tkeep[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tkeep[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_is_as_tlast">
+         <obj_property name="ElementShortName">fpga_is_as_tlast</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tlast</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_is_as_tid">
+         <obj_property name="ElementShortName">fpga_is_as_tid[1:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tid[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_is_as_tvalid">
+         <obj_property name="ElementShortName">fpga_is_as_tvalid</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_is_as_tuser">
+         <obj_property name="ElementShortName">fpga_is_as_tuser[1:0]</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tuser[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_is_as_tready">
+         <obj_property name="ElementShortName">fpga_is_as_tready</obj_property>
+         <obj_property name="ObjectShortName">fpga_is_as_tready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_ack">
+         <obj_property name="ElementShortName">wbs_ack</obj_property>
+         <obj_property name="ObjectShortName">wbs_ack</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_rdata">
+         <obj_property name="ElementShortName">wbs_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/idx1">
+         <obj_property name="ElementShortName">idx1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">idx1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/idx2">
+         <obj_property name="ElementShortName">idx2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">idx2[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/idx3">
+         <obj_property name="ElementShortName">idx3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">idx3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/idx6">
+         <obj_property name="ElementShortName">idx6[31:0]</obj_property>
+         <obj_property name="ObjectShortName">idx6[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/la_data_out">
+         <obj_property name="ElementShortName">la_data_out</obj_property>
+         <obj_property name="ObjectShortName">la_data_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/user_irq">
+         <obj_property name="ElementShortName">user_irq</obj_property>
+         <obj_property name="ObjectShortName">user_irq</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/BITS">
+         <obj_property name="ElementShortName">BITS[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BITS[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/pSERIALIO_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/IOCLK_Period">
+         <obj_property name="ElementShortName">IOCLK_Period[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IOCLK_Period[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/SHIFT_DEPTH">
+         <obj_property name="ElementShortName">SHIFT_DEPTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">SHIFT_DEPTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/pRxFIFO_DEPTH">
+         <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/pCLK_RATIO">
+         <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/CoreClkPhaseLoop">
+         <obj_property name="ElementShortName">CoreClkPhaseLoop[31:0]</obj_property>
+         <obj_property name="ObjectShortName">CoreClkPhaseLoop[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/UP_BASE">
+         <obj_property name="ElementShortName">UP_BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">UP_BASE[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/AA_BASE">
+         <obj_property name="ElementShortName">AA_BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">AA_BASE[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/IS_BASE">
+         <obj_property name="ElementShortName">IS_BASE[31:0]</obj_property>
+         <obj_property name="ObjectShortName">IS_BASE[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/SOC_to_FPGA_MailBox_Base">
+         <obj_property name="ElementShortName">SOC_to_FPGA_MailBox_Base[27:0]</obj_property>
+         <obj_property name="ObjectShortName">SOC_to_FPGA_MailBox_Base[27:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/FPGA_to_SOC_AA_BASE">
+         <obj_property name="ElementShortName">FPGA_to_SOC_AA_BASE[27:0]</obj_property>
+         <obj_property name="ObjectShortName">FPGA_to_SOC_AA_BASE[27:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/FPGA_to_SOC_IS_BASE">
+         <obj_property name="ElementShortName">FPGA_to_SOC_IS_BASE[27:0]</obj_property>
+         <obj_property name="ObjectShortName">FPGA_to_SOC_IS_BASE[27:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/AA_MailBox_Reg_Offset">
+         <obj_property name="ElementShortName">AA_MailBox_Reg_Offset[11:0]</obj_property>
+         <obj_property name="ObjectShortName">AA_MailBox_Reg_Offset[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/AA_Internal_Reg_Offset">
+         <obj_property name="ElementShortName">AA_Internal_Reg_Offset[11:0]</obj_property>
+         <obj_property name="ObjectShortName">AA_Internal_Reg_Offset[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TUSER_AXIS">
+         <obj_property name="ElementShortName">TUSER_AXIS[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TUSER_AXIS[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TUSER_AXILITE_WRITE">
+         <obj_property name="ElementShortName">TUSER_AXILITE_WRITE[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TUSER_AXILITE_WRITE[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TUSER_AXILITE_READ_REQ">
+         <obj_property name="ElementShortName">TUSER_AXILITE_READ_REQ[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TUSER_AXILITE_READ_REQ[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TUSER_AXILITE_READ_CPL">
+         <obj_property name="ElementShortName">TUSER_AXILITE_READ_CPL[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TUSER_AXILITE_READ_CPL[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TID_DN_UP">
+         <obj_property name="ElementShortName">TID_DN_UP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TID_DN_UP[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TID_DN_AA">
+         <obj_property name="ElementShortName">TID_DN_AA[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TID_DN_AA[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TID_UP_UP">
+         <obj_property name="ElementShortName">TID_UP_UP[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TID_UP_UP[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TID_UP_AA">
+         <obj_property name="ElementShortName">TID_UP_AA[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TID_UP_AA[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/TID_UP_LA">
+         <obj_property name="ElementShortName">TID_UP_LA[1:0]</obj_property>
+         <obj_property name="ObjectShortName">TID_UP_LA[1:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group221">
+      <obj_property name="label">WB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/wb_rst">
+         <obj_property name="ElementShortName">wb_rst</obj_property>
+         <obj_property name="ObjectShortName">wb_rst</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wb_clk">
+         <obj_property name="ElementShortName">wb_clk</obj_property>
+         <obj_property name="ObjectShortName">wb_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_adr">
+         <obj_property name="ElementShortName">wbs_adr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_adr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_wdata">
+         <obj_property name="ElementShortName">wbs_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_rdata">
+         <obj_property name="ElementShortName">wbs_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/wbs_sel">
+         <obj_property name="ElementShortName">wbs_sel[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wbs_sel[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_cyc">
+         <obj_property name="ElementShortName">wbs_cyc</obj_property>
+         <obj_property name="ObjectShortName">wbs_cyc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_stb">
+         <obj_property name="ElementShortName">wbs_stb</obj_property>
+         <obj_property name="ObjectShortName">wbs_stb</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/wbs_we">
+         <obj_property name="ElementShortName">wbs_we</obj_property>
+         <obj_property name="ObjectShortName">wbs_we</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group203">
+      <obj_property name="label">fpga_fsic</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/ioclk">
+         <obj_property name="ElementShortName">ioclk</obj_property>
+         <obj_property name="ObjectShortName">ioclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_rst_n">
+         <obj_property name="ElementShortName">axis_rst_n</obj_property>
+         <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
+         <obj_property name="ElementShortName">axis_clk</obj_property>
+         <obj_property name="ObjectShortName">axis_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_awvalid_s_awvalid">
+         <obj_property name="ElementShortName">axi_awvalid_s_awvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid_s_awvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/axi_awaddr_s_awaddr">
+         <obj_property name="ElementShortName">axi_awaddr_s_awaddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awaddr_s_awaddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_awready_axi_awready3">
+         <obj_property name="ElementShortName">axi_awready_axi_awready3</obj_property>
+         <obj_property name="ObjectShortName">axi_awready_axi_awready3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_wvalid_s_wvalid">
+         <obj_property name="ElementShortName">axi_wvalid_s_wvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid_s_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/axi_wdata_s_wdata">
+         <obj_property name="ElementShortName">axi_wdata_s_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wdata_s_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/axi_wstrb_s_wstrb">
+         <obj_property name="ElementShortName">axi_wstrb_s_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wstrb_s_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_wready_axi_wready3">
+         <obj_property name="ElementShortName">axi_wready_axi_wready3</obj_property>
+         <obj_property name="ObjectShortName">axi_wready_axi_wready3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_arvalid_s_arvalid">
+         <obj_property name="ElementShortName">axi_arvalid_s_arvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_arvalid_s_arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/axi_araddr_s_araddr">
+         <obj_property name="ElementShortName">axi_araddr_s_araddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_araddr_s_araddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_arready_axi_arready3">
+         <obj_property name="ElementShortName">axi_arready_axi_arready3</obj_property>
+         <obj_property name="ObjectShortName">axi_arready_axi_arready3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_rvalid_axi_rvalid3">
+         <obj_property name="ElementShortName">axi_rvalid_axi_rvalid3</obj_property>
+         <obj_property name="ObjectShortName">axi_rvalid_axi_rvalid3</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/axi_rdata_axi_rdata3">
+         <obj_property name="ElementShortName">axi_rdata_axi_rdata3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rdata_axi_rdata3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axi_rready_s_rready">
+         <obj_property name="ElementShortName">axi_rready_s_rready</obj_property>
+         <obj_property name="ObjectShortName">axi_rready_s_rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/cc_is_enable">
+         <obj_property name="ElementShortName">cc_is_enable</obj_property>
+         <obj_property name="ObjectShortName">cc_is_enable</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group205">
+         <obj_property name="label">FPGA AS to IS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tvalid">
+            <obj_property name="ElementShortName">as_is_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_is_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tready">
+            <obj_property name="ElementShortName">is_as_tready</obj_property>
+            <obj_property name="ObjectShortName">is_as_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tdata">
+            <obj_property name="ElementShortName">as_is_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tstrb">
+            <obj_property name="ElementShortName">as_is_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tkeep">
+            <obj_property name="ElementShortName">as_is_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tlast">
+            <obj_property name="ElementShortName">as_is_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_is_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tid">
+            <obj_property name="ElementShortName">as_is_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="group" fp_name="group208">
+            <obj_property name="label">FLOW COONTROL</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/as_is_tuser">
+               <obj_property name="ElementShortName">as_is_tuser[1:0]</obj_property>
+               <obj_property name="ObjectShortName">as_is_tuser[1:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/as_is_tready">
+            <obj_property name="ElementShortName">as_is_tready</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/serial_tclk">
+         <obj_property name="ElementShortName">serial_tclk</obj_property>
+         <obj_property name="ObjectShortName">serial_tclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/serial_txd">
+         <obj_property name="ElementShortName">serial_txd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_txd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/serial_rclk">
+         <obj_property name="ElementShortName">serial_rclk</obj_property>
+         <obj_property name="ObjectShortName">serial_rclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/serial_rxd">
+         <obj_property name="ElementShortName">serial_rxd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_rxd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group204">
+         <obj_property name="label">FPGA IS to AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/pSERIALIO_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/pRxFIFO_DEPTH">
+         <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/pCLK_RATIO">
+         <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group293">
+      <obj_property name="label">SOC IS</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/ioclk">
+         <obj_property name="ElementShortName">ioclk</obj_property>
+         <obj_property name="ObjectShortName">ioclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_rst_n">
+         <obj_property name="ElementShortName">axis_rst_n</obj_property>
+         <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
+         <obj_property name="ElementShortName">axis_clk</obj_property>
+         <obj_property name="ObjectShortName">axis_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_awvalid">
+         <obj_property name="ElementShortName">axi_awvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_awaddr">
+         <obj_property name="ElementShortName">axi_awaddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awaddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_awready">
+         <obj_property name="ElementShortName">axi_awready</obj_property>
+         <obj_property name="ObjectShortName">axi_awready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wvalid">
+         <obj_property name="ElementShortName">axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wdata">
+         <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wstrb">
+         <obj_property name="ElementShortName">axi_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wready">
+         <obj_property name="ElementShortName">axi_wready</obj_property>
+         <obj_property name="ObjectShortName">axi_wready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_arvalid">
+         <obj_property name="ElementShortName">axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_araddr">
+         <obj_property name="ElementShortName">axi_araddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_araddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_arready">
+         <obj_property name="ElementShortName">axi_arready</obj_property>
+         <obj_property name="ObjectShortName">axi_arready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_rvalid">
+         <obj_property name="ElementShortName">axi_rvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_rvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_rdata">
+         <obj_property name="ElementShortName">axi_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_rready">
+         <obj_property name="ElementShortName">axi_rready</obj_property>
+         <obj_property name="ObjectShortName">axi_rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/cc_is_enable">
+         <obj_property name="ElementShortName">cc_is_enable</obj_property>
+         <obj_property name="ObjectShortName">cc_is_enable</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group294">
+         <obj_property name="label">SOC AS to IS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tvalid">
+            <obj_property name="ElementShortName">as_is_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_is_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tready">
+            <obj_property name="ElementShortName">is_as_tready</obj_property>
+            <obj_property name="ObjectShortName">is_as_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tdata">
+            <obj_property name="ElementShortName">as_is_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tstrb">
+            <obj_property name="ElementShortName">as_is_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tkeep">
+            <obj_property name="ElementShortName">as_is_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tlast">
+            <obj_property name="ElementShortName">as_is_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_is_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tid">
+            <obj_property name="ElementShortName">as_is_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="group" fp_name="group300">
+            <obj_property name="label">FLOW CONTROL</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tuser">
+               <obj_property name="ElementShortName">as_is_tuser[1:0]</obj_property>
+               <obj_property name="ObjectShortName">as_is_tuser[1:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tready">
+            <obj_property name="ElementShortName">as_is_tready</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/serial_tclk">
+         <obj_property name="ElementShortName">serial_tclk</obj_property>
+         <obj_property name="ObjectShortName">serial_tclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/serial_txd">
+         <obj_property name="ElementShortName">serial_txd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_txd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/serial_rclk">
+         <obj_property name="ElementShortName">serial_rclk</obj_property>
+         <obj_property name="ObjectShortName">serial_rclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/serial_rxd">
+         <obj_property name="ElementShortName">serial_rxd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_rxd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group295">
+         <obj_property name="label">SOC IS to AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/coreclk">
+         <obj_property name="ElementShortName">coreclk</obj_property>
+         <obj_property name="ObjectShortName">coreclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txclk">
+         <obj_property name="ElementShortName">txclk</obj_property>
+         <obj_property name="ObjectShortName">txclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxclk">
+         <obj_property name="ElementShortName">rxclk</obj_property>
+         <obj_property name="ObjectShortName">rxclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_awvalid_in">
+         <obj_property name="ElementShortName">axi_awvalid_in</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wvalid_in">
+         <obj_property name="ElementShortName">axi_wvalid_in</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txen_out">
+         <obj_property name="ElementShortName">txen_out</obj_property>
+         <obj_property name="ObjectShortName">txen_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tready_remote">
+         <obj_property name="ElementShortName">is_as_tready_remote</obj_property>
+         <obj_property name="ObjectShortName">is_as_tready_remote</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_Out_tlast_tvalid_tready">
+         <obj_property name="ElementShortName">Serial_Data_Out_tlast_tvalid_tready</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tlast_tvalid_tready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_Out_tid_tuser">
+         <obj_property name="ElementShortName">Serial_Data_Out_tid_tuser</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tid_tuser</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_Out_tkeep">
+         <obj_property name="ElementShortName">Serial_Data_Out_tkeep</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tkeep</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_Out_tstrb">
+         <obj_property name="ElementShortName">Serial_Data_Out_tstrb</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tstrb</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_Out_tdata">
+         <obj_property name="ElementShortName">Serial_Data_Out_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_In_tlast_tvalid_tready">
+         <obj_property name="ElementShortName">Serial_Data_In_tlast_tvalid_tready</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tlast_tvalid_tready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_In_tid_tuser">
+         <obj_property name="ElementShortName">Serial_Data_In_tid_tuser</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tid_tuser</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_In_tkeep">
+         <obj_property name="ElementShortName">Serial_Data_In_tkeep</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tkeep</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_In_tstrb">
+         <obj_property name="ElementShortName">Serial_Data_In_tstrb</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tstrb</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/Serial_Data_In_tdata">
+         <obj_property name="ElementShortName">Serial_Data_In_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group327">
+         <obj_property name="label">SOC IS txen rxen</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxen_ctl">
+            <obj_property name="ElementShortName">rxen_ctl</obj_property>
+            <obj_property name="ObjectShortName">rxen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/rx_received_data">
+            <obj_property name="ElementShortName">rx_received_data</obj_property>
+            <obj_property name="ObjectShortName">rx_received_data</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txen">
+            <obj_property name="ElementShortName">txen</obj_property>
+            <obj_property name="ObjectShortName">txen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/txen_ctl">
+            <obj_property name="ElementShortName">txen_ctl</obj_property>
+            <obj_property name="ObjectShortName">txen_ctl</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_awready_out">
+         <obj_property name="ElementShortName">axi_awready_out</obj_property>
+         <obj_property name="ObjectShortName">axi_awready_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axi_wready_out">
+         <obj_property name="ElementShortName">axi_wready_out</obj_property>
+         <obj_property name="ObjectShortName">axi_wready_out</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/phase_cnt">
+         <obj_property name="ElementShortName">phase_cnt[1:0]</obj_property>
+         <obj_property name="ObjectShortName">phase_cnt[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/tx_shift_phase_cnt">
+         <obj_property name="ElementShortName">tx_shift_phase_cnt[1:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_shift_phase_cnt[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pre_as_is_tdata_buf">
+         <obj_property name="ElementShortName">pre_as_is_tdata_buf[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tdata_buf[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pre_as_is_tstrb_buf">
+         <obj_property name="ElementShortName">pre_as_is_tstrb_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tstrb_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pre_as_is_tkeep_buf">
+         <obj_property name="ElementShortName">pre_as_is_tkeep_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tkeep_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pre_as_is_tid_tuser_buf">
+         <obj_property name="ElementShortName">pre_as_is_tid_tuser_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tid_tuser_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pre_as_is_tlast_tvalid_tready_buf">
+         <obj_property name="ElementShortName">pre_as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tdata_buf">
+         <obj_property name="ElementShortName">as_is_tdata_buf[31:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tdata_buf[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tstrb_buf">
+         <obj_property name="ElementShortName">as_is_tstrb_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tstrb_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tkeep_buf">
+         <obj_property name="ElementShortName">as_is_tkeep_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tkeep_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tid_tuser_buf">
+         <obj_property name="ElementShortName">as_is_tid_tuser_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tid_tuser_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/as_is_tlast_tvalid_tready_buf">
+         <obj_property name="ElementShortName">as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/rxdata_out_valid">
+         <obj_property name="ElementShortName">rxdata_out_valid[10:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdata_out_valid[10:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_dummy">
+         <obj_property name="ElementShortName">is_as_dummy</obj_property>
+         <obj_property name="ObjectShortName">is_as_dummy</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/is_as_tready_out">
+         <obj_property name="ElementShortName">is_as_tready_out</obj_property>
+         <obj_property name="ObjectShortName">is_as_tready_out</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pSERIALIO_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pRxFIFO_DEPTH">
+         <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pCLK_RATIO">
+         <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/pSERIALIO_TDATA_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group441">
+         <obj_property name="label">SOC IS rx_fc</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/axis_rst_n">
+            <obj_property name="ElementShortName">axis_rst_n</obj_property>
+            <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxclk">
+            <obj_property name="ElementShortName">rxclk</obj_property>
+            <obj_property name="ObjectShortName">rxclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/coreclk">
+            <obj_property name="ElementShortName">coreclk</obj_property>
+            <obj_property name="ObjectShortName">coreclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/Serial_Data_in">
+            <obj_property name="ElementShortName">Serial_Data_in</obj_property>
+            <obj_property name="ObjectShortName">Serial_Data_in</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxdata_out">
+            <obj_property name="ElementShortName">rxdata_out[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rxdata_out[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rxdata_out_valid">
+            <obj_property name="ElementShortName">rxdata_out_valid</obj_property>
+            <obj_property name="ObjectShortName">rxdata_out_valid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr">
+            <obj_property name="ElementShortName">w_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">w_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_pre">
+            <obj_property name="ElementShortName">w_ptr_pre</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_pre</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_sync">
+            <obj_property name="ElementShortName">w_ptr_sync</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_sync</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_reg_valid">
+            <obj_property name="ElementShortName">rx_shift_reg_valid</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_reg_valid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/w_ptr_graycode_bit0">
+            <obj_property name="ElementShortName">w_ptr_graycode_bit0</obj_property>
+            <obj_property name="ObjectShortName">w_ptr_graycode_bit0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/RxFifo">
+            <obj_property name="ElementShortName">RxFifo[4:0]</obj_property>
+            <obj_property name="ObjectShortName">RxFifo[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_start">
+            <obj_property name="ElementShortName">rx_start</obj_property>
+            <obj_property name="ObjectShortName">rx_start</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/r_ptr">
+            <obj_property name="ElementShortName">r_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">r_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_reg">
+            <obj_property name="ElementShortName">rx_shift_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_reg[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_shift_phase_cnt">
+            <obj_property name="ElementShortName">rx_shift_phase_cnt[1:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_shift_phase_cnt[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_start_delay">
+            <obj_property name="ElementShortName">rx_start_delay[2:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_start_delay[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_sync_fifo">
+            <obj_property name="ElementShortName">rx_sync_fifo[3:0]</obj_property>
+            <obj_property name="ObjectShortName">rx_sync_fifo[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/rx_sync_fifo_valid">
+            <obj_property name="ElementShortName">rx_sync_fifo_valid</obj_property>
+            <obj_property name="ObjectShortName">rx_sync_fifo_valid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/pRxFIFO_DEPTH">
+            <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/pCLK_RATIO">
+            <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group338">
+      <obj_property name="label">FPGA IS</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
+         <obj_property name="ElementShortName">ioclk</obj_property>
+         <obj_property name="ObjectShortName">ioclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axis_rst_n">
+         <obj_property name="ElementShortName">axis_rst_n</obj_property>
+         <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axis_clk">
+         <obj_property name="ElementShortName">axis_clk</obj_property>
+         <obj_property name="ObjectShortName">axis_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_awvalid">
+         <obj_property name="ElementShortName">axi_awvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_awaddr">
+         <obj_property name="ElementShortName">axi_awaddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awaddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_awready">
+         <obj_property name="ElementShortName">axi_awready</obj_property>
+         <obj_property name="ObjectShortName">axi_awready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wvalid">
+         <obj_property name="ElementShortName">axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wdata">
+         <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wstrb">
+         <obj_property name="ElementShortName">axi_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wready">
+         <obj_property name="ElementShortName">axi_wready</obj_property>
+         <obj_property name="ObjectShortName">axi_wready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_arvalid">
+         <obj_property name="ElementShortName">axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_araddr">
+         <obj_property name="ElementShortName">axi_araddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_araddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_arready">
+         <obj_property name="ElementShortName">axi_arready</obj_property>
+         <obj_property name="ObjectShortName">axi_arready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_rvalid">
+         <obj_property name="ElementShortName">axi_rvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_rvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_rdata">
+         <obj_property name="ElementShortName">axi_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_rready">
+         <obj_property name="ElementShortName">axi_rready</obj_property>
+         <obj_property name="ObjectShortName">axi_rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/cc_is_enable">
+         <obj_property name="ElementShortName">cc_is_enable</obj_property>
+         <obj_property name="ObjectShortName">cc_is_enable</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group423">
+         <obj_property name="label">FPGA U AS to IS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tvalid">
+            <obj_property name="ElementShortName">as_is_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_is_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tready">
+            <obj_property name="ElementShortName">is_as_tready</obj_property>
+            <obj_property name="ObjectShortName">is_as_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tdata">
+            <obj_property name="ElementShortName">as_is_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tstrb">
+            <obj_property name="ElementShortName">as_is_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tkeep">
+            <obj_property name="ElementShortName">as_is_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tlast">
+            <obj_property name="ElementShortName">as_is_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_is_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tid">
+            <obj_property name="ElementShortName">as_is_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tuser">
+            <obj_property name="ElementShortName">as_is_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="divider429" type="divider">
+            <obj_property name="label">FLOW CONTROL</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tready">
+            <obj_property name="ElementShortName">as_is_tready</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/serial_tclk">
+         <obj_property name="ElementShortName">serial_tclk</obj_property>
+         <obj_property name="ObjectShortName">serial_tclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/serial_txd">
+         <obj_property name="ElementShortName">serial_txd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_txd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/serial_rclk">
+         <obj_property name="ElementShortName">serial_rclk</obj_property>
+         <obj_property name="ObjectShortName">serial_rclk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/serial_rxd">
+         <obj_property name="ElementShortName">serial_rxd[11:0]</obj_property>
+         <obj_property name="ObjectShortName">serial_rxd[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group424">
+         <obj_property name="label">FPGA U IS to AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/coreclk">
+         <obj_property name="ElementShortName">coreclk</obj_property>
+         <obj_property name="ObjectShortName">coreclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txclk">
+         <obj_property name="ElementShortName">txclk</obj_property>
+         <obj_property name="ObjectShortName">txclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxclk">
+         <obj_property name="ElementShortName">rxclk</obj_property>
+         <obj_property name="ObjectShortName">rxclk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_awvalid_in">
+         <obj_property name="ElementShortName">axi_awvalid_in</obj_property>
+         <obj_property name="ObjectShortName">axi_awvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wvalid_in">
+         <obj_property name="ElementShortName">axi_wvalid_in</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txen_out">
+         <obj_property name="ElementShortName">txen_out</obj_property>
+         <obj_property name="ObjectShortName">txen_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tready_remote">
+         <obj_property name="ElementShortName">is_as_tready_remote</obj_property>
+         <obj_property name="ObjectShortName">is_as_tready_remote</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_Out_tlast_tvalid_tready">
+         <obj_property name="ElementShortName">Serial_Data_Out_tlast_tvalid_tready</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tlast_tvalid_tready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_Out_tid_tuser">
+         <obj_property name="ElementShortName">Serial_Data_Out_tid_tuser</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tid_tuser</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_Out_tkeep">
+         <obj_property name="ElementShortName">Serial_Data_Out_tkeep</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tkeep</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_Out_tstrb">
+         <obj_property name="ElementShortName">Serial_Data_Out_tstrb</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tstrb</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_Out_tdata">
+         <obj_property name="ElementShortName">Serial_Data_Out_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_Out_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_In_tlast_tvalid_tready">
+         <obj_property name="ElementShortName">Serial_Data_In_tlast_tvalid_tready</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tlast_tvalid_tready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_In_tid_tuser">
+         <obj_property name="ElementShortName">Serial_Data_In_tid_tuser</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tid_tuser</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_In_tkeep">
+         <obj_property name="ElementShortName">Serial_Data_In_tkeep</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tkeep</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_In_tstrb">
+         <obj_property name="ElementShortName">Serial_Data_In_tstrb</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tstrb</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/Serial_Data_In_tdata">
+         <obj_property name="ElementShortName">Serial_Data_In_tdata[7:0]</obj_property>
+         <obj_property name="ObjectShortName">Serial_Data_In_tdata[7:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group430">
+         <obj_property name="label">FPGA U IS txen rxen</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
+            <obj_property name="ElementShortName">ioclk</obj_property>
+            <obj_property name="ObjectShortName">ioclk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxen_ctl">
+            <obj_property name="ElementShortName">rxen_ctl</obj_property>
+            <obj_property name="ObjectShortName">rxen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxen">
+            <obj_property name="ElementShortName">rxen</obj_property>
+            <obj_property name="ObjectShortName">rxen</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rx_received_data">
+            <obj_property name="ElementShortName">rx_received_data</obj_property>
+            <obj_property name="ObjectShortName">rx_received_data</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txen_ctl">
+            <obj_property name="ElementShortName">txen_ctl</obj_property>
+            <obj_property name="ObjectShortName">txen_ctl</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/txen">
+            <obj_property name="ElementShortName">txen</obj_property>
+            <obj_property name="ObjectShortName">txen</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_awready_out">
+         <obj_property name="ElementShortName">axi_awready_out</obj_property>
+         <obj_property name="ObjectShortName">axi_awready_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/axi_wready_out">
+         <obj_property name="ElementShortName">axi_wready_out</obj_property>
+         <obj_property name="ObjectShortName">axi_wready_out</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/phase_cnt">
+         <obj_property name="ElementShortName">phase_cnt[1:0]</obj_property>
+         <obj_property name="ObjectShortName">phase_cnt[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/tx_shift_phase_cnt">
+         <obj_property name="ElementShortName">tx_shift_phase_cnt[1:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_shift_phase_cnt[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pre_as_is_tdata_buf">
+         <obj_property name="ElementShortName">pre_as_is_tdata_buf[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tdata_buf[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pre_as_is_tstrb_buf">
+         <obj_property name="ElementShortName">pre_as_is_tstrb_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tstrb_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pre_as_is_tkeep_buf">
+         <obj_property name="ElementShortName">pre_as_is_tkeep_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tkeep_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pre_as_is_tid_tuser_buf">
+         <obj_property name="ElementShortName">pre_as_is_tid_tuser_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tid_tuser_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pre_as_is_tlast_tvalid_tready_buf">
+         <obj_property name="ElementShortName">pre_as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">pre_as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tdata_buf">
+         <obj_property name="ElementShortName">as_is_tdata_buf[31:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tdata_buf[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tstrb_buf">
+         <obj_property name="ElementShortName">as_is_tstrb_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tstrb_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tkeep_buf">
+         <obj_property name="ElementShortName">as_is_tkeep_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tkeep_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tid_tuser_buf">
+         <obj_property name="ElementShortName">as_is_tid_tuser_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tid_tuser_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/as_is_tlast_tvalid_tready_buf">
+         <obj_property name="ElementShortName">as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+         <obj_property name="ObjectShortName">as_is_tlast_tvalid_tready_buf[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/rxdata_out_valid">
+         <obj_property name="ElementShortName">rxdata_out_valid[10:0]</obj_property>
+         <obj_property name="ObjectShortName">rxdata_out_valid[10:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_dummy">
+         <obj_property name="ElementShortName">is_as_dummy</obj_property>
+         <obj_property name="ObjectShortName">is_as_dummy</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/is_as_tready_out">
+         <obj_property name="ElementShortName">is_as_tready_out</obj_property>
+         <obj_property name="ObjectShortName">is_as_tready_out</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pSERIALIO_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pRxFIFO_DEPTH">
+         <obj_property name="ElementShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pRxFIFO_DEPTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pCLK_RATIO">
+         <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/pSERIALIO_TDATA_WIDTH">
+         <obj_property name="ElementShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="divider119" type="divider">
+      <obj_property name="label">end</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+</wave_config>
