@@ -18,5 +18,6 @@ cp ../../../fsic_asic/dsn/rtl/axis_master.sv .
 cp ../../../fsic_asic/dsn/rtl/axis_mstr.dummy_io.vd .
 cp ../../../fsic_asic/dsn/rtl/axis_slav.dummy_io.vd .
 cp ../../../fsic_asic/dsn/rtl/axis_slave.sv .
-cp ../../../fsic_asic/dsn/rtl/axis_switch.v .
+# cp ../../../fsic_asic/dsn/rtl/axis_switch.v .
+cp ../../../fsic_asic/dsn/rtl/sw_caravel.v .
 

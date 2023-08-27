@@ -5,7 +5,8 @@
 ../../rtl/axilite_slave.sv
 ../../rtl/axis_master.sv
 ../../rtl/axis_slave.sv
-../../rtl/axis_switch.v
+// ../../rtl/axis_switch.v
+../../rtl/sw_caravel.v
 ../../rtl/config_ctrl.v
 ../../rtl/fsic_clkrst.v
 ../../rtl/fsic_clock.v
