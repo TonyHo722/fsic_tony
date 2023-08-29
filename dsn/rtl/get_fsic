@@ -8,7 +8,7 @@ cp ../../../fsic_asic/dsn/rtl/fsic_io_serdes_rx.v .
 cp ../../../fsic_asic/dsn/rtl/io_serdes.v .
 # cp ../../../fsic_asic/dsn/rtl/logic_anlz.dummy_io.v .
 # cp ../../../fsic_asic/dsn/rtl/mprj_io.dummy_io.v .
-cp ../../../fsic_asic/dsn/rtl/user_subsys.all.v .
+# tmp remove it, cp ../../../fsic_asic/dsn/rtl/user_subsys.all.v .
 cp ../../../fsic_asic/dsn/rtl/axi_ctrl_logic.sv .
 cp ../../../fsic_asic/dsn/rtl/axil_axis.sv .
 cp ../../../fsic_asic/dsn/rtl/axilite_master.sv .
