@@ -40,6 +40,7 @@ module tb_fsic #( parameter BITS=32,
 		localparam IS_BASE=32'h3000_3000;
 
 		localparam SOC_to_FPGA_MailBox_Base=28'h000_2000;
+		localparam FPGA_to_SOC_UP_BASE=28'h000_0000;
 		localparam FPGA_to_SOC_AA_BASE=28'h000_2000;
 		localparam FPGA_to_SOC_IS_BASE=28'h000_3000;
 		
