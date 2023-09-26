@@ -12,22 +12,16 @@ Starting simulation data flow analysis
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" Line 7. Module AXIL_AXIS(pADDR_WIDTH=15) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv" Line 9. Module axilite_master doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv" Line 9. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 144. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0101010) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" Line 9. Module axis_slave doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" Line 9. Module axi_ctrl_logic doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0110100) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0100010) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/mprj_io.sv" Line 7. Module MPRJ_IO(pADDR_WIDTH=15) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" Line 7. Module AXIL_AXIS(pADDR_WIDTH=15) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_master.sv" Line 9. Module axilite_master doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axilite_slave.sv" Line 9. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 144. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0101010) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axis_master doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" Line 9. Module axis_slave doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" Line 9. Module axi_ctrl_logic doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0110100) doesn't have a timescale but at least one module in design has a timescale.
-WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/axis_master.sv" Line 9. Module axi_fifo(WIDTH=8'b0100010) doesn't have a timescale but at least one module in design has a timescale.
 WARNING: [XSIM 43-4099] "D:/kgfu_fsic_tony/dsn/rtl/mprj_io.sv" Line 7. Module MPRJ_IO(pADDR_WIDTH=15) doesn't have a timescale but at least one module in design has a timescale.
 Completed simulation data flow analysis
 Time Resolution for simulation is 1ps
@@ -35,11 +29,8 @@ Compiling module xil_defaultlib.fsic_clock_div
 Compiling module xil_defaultlib.CFG_CTRL(pADDR_WIDTH=15)
 Compiling module xil_defaultlib.axilite_master
 Compiling module xil_defaultlib.axilite_slave
-Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0101010)
 Compiling module xil_defaultlib.axis_master
 Compiling module xil_defaultlib.axis_slave
-Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0110100)
-Compiling module xil_defaultlib.axi_fifo(WIDTH=8'b0100010)
 Compiling module xil_defaultlib.axi_ctrl_logic
 Compiling module xil_defaultlib.AXIL_AXIS(pADDR_WIDTH=15)
 Compiling module xil_defaultlib.AXIS_SW(pADDR_WIDTH=15)
