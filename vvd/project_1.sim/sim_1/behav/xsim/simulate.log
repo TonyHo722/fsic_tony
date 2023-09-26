@@ -1,6 +1,6 @@
 Vivado Simulator 2020.2
 Time resolution is 1 ps
-test001: soc cfg write test         x
+test001: soc cfg write/read test
                    0=> soc_axis_loopback force dut.AXIS_SW0.up_as_tvalid = 1
                  140=> soc POR Assert
                  180=> soc POR De-Assert
@@ -8,8 +8,14 @@ test001: soc cfg write test         x
                  260=> fpga reset Assert
                  300=> fpga POR De-Assert
                  340=> fpga reset De-Assert
-                 965=> soc_is_cfg_write : wbs_adr=00000000, wbs_sel=0000, wbs_wdata=00000000
-test001: soc cfg write test         x
+test001_is_soc_cfg: soc cfg read/write test
+                 565=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+                 805=> soc_is_cfg_read : wbs_adr=30003000, wbs_sel=1111
+                 805=> soc wishbone read data result : send soc_cfg_read_event
+                 805=> soc_is_cfg_read : got soc_cfg_read_event
+                 805=> test001_is_soc_cfg [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+test001: soc cfg write/read test
                    0=> soc_axis_loopback force dut.AXIS_SW0.up_as_tvalid = 1
                  140=> soc POR Assert
                  180=> soc POR De-Assert
@@ -17,338 +23,1225 @@ test001: soc cfg write test         x
                  260=> fpga reset Assert
                  300=> fpga POR De-Assert
                  340=> fpga reset De-Assert
-                 965=> soc_is_cfg_write : wbs_adr=00000000, wbs_sel=0000, wbs_wdata=00000000
-                1405=> soc_is_cfg_write : wbs_adr=00000000, wbs_sel=0000, wbs_wdata=00000000
-                2085=> soc_aa_cfg_write : wbs_adr=00000000, wbs_sel=0000, wbs_wdata=00000000
-                2965=> soc_aa_cfg_read : wbs_adr=00000000, wbs_sel=0000
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 1900580 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 301
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 89
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 60
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 63
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 59
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 42
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 46
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 41
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 55
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 54
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 42
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 46
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 41
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 55
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 54
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 47
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 51
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 52
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 46
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 58
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 62
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 65
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 57
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 224
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 228
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 231
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 223
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 76
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 81
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 82
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 75
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 88
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 92
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 95
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 87
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 103
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 107
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 114
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 102
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 121
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 125
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 120
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 135
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 139
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 142
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 134
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 149
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 153
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 154
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 148
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 167
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 172
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 177
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 178
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 165
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 76
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 81
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 82
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 75
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 88
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 92
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 95
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 87
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 103
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 107
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 114
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 102
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 121
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 125
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 120
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 135
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 139
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 142
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 134
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 149
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 153
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 154
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 148
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 167
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 172
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 177
-Stopped at time : 1900585 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 178
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 34
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 291
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 324
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 325
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 326
-Stopped at time : 3801665 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 327
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 301
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 89
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 206
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 210
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 216
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 205
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 337
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 341
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 344
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 336
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 206
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 210
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 216
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 205
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 337
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 341
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 342
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 336
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 115
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 116
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 49
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 50
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 48
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 65
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 66
-Stopped at time : 3801670 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 64
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 352
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 301
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 89
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 60
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 63
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" Line 59
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 284
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 42
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 46
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 41
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 55
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 60
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 54
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 42
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 46
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 41
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 55
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 59
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 60
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_clock.v" Line 54
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 47
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 51
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 52
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 46
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 58
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 62
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 65
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" Line 57
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 224
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 228
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 231
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" Line 223
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 76
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 81
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 82
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 75
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 88
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 92
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 95
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 87
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 103
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 107
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 114
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 102
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 121
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 125
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 120
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 135
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 139
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 142
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 134
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 149
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 153
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 154
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 148
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 167
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 172
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 177
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 178
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 165
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 76
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 81
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 82
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 75
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 88
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 92
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 95
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 87
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 103
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 107
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 114
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 102
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 121
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 125
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 120
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 135
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 139
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 142
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 134
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 149
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 153
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 154
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 148
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 167
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 172
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 177
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 178
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 165
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 76
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 81
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 82
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 75
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 88
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 92
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 95
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 87
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 103
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 107
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 114
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 102
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 121
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 125
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 120
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 135
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 139
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 142
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 134
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 149
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 153
-Stopped at time : 3801675 ns : File "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" Line 154
+test001_is_soc_cfg: soc cfg read/write test
+                 565=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+                 805=> soc_is_cfg_read : wbs_adr=30003000, wbs_sel=1111
+                 805=> soc wishbone read data result : send soc_cfg_read_event
+                 805=> soc_is_cfg_read : got soc_cfg_read_event
+                 805=> test001_is_soc_cfg [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+                1045=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+                1285=> soc_is_cfg_read : wbs_adr=30003000, wbs_sel=1111
+                1285=> soc wishbone read data result : send soc_cfg_read_event
+                1285=> soc_is_cfg_read : got soc_cfg_read_event
+                1285=> test001_is_soc_cfg [PASS] cfg_read_data_expect_value=00000003, cfg_read_data_captured=00000003
+-----------------
+test001_is_soc_cfg: soc cfg read/write test - end
+--------------------------------------------------------------------
+test001_aa_internal_soc_cfg: AA internal register read/write test - start
+                1685=> soc_aa_cfg_write : wbs_adr=30002100, wbs_sel=1111, wbs_wdata=00000001
+                2205=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+                2205=> soc wishbone read data result : send soc_cfg_read_event
+                2205=> soc_aa_cfg_read : got soc_cfg_read_event
+                2205=> test001_aa_internal_soc_cfg [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+                2525=> soc_aa_cfg_write : wbs_adr=30002104, wbs_sel=1111, wbs_wdata=00000000
+                3045=> soc_aa_cfg_read : wbs_adr=30002104, wbs_sel=1111
+                3045=> soc wishbone read data result : send soc_cfg_read_event
+                3045=> soc_aa_cfg_read : got soc_cfg_read_event
+                3045=> test001_aa_internal_soc_cfg [PASS] cfg_read_data_expect_value=00000000, cfg_read_data_captured=00000000
+-----------------
+test001_aa_internal_soc_cfg: AA Mail Box read/write test - end
+--------------------------------------------------------------------
+test001_up_soc_cfg: soc cfg read/write test
+                3365=> soc_up_cfg_write : wbs_adr=30000000, wbs_sel=1111, wbs_wdata=a5a5a5a5
+                3605=> soc_up_cfg_read : wbs_adr=30000000, wbs_sel=1111
+                3605=> soc wishbone read data result : send soc_cfg_read_event
+                3605=> soc_up_cfg_read : got soc_cfg_read_event
+                3605=> test001_up_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+                3845=> soc_up_cfg_write : wbs_adr=30000000, wbs_sel=1111, wbs_wdata=12153524
+                4085=> soc_up_cfg_read : wbs_adr=30000000, wbs_sel=1111
+                4085=> soc wishbone read data result : send soc_cfg_read_event
+                4085=> soc_up_cfg_read : got soc_cfg_read_event
+                4085=> test001_up_soc_cfg [PASS] cfg_read_data_expect_value=12153524, cfg_read_data_captured=12153524
+-----------------
+test001_up_soc_cfg: soc cfg read/write test - end
+--------------------------------------------------------------------
+test002: fpga_axis_req - loop 00
+                4225=> soc POR Assert
+                4225=> fpga POR Assert
+                4225=> fpga reset Assert
+                4265=> soc POR De-Assert
+                4265=> fpga POR De-Assert
+                4305=> fpga reset De-Assert
+                4365=> fpga_as_to_is_init done
+                4405=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+                4605=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+                4605=> soc rxen_ctl=1
+                4605=> fpga rxen_ctl=1
+                5045=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+                5205=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+                5205=> soc txen_ctl=1
+                5205=> fpga txen_ctl=1
+                5645=> fpga_axis_req fpga_as_is_tdata = 00000000
+                5685=> fpga_axis_req fpga_as_is_tdata = 11111111
+                5725=> fpga_axis_req fpga_as_is_tdata = 22222222
+                5765=> fpga_axis_req fpga_as_is_tdata = 33333333
+                5805=> fpga_axis_req fpga_as_is_tdata = 44444444
+                5845=> fpga_axis_req fpga_as_is_tdata = 55555555
+                5885=> fpga_axis_req fpga_as_is_tdata = 66666666
+                5925=> fpga_axis_req fpga_as_is_tdata = 77777777
+                5965=> fpga_axis_req fpga_as_is_tdata = 88888888
+                6005=> fpga_axis_req fpga_as_is_tdata = 99999999
+                6045=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+                6085=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+                6125=> fpga_axis_req fpga_as_is_tdata = cccccccc
+                6165=> fpga_axis_req fpga_as_is_tdata = dddddddd
+                6205=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+                6245=> fpga_axis_req fpga_as_is_tdata = ffffffff
+                6285=> fpga_axis_req fpga_as_is_tdata = 00000000
+                6325=> fpga_axis_req fpga_as_is_tdata = 11111111
+                6365=> fpga_axis_req fpga_as_is_tdata = 22222222
+                6405=> fpga_axis_req fpga_as_is_tdata = 33333333
+                6445=> fpga_axis_req fpga_as_is_tdata = 44444444
+                6485=> fpga_axis_req fpga_as_is_tdata = 55555555
+                6525=> fpga_axis_req fpga_as_is_tdata = 66666666
+                6565=> fpga_axis_req fpga_as_is_tdata = 77777777
+                6605=> fpga_axis_req fpga_as_is_tdata = 88888888
+                6645=> fpga_axis_req fpga_as_is_tdata = 99999999
+                6685=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+                6725=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+                6765=> fpga_axis_req fpga_as_is_tdata = cccccccc
+                6805=> fpga_axis_req fpga_as_is_tdata = dddddddd
+                6845=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+                6885=> fpga_axis_req fpga_as_is_tdata = ffffffff
+                6925=> test002_fpga_axis_req done
+test002: fpga_axis_req - loop 01
+                7165=> soc POR Assert
+                7165=> fpga POR Assert
+                7165=> fpga reset Assert
+                7205=> fpga POR De-Assert
+                7215=> soc POR De-Assert
+                7245=> fpga reset De-Assert
+                7305=> fpga_as_to_is_init done
+                7345=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+                7515=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+                7515=> soc rxen_ctl=1
+                7515=> fpga rxen_ctl=1
+                7945=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+                8115=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+                8115=> soc txen_ctl=1
+                8115=> fpga txen_ctl=1
+                8585=> fpga_axis_req fpga_as_is_tdata = 00000000
+                8625=> fpga_axis_req fpga_as_is_tdata = 11111111
+                8665=> fpga_axis_req fpga_as_is_tdata = 22222222
+                8705=> fpga_axis_req fpga_as_is_tdata = 33333333
+                8745=> fpga_axis_req fpga_as_is_tdata = 44444444
+                8785=> fpga_axis_req fpga_as_is_tdata = 55555555
+                8825=> fpga_axis_req fpga_as_is_tdata = 66666666
+                8865=> fpga_axis_req fpga_as_is_tdata = 77777777
+                8905=> fpga_axis_req fpga_as_is_tdata = 88888888
+                8945=> fpga_axis_req fpga_as_is_tdata = 99999999
+                8985=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+                9025=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+                9065=> fpga_axis_req fpga_as_is_tdata = cccccccc
+                9105=> fpga_axis_req fpga_as_is_tdata = dddddddd
+                9145=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+                9185=> fpga_axis_req fpga_as_is_tdata = ffffffff
+                9225=> fpga_axis_req fpga_as_is_tdata = 00000000
+                9265=> fpga_axis_req fpga_as_is_tdata = 11111111
+                9305=> fpga_axis_req fpga_as_is_tdata = 22222222
+                9345=> fpga_axis_req fpga_as_is_tdata = 33333333
+                9385=> fpga_axis_req fpga_as_is_tdata = 44444444
+                9425=> fpga_axis_req fpga_as_is_tdata = 55555555
+                9465=> fpga_axis_req fpga_as_is_tdata = 66666666
+                9505=> fpga_axis_req fpga_as_is_tdata = 77777777
+                9545=> fpga_axis_req fpga_as_is_tdata = 88888888
+                9585=> fpga_axis_req fpga_as_is_tdata = 99999999
+                9625=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+                9665=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+                9705=> fpga_axis_req fpga_as_is_tdata = cccccccc
+                9745=> fpga_axis_req fpga_as_is_tdata = dddddddd
+                9785=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+                9825=> fpga_axis_req fpga_as_is_tdata = ffffffff
+                9865=> test002_fpga_axis_req done
+test002: fpga_axis_req - loop 02
+               10105=> soc POR Assert
+               10105=> fpga POR Assert
+               10105=> fpga reset Assert
+               10145=> fpga POR De-Assert
+               10165=> soc POR De-Assert
+               10185=> fpga reset De-Assert
+               10245=> fpga_as_to_is_init done
+               10285=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               10465=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               10465=> soc rxen_ctl=1
+               10465=> fpga rxen_ctl=1
+               10885=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               11065=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               11065=> soc txen_ctl=1
+               11065=> fpga txen_ctl=1
+               11525=> fpga_axis_req fpga_as_is_tdata = 00000000
+               11565=> fpga_axis_req fpga_as_is_tdata = 11111111
+               11605=> fpga_axis_req fpga_as_is_tdata = 22222222
+               11645=> fpga_axis_req fpga_as_is_tdata = 33333333
+               11685=> fpga_axis_req fpga_as_is_tdata = 44444444
+               11725=> fpga_axis_req fpga_as_is_tdata = 55555555
+               11765=> fpga_axis_req fpga_as_is_tdata = 66666666
+               11805=> fpga_axis_req fpga_as_is_tdata = 77777777
+               11845=> fpga_axis_req fpga_as_is_tdata = 88888888
+               11885=> fpga_axis_req fpga_as_is_tdata = 99999999
+               11925=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+               11965=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+               12005=> fpga_axis_req fpga_as_is_tdata = cccccccc
+               12045=> fpga_axis_req fpga_as_is_tdata = dddddddd
+               12085=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+               12125=> fpga_axis_req fpga_as_is_tdata = ffffffff
+               12165=> fpga_axis_req fpga_as_is_tdata = 00000000
+               12205=> fpga_axis_req fpga_as_is_tdata = 11111111
+               12245=> fpga_axis_req fpga_as_is_tdata = 22222222
+               12285=> fpga_axis_req fpga_as_is_tdata = 33333333
+               12325=> fpga_axis_req fpga_as_is_tdata = 44444444
+               12365=> fpga_axis_req fpga_as_is_tdata = 55555555
+               12405=> fpga_axis_req fpga_as_is_tdata = 66666666
+               12445=> fpga_axis_req fpga_as_is_tdata = 77777777
+               12485=> fpga_axis_req fpga_as_is_tdata = 88888888
+               12525=> fpga_axis_req fpga_as_is_tdata = 99999999
+               12565=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+               12605=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+               12645=> fpga_axis_req fpga_as_is_tdata = cccccccc
+               12685=> fpga_axis_req fpga_as_is_tdata = dddddddd
+               12725=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+               12765=> fpga_axis_req fpga_as_is_tdata = ffffffff
+               12805=> test002_fpga_axis_req done
+test002: fpga_axis_req - loop 03
+               13045=> soc POR Assert
+               13045=> fpga POR Assert
+               13045=> fpga reset Assert
+               13085=> fpga POR De-Assert
+               13115=> soc POR De-Assert
+               13125=> fpga reset De-Assert
+               13225=> fpga_as_to_is_init done
+               13265=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               13455=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               13455=> soc rxen_ctl=1
+               13455=> fpga rxen_ctl=1
+               13865=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               14055=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               14055=> soc txen_ctl=1
+               14055=> fpga txen_ctl=1
+               14505=> fpga_axis_req fpga_as_is_tdata = 00000000
+               14545=> fpga_axis_req fpga_as_is_tdata = 11111111
+               14585=> fpga_axis_req fpga_as_is_tdata = 22222222
+               14625=> fpga_axis_req fpga_as_is_tdata = 33333333
+               14665=> fpga_axis_req fpga_as_is_tdata = 44444444
+               14705=> fpga_axis_req fpga_as_is_tdata = 55555555
+               14745=> fpga_axis_req fpga_as_is_tdata = 66666666
+               14785=> fpga_axis_req fpga_as_is_tdata = 77777777
+               14825=> fpga_axis_req fpga_as_is_tdata = 88888888
+               14865=> fpga_axis_req fpga_as_is_tdata = 99999999
+               14905=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+               14945=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+               14985=> fpga_axis_req fpga_as_is_tdata = cccccccc
+               15025=> fpga_axis_req fpga_as_is_tdata = dddddddd
+               15065=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+               15105=> fpga_axis_req fpga_as_is_tdata = ffffffff
+               15145=> fpga_axis_req fpga_as_is_tdata = 00000000
+               15185=> fpga_axis_req fpga_as_is_tdata = 11111111
+               15225=> fpga_axis_req fpga_as_is_tdata = 22222222
+               15265=> fpga_axis_req fpga_as_is_tdata = 33333333
+               15305=> fpga_axis_req fpga_as_is_tdata = 44444444
+               15345=> fpga_axis_req fpga_as_is_tdata = 55555555
+               15385=> fpga_axis_req fpga_as_is_tdata = 66666666
+               15425=> fpga_axis_req fpga_as_is_tdata = 77777777
+               15465=> fpga_axis_req fpga_as_is_tdata = 88888888
+               15505=> fpga_axis_req fpga_as_is_tdata = 99999999
+               15545=> fpga_axis_req fpga_as_is_tdata = aaaaaaaa
+               15585=> fpga_axis_req fpga_as_is_tdata = bbbbbbbb
+               15625=> fpga_axis_req fpga_as_is_tdata = cccccccc
+               15665=> fpga_axis_req fpga_as_is_tdata = dddddddd
+               15705=> fpga_axis_req fpga_as_is_tdata = eeeeeeee
+               15745=> fpga_axis_req fpga_as_is_tdata = ffffffff
+               15785=> test002_fpga_axis_req done
+test003: fpga_cfg_read test - loop 00
+               16025=> soc POR Assert
+               16025=> fpga POR Assert
+               16025=> fpga reset Assert
+               16065=> soc POR De-Assert
+               16065=> fpga POR De-Assert
+               16105=> fpga reset De-Assert
+               16165=> fpga_as_to_is_init done
+               16205=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               16405=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               16405=> soc rxen_ctl=1
+               16405=> fpga rxen_ctl=1
+               16845=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               17005=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               17005=> soc txen_ctl=1
+               17005=> fpga txen_ctl=1
+               17445=> fpga_axilite_read_req in address req phase = 00003000 - tvalid
+               17485=> fpga_axilite_read_req in address req phase = 00003000 - transfer
+               17485=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               18525=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =xxxxxxxx, fpga_is_as_tdata=00000003
+               18525=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               18525=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               18525=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               18525=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               18525=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               18525=> fpga_axilite_read_req in address req phase = 00003004 - tvalid
+               18565=> fpga_axilite_read_req in address req phase = 00003004 - transfer
+               18565=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               19565=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               19565=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               19565=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               19565=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               19565=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               19565=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               19565=> fpga_axilite_read_req in address req phase = 00003008 - tvalid
+               19605=> fpga_axilite_read_req in address req phase = 00003008 - transfer
+               19605=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               20605=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               20605=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               20605=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               20605=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               20605=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               20605=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               20605=> fpga_axilite_read_req in address req phase = 0000300c - tvalid
+               20645=> fpga_axilite_read_req in address req phase = 0000300c - transfer
+               20645=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               21645=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               21645=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               21645=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               21645=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               21645=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               21645=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               21645=> fpga_axilite_read_req in address req phase = 00003010 - tvalid
+               21685=> fpga_axilite_read_req in address req phase = 00003010 - transfer
+               21685=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               22685=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               22685=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               22685=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               22685=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               22685=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               22685=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               22685=> fpga_axilite_read_req in address req phase = 00003014 - tvalid
+               22725=> fpga_axilite_read_req in address req phase = 00003014 - transfer
+               22725=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               23725=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               23725=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               23725=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               23725=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               23725=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               23725=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               23725=> fpga_axilite_read_req in address req phase = 00003018 - tvalid
+               23765=> fpga_axilite_read_req in address req phase = 00003018 - transfer
+               23765=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               24765=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               24765=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               24765=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               24765=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               24765=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               24765=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               24765=> fpga_axilite_read_req in address req phase = 0000301c - tvalid
+               24805=> fpga_axilite_read_req in address req phase = 0000301c - transfer
+               24805=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               25805=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               25805=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               25805=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               25805=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               25805=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               25805=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               25805=> test003_fpga_to_soc_cfg_read done
+test003: fpga_cfg_read test - loop 01
+               26045=> soc POR Assert
+               26045=> fpga POR Assert
+               26045=> fpga reset Assert
+               26085=> fpga POR De-Assert
+               26095=> soc POR De-Assert
+               26125=> fpga reset De-Assert
+               26185=> fpga_as_to_is_init done
+               26225=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               26395=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               26395=> soc rxen_ctl=1
+               26395=> fpga rxen_ctl=1
+               26825=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               26995=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               26995=> soc txen_ctl=1
+               26995=> fpga txen_ctl=1
+               27465=> fpga_axilite_read_req in address req phase = 00003000 - tvalid
+               27505=> fpga_axilite_read_req in address req phase = 00003000 - transfer
+               27505=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               28505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               28505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               28505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               28505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               28505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               28505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               28505=> fpga_axilite_read_req in address req phase = 00003004 - tvalid
+               28545=> fpga_axilite_read_req in address req phase = 00003004 - transfer
+               28545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               29505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               29505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               29505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               29505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               29505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               29505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               29505=> fpga_axilite_read_req in address req phase = 00003008 - tvalid
+               29545=> fpga_axilite_read_req in address req phase = 00003008 - transfer
+               29545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               30505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               30505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               30505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               30505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               30505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               30505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               30505=> fpga_axilite_read_req in address req phase = 0000300c - tvalid
+               30545=> fpga_axilite_read_req in address req phase = 0000300c - transfer
+               30545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               31505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               31505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               31505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               31505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               31505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               31505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               31505=> fpga_axilite_read_req in address req phase = 00003010 - tvalid
+               31545=> fpga_axilite_read_req in address req phase = 00003010 - transfer
+               31545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               32505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               32505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               32505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               32505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               32505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               32505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               32505=> fpga_axilite_read_req in address req phase = 00003014 - tvalid
+               32545=> fpga_axilite_read_req in address req phase = 00003014 - transfer
+               32545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               33505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               33505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               33505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               33505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               33505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               33505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               33505=> fpga_axilite_read_req in address req phase = 00003018 - tvalid
+               33545=> fpga_axilite_read_req in address req phase = 00003018 - transfer
+               33545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               34505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               34505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               34505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               34505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               34505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               34505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               34505=> fpga_axilite_read_req in address req phase = 0000301c - tvalid
+               34545=> fpga_axilite_read_req in address req phase = 0000301c - transfer
+               34545=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               35505=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               35505=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               35505=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               35505=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               35505=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               35505=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               35505=> test003_fpga_to_soc_cfg_read done
+test003: fpga_cfg_read test - loop 02
+               35745=> soc POR Assert
+               35745=> fpga POR Assert
+               35745=> fpga reset Assert
+               35785=> fpga POR De-Assert
+               35805=> soc POR De-Assert
+               35825=> fpga reset De-Assert
+               35885=> fpga_as_to_is_init done
+               35925=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               36105=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               36105=> soc rxen_ctl=1
+               36105=> fpga rxen_ctl=1
+               36525=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               36705=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               36705=> soc txen_ctl=1
+               36705=> fpga txen_ctl=1
+               37165=> fpga_axilite_read_req in address req phase = 00003000 - tvalid
+               37205=> fpga_axilite_read_req in address req phase = 00003000 - transfer
+               37205=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               38205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               38205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               38205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               38205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               38205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               38205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               38205=> fpga_axilite_read_req in address req phase = 00003004 - tvalid
+               38245=> fpga_axilite_read_req in address req phase = 00003004 - transfer
+               38245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               39205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               39205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               39205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               39205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               39205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               39205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               39205=> fpga_axilite_read_req in address req phase = 00003008 - tvalid
+               39245=> fpga_axilite_read_req in address req phase = 00003008 - transfer
+               39245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               40205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               40205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               40205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               40205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               40205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               40205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               40205=> fpga_axilite_read_req in address req phase = 0000300c - tvalid
+               40245=> fpga_axilite_read_req in address req phase = 0000300c - transfer
+               40245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               41205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               41205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               41205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               41205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               41205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               41205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               41205=> fpga_axilite_read_req in address req phase = 00003010 - tvalid
+               41245=> fpga_axilite_read_req in address req phase = 00003010 - transfer
+               41245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               42205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               42205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               42205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               42205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               42205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               42205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               42205=> fpga_axilite_read_req in address req phase = 00003014 - tvalid
+               42245=> fpga_axilite_read_req in address req phase = 00003014 - transfer
+               42245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               43205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               43205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               43205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               43205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               43205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               43205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               43205=> fpga_axilite_read_req in address req phase = 00003018 - tvalid
+               43245=> fpga_axilite_read_req in address req phase = 00003018 - transfer
+               43245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               44205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               44205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               44205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               44205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               44205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               44205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               44205=> fpga_axilite_read_req in address req phase = 0000301c - tvalid
+               44245=> fpga_axilite_read_req in address req phase = 0000301c - transfer
+               44245=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               45205=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               45205=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               45205=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               45205=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               45205=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               45205=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               45205=> test003_fpga_to_soc_cfg_read done
+test003: fpga_cfg_read test - loop 03
+               45445=> soc POR Assert
+               45445=> fpga POR Assert
+               45445=> fpga reset Assert
+               45485=> fpga POR De-Assert
+               45515=> soc POR De-Assert
+               45525=> fpga reset De-Assert
+               45625=> fpga_as_to_is_init done
+               45665=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               45855=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               45855=> soc rxen_ctl=1
+               45855=> fpga rxen_ctl=1
+               46265=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               46455=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               46455=> soc txen_ctl=1
+               46455=> fpga txen_ctl=1
+               46905=> fpga_axilite_read_req in address req phase = 00003000 - tvalid
+               46945=> fpga_axilite_read_req in address req phase = 00003000 - transfer
+               46945=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               47945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               47945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               47945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               47945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               47945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               47945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               47945=> fpga_axilite_read_req in address req phase = 00003004 - tvalid
+               47985=> fpga_axilite_read_req in address req phase = 00003004 - transfer
+               47985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               48945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               48945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               48945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               48945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               48945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               48945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               48945=> fpga_axilite_read_req in address req phase = 00003008 - tvalid
+               48985=> fpga_axilite_read_req in address req phase = 00003008 - transfer
+               48985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               49945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               49945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               49945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               49945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               49945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               49945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               49945=> fpga_axilite_read_req in address req phase = 0000300c - tvalid
+               49985=> fpga_axilite_read_req in address req phase = 0000300c - transfer
+               49985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               50945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               50945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               50945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               50945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               50945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               50945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               50945=> fpga_axilite_read_req in address req phase = 00003010 - tvalid
+               50985=> fpga_axilite_read_req in address req phase = 00003010 - transfer
+               50985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               51945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               51945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               51945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               51945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               51945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               51945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               51945=> fpga_axilite_read_req in address req phase = 00003014 - tvalid
+               51985=> fpga_axilite_read_req in address req phase = 00003014 - transfer
+               51985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               52945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               52945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               52945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               52945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               52945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               52945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               52945=> fpga_axilite_read_req in address req phase = 00003018 - tvalid
+               52985=> fpga_axilite_read_req in address req phase = 00003018 - transfer
+               52985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               53945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               53945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               53945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               53945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               53945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               53945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               53945=> fpga_axilite_read_req in address req phase = 0000301c - tvalid
+               53985=> fpga_axilite_read_req in address req phase = 0000301c - transfer
+               53985=> test003_fpga_to_soc_cfg_read :wait for soc_to_fpga_axilite_read_cpl_event
+               54945=> get soc_to_fpga_axilite_read_cpl_captured be : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               54945=> get soc_to_fpga_axilite_read_cpl_captured af : soc_to_fpga_axilite_read_cpl_captured =00000003, fpga_is_as_tdata=00000003
+               54945=> soc_to_fpga_axilite_read_cpl_captured : send soc_to_fpga_axilite_read_cpl_event
+               54945=> test003_fpga_to_soc_cfg_read : got soc_to_fpga_axilite_read_cpl_event
+               54945=> test003_fpga_to_soc_cfg_read : soc_to_fpga_axilite_read_cpl_captured=00000003
+               54945=> test003_fpga_to_soc_cfg_read [PASS] soc_to_fpga_axilite_read_cpl_expect_value=00000003, soc_to_fpga_axilite_read_cpl_captured[27:0]=0000003
+               54945=> test003_fpga_to_soc_cfg_read done
+test004: TX/RX test - loop 00
+               55185=> soc POR Assert
+               55185=> fpga POR Assert
+               55185=> fpga reset Assert
+               55225=> soc POR De-Assert
+               55225=> fpga POR De-Assert
+               55265=> fpga reset De-Assert
+               55325=> fpga_as_to_is_init done
+               55365=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               55565=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               55565=> soc rxen_ctl=1
+               55565=> fpga rxen_ctl=1
+               56005=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               56165=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               56165=> soc txen_ctl=1
+               56165=> fpga txen_ctl=1
+               57245=> test004_fpga_to_soc_mail_box_write done
+test004: TX/RX test - loop 01
+               57485=> soc POR Assert
+               57485=> fpga POR Assert
+               57485=> fpga reset Assert
+               57525=> fpga POR De-Assert
+               57535=> soc POR De-Assert
+               57565=> fpga reset De-Assert
+               57625=> fpga_as_to_is_init done
+               57665=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               57835=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               57835=> soc rxen_ctl=1
+               57835=> fpga rxen_ctl=1
+               58265=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               58435=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               58435=> soc txen_ctl=1
+               58435=> fpga txen_ctl=1
+               59545=> test004_fpga_to_soc_mail_box_write done
+test004: TX/RX test - loop 02
+               59785=> soc POR Assert
+               59785=> fpga POR Assert
+               59785=> fpga reset Assert
+               59825=> fpga POR De-Assert
+               59845=> soc POR De-Assert
+               59865=> fpga reset De-Assert
+               59925=> fpga_as_to_is_init done
+               59965=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               60145=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               60145=> soc rxen_ctl=1
+               60145=> fpga rxen_ctl=1
+               60565=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               60745=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               60745=> soc txen_ctl=1
+               60745=> fpga txen_ctl=1
+               61845=> test004_fpga_to_soc_mail_box_write done
+test004: TX/RX test - loop 03
+               62085=> soc POR Assert
+               62085=> fpga POR Assert
+               62085=> fpga reset Assert
+               62125=> fpga POR De-Assert
+               62155=> soc POR De-Assert
+               62165=> fpga reset De-Assert
+               62265=> fpga_as_to_is_init done
+               62305=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               62495=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               62495=> soc rxen_ctl=1
+               62495=> fpga rxen_ctl=1
+               62905=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               63095=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               63095=> soc txen_ctl=1
+               63095=> fpga txen_ctl=1
+               64185=> test004_fpga_to_soc_mail_box_write done
+test005: soc mail box cfg write/read test
+               64525=> soc POR Assert
+               64565=> soc POR De-Assert
+               64645=> fpga POR Assert
+               64645=> fpga reset Assert
+               64685=> fpga POR De-Assert
+               64725=> fpga reset De-Assert
+               64825=> fpga_as_to_is_init done
+               64865=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               65065=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               65065=> soc rxen_ctl=1
+               65065=> fpga rxen_ctl=1
+               65505=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               65665=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               65665=> soc txen_ctl=1
+               65665=> fpga txen_ctl=1
+test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc cfg read value part
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start
+               66345=> soc_aa_cfg_write : wbs_adr=30002000, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               66785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =xxxxxxxx, fpga_is_as_tdata=f0002000
+               66785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002000
+               66825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =xxxxxxxx, fpga_is_as_tdata=a5a5a5a5
+               66825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               66825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               67025=> soc_aa_cfg_read : wbs_adr=30002000, wbs_sel=1111
+               67025=> soc wishbone read data result : send soc_cfg_read_event
+               67025=> soc_aa_cfg_read : got soc_cfg_read_event
+               67025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               67345=> soc_aa_cfg_write : wbs_adr=30002004, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               67785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002004
+               67785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002004
+               67825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               67825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               67825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               68025=> soc_aa_cfg_read : wbs_adr=30002004, wbs_sel=1111
+               68025=> soc wishbone read data result : send soc_cfg_read_event
+               68025=> soc_aa_cfg_read : got soc_cfg_read_event
+               68025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               68345=> soc_aa_cfg_write : wbs_adr=30002008, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               68785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002008
+               68785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f0002008
+               68825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               68825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               68825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               69025=> soc_aa_cfg_read : wbs_adr=30002008, wbs_sel=1111
+               69025=> soc wishbone read data result : send soc_cfg_read_event
+               69025=> soc_aa_cfg_read : got soc_cfg_read_event
+               69025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               69345=> soc_aa_cfg_write : wbs_adr=3000200c, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               69785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f000200c
+               69785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f000200c
+               69825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               69825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               69825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               70025=> soc_aa_cfg_read : wbs_adr=3000200c, wbs_sel=1111
+               70025=> soc wishbone read data result : send soc_cfg_read_event
+               70025=> soc_aa_cfg_read : got soc_cfg_read_event
+               70025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               70345=> soc_aa_cfg_write : wbs_adr=30002010, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               70785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f0002010
+               70785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002010
+               70825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               70825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               70825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               71025=> soc_aa_cfg_read : wbs_adr=30002010, wbs_sel=1111
+               71025=> soc wishbone read data result : send soc_cfg_read_event
+               71025=> soc_aa_cfg_read : got soc_cfg_read_event
+               71025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               71345=> soc_aa_cfg_write : wbs_adr=30002014, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               71785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002014
+               71785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002014
+               71825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               71825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               71825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               72025=> soc_aa_cfg_read : wbs_adr=30002014, wbs_sel=1111
+               72025=> soc wishbone read data result : send soc_cfg_read_event
+               72025=> soc_aa_cfg_read : got soc_cfg_read_event
+               72025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               72345=> soc_aa_cfg_write : wbs_adr=30002018, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               72785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002018
+               72785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f0002018
+               72825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               72825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               72825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               73025=> soc_aa_cfg_read : wbs_adr=30002018, wbs_sel=1111
+               73025=> soc wishbone read data result : send soc_cfg_read_event
+               73025=> soc_aa_cfg_read : got soc_cfg_read_event
+               73025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+               73345=> soc_aa_cfg_write : wbs_adr=3000201c, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               73785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f000201c
+               73785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f000201c
+               73825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               73825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               73825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               74025=> soc_aa_cfg_read : wbs_adr=3000201c, wbs_sel=1111
+               74025=> soc wishbone read data result : send soc_cfg_read_event
+               74025=> soc_aa_cfg_read : got soc_cfg_read_event
+               74025=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=a5a5a5a5, cfg_read_data_captured=a5a5a5a5
+-----------------
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - end
+--------------------------------------------------------------------
+test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc to fpga cfg write value part
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start
+               74345=> soc_aa_cfg_write : wbs_adr=30002000, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               74785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f0002000
+               74785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002000
+               74825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               74825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               74825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               74825=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               74825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002000, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002000
+               74825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               74825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               75145=> soc_aa_cfg_write : wbs_adr=30002004, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               75585=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002004
+               75585=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002004
+               75625=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               75625=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               75625=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               75625=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               75625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002004, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002004
+               75625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               75625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               75945=> soc_aa_cfg_write : wbs_adr=30002008, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               76385=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002008
+               76385=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f0002008
+               76425=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               76425=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               76425=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               76425=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               76425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002008, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002008
+               76425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               76425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               76745=> soc_aa_cfg_write : wbs_adr=3000200c, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               77185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f000200c
+               77185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f000200c
+               77225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               77225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               77225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               77225=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               77225=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=000200c, soc_to_fpga_mailbox_write_addr_captured[27:0]=000200c
+               77225=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               77225=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               77545=> soc_aa_cfg_write : wbs_adr=30002010, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               77985=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f0002010
+               77985=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002010
+               78025=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               78025=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               78025=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               78025=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               78025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002010, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002010
+               78025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               78025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               78345=> soc_aa_cfg_write : wbs_adr=30002014, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               78785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002014
+               78785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002014
+               78825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               78825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               78825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               78825=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               78825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002014, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002014
+               78825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               78825=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               79145=> soc_aa_cfg_write : wbs_adr=30002018, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               79585=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002018
+               79585=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f0002018
+               79625=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               79625=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               79625=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               79625=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               79625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002018, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002018
+               79625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               79625=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+               79945=> soc_aa_cfg_write : wbs_adr=3000201c, wbs_sel=1111, wbs_wdata=a5a5a5a5
+               80385=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f000201c
+               80385=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f000201c
+               80425=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               80425=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=a5a5a5a5
+               80425=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               80425=> test005_aa_mailbox_soc_cfg : got soc_to_fpga_mailbox_write_event
+               80425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=000201c, soc_to_fpga_mailbox_write_addr_captured[27:0]=000201c
+               80425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               80425=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=a5a5a5a5, soc_to_fpga_mailbox_write_data_captured=a5a5a5a5
+-----------------
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - end
+--------------------------------------------------------------------
+test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc cfg read value part with random value
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start
+               80745=> soc_aa_cfg_write : wbs_adr=30002000, wbs_sel=1111, wbs_wdata=c0895e81
+               81185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f0002000
+               81185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002000
+               81225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =a5a5a5a5, fpga_is_as_tdata=c0895e81
+               81225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =c0895e81, fpga_is_as_tdata=c0895e81
+               81225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               81425=> soc_aa_cfg_read : wbs_adr=30002000, wbs_sel=1111
+               81425=> soc wishbone read data result : send soc_cfg_read_event
+               81425=> soc_aa_cfg_read : got soc_cfg_read_event
+               81425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=c0895e81, cfg_read_data_captured=c0895e81
+-----------------
+               81745=> soc_aa_cfg_write : wbs_adr=30002004, wbs_sel=1111, wbs_wdata=8484d609
+               82185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002004
+               82185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002004
+               82225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =c0895e81, fpga_is_as_tdata=8484d609
+               82225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =8484d609, fpga_is_as_tdata=8484d609
+               82225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               82425=> soc_aa_cfg_read : wbs_adr=30002004, wbs_sel=1111
+               82425=> soc wishbone read data result : send soc_cfg_read_event
+               82425=> soc_aa_cfg_read : got soc_cfg_read_event
+               82425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=8484d609, cfg_read_data_captured=8484d609
+-----------------
+               82745=> soc_aa_cfg_write : wbs_adr=30002008, wbs_sel=1111, wbs_wdata=b1f05663
+               83185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002008
+               83185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f0002008
+               83225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =8484d609, fpga_is_as_tdata=b1f05663
+               83225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =b1f05663, fpga_is_as_tdata=b1f05663
+               83225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               83425=> soc_aa_cfg_read : wbs_adr=30002008, wbs_sel=1111
+               83425=> soc wishbone read data result : send soc_cfg_read_event
+               83425=> soc_aa_cfg_read : got soc_cfg_read_event
+               83425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=b1f05663, cfg_read_data_captured=b1f05663
+-----------------
+               83745=> soc_aa_cfg_write : wbs_adr=3000200c, wbs_sel=1111, wbs_wdata=06b97b0d
+               84185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f000200c
+               84185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f000200c
+               84225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =b1f05663, fpga_is_as_tdata=06b97b0d
+               84225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =06b97b0d, fpga_is_as_tdata=06b97b0d
+               84225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               84425=> soc_aa_cfg_read : wbs_adr=3000200c, wbs_sel=1111
+               84425=> soc wishbone read data result : send soc_cfg_read_event
+               84425=> soc_aa_cfg_read : got soc_cfg_read_event
+               84425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=06b97b0d, cfg_read_data_captured=06b97b0d
+-----------------
+               84745=> soc_aa_cfg_write : wbs_adr=30002010, wbs_sel=1111, wbs_wdata=46df998d
+               85185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f0002010
+               85185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002010
+               85225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =06b97b0d, fpga_is_as_tdata=46df998d
+               85225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =46df998d, fpga_is_as_tdata=46df998d
+               85225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               85425=> soc_aa_cfg_read : wbs_adr=30002010, wbs_sel=1111
+               85425=> soc wishbone read data result : send soc_cfg_read_event
+               85425=> soc_aa_cfg_read : got soc_cfg_read_event
+               85425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=46df998d, cfg_read_data_captured=46df998d
+-----------------
+               85745=> soc_aa_cfg_write : wbs_adr=30002014, wbs_sel=1111, wbs_wdata=b2c28465
+               86185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002014
+               86185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002014
+               86225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =46df998d, fpga_is_as_tdata=b2c28465
+               86225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =b2c28465, fpga_is_as_tdata=b2c28465
+               86225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               86425=> soc_aa_cfg_read : wbs_adr=30002014, wbs_sel=1111
+               86425=> soc wishbone read data result : send soc_cfg_read_event
+               86425=> soc_aa_cfg_read : got soc_cfg_read_event
+               86425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=b2c28465, cfg_read_data_captured=b2c28465
+-----------------
+               86745=> soc_aa_cfg_write : wbs_adr=30002018, wbs_sel=1111, wbs_wdata=89375212
+               87185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002018
+               87185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f0002018
+               87225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =b2c28465, fpga_is_as_tdata=89375212
+               87225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =89375212, fpga_is_as_tdata=89375212
+               87225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               87425=> soc_aa_cfg_read : wbs_adr=30002018, wbs_sel=1111
+               87425=> soc wishbone read data result : send soc_cfg_read_event
+               87425=> soc_aa_cfg_read : got soc_cfg_read_event
+               87425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=89375212, cfg_read_data_captured=89375212
+-----------------
+               87745=> soc_aa_cfg_write : wbs_adr=3000201c, wbs_sel=1111, wbs_wdata=00f3e301
+               88185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f000201c
+               88185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f000201c
+               88225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =89375212, fpga_is_as_tdata=00f3e301
+               88225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =00f3e301, fpga_is_as_tdata=00f3e301
+               88225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               88425=> soc_aa_cfg_read : wbs_adr=3000201c, wbs_sel=1111
+               88425=> soc wishbone read data result : send soc_cfg_read_event
+               88425=> soc_aa_cfg_read : got soc_cfg_read_event
+               88425=> test005_aa_mailbox_soc_cfg [PASS] cfg_read_data_expect_value=00f3e301, cfg_read_data_captured=00f3e301
+-----------------
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - end
+--------------------------------------------------------------------
+test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc to fpga cfg write value part with random value
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - start
+               88745=> soc_aa_cfg_write : wbs_adr=30002000, wbs_sel=1111, wbs_wdata=06d7cd0d
+               89185=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f0002000
+               89185=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002000
+               89225=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =00f3e301, fpga_is_as_tdata=06d7cd0d
+               89225=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =06d7cd0d, fpga_is_as_tdata=06d7cd0d
+               89225=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               89545=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002000, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002000
+               89545=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               89545=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=06d7cd0d, soc_to_fpga_mailbox_write_data_captured=06d7cd0d
+-----------------
+               89865=> soc_aa_cfg_write : wbs_adr=30002004, wbs_sel=1111, wbs_wdata=3b23f176
+               90305=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002000, fpga_is_as_tdata=f0002004
+               90305=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002004
+               90345=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =06d7cd0d, fpga_is_as_tdata=3b23f176
+               90345=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =3b23f176, fpga_is_as_tdata=3b23f176
+               90345=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               90665=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002004, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002004
+               90665=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               90665=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=3b23f176, soc_to_fpga_mailbox_write_data_captured=3b23f176
+-----------------
+               90985=> soc_aa_cfg_write : wbs_adr=30002008, wbs_sel=1111, wbs_wdata=1e8dcd3d
+               91425=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002004, fpga_is_as_tdata=f0002008
+               91425=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f0002008
+               91465=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =3b23f176, fpga_is_as_tdata=1e8dcd3d
+               91465=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =1e8dcd3d, fpga_is_as_tdata=1e8dcd3d
+               91465=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               91785=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002008, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002008
+               91785=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               91785=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=1e8dcd3d, soc_to_fpga_mailbox_write_data_captured=1e8dcd3d
+-----------------
+               92105=> soc_aa_cfg_write : wbs_adr=3000200c, wbs_sel=1111, wbs_wdata=76d457ed
+               92545=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002008, fpga_is_as_tdata=f000200c
+               92545=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f000200c
+               92585=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =1e8dcd3d, fpga_is_as_tdata=76d457ed
+               92585=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =76d457ed, fpga_is_as_tdata=76d457ed
+               92585=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               92905=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=000200c, soc_to_fpga_mailbox_write_addr_captured[27:0]=000200c
+               92905=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               92905=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=76d457ed, soc_to_fpga_mailbox_write_data_captured=76d457ed
+-----------------
+               93225=> soc_aa_cfg_write : wbs_adr=30002010, wbs_sel=1111, wbs_wdata=462df78c
+               93665=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f000200c, fpga_is_as_tdata=f0002010
+               93665=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002010
+               93705=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =76d457ed, fpga_is_as_tdata=462df78c
+               93705=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =462df78c, fpga_is_as_tdata=462df78c
+               93705=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               94025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002010, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002010
+               94025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               94025=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=462df78c, soc_to_fpga_mailbox_write_data_captured=462df78c
+-----------------
+               94345=> soc_aa_cfg_write : wbs_adr=30002014, wbs_sel=1111, wbs_wdata=7cfde9f9
+               94785=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002010, fpga_is_as_tdata=f0002014
+               94785=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002014
+               94825=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =462df78c, fpga_is_as_tdata=7cfde9f9
+               94825=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =7cfde9f9, fpga_is_as_tdata=7cfde9f9
+               94825=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               95145=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002014, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002014
+               95145=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               95145=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=7cfde9f9, soc_to_fpga_mailbox_write_data_captured=7cfde9f9
+-----------------
+               95465=> soc_aa_cfg_write : wbs_adr=30002018, wbs_sel=1111, wbs_wdata=e33724c6
+               95905=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002014, fpga_is_as_tdata=f0002018
+               95905=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f0002018
+               95945=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =7cfde9f9, fpga_is_as_tdata=e33724c6
+               95945=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =e33724c6, fpga_is_as_tdata=e33724c6
+               95945=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               96265=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=0002018, soc_to_fpga_mailbox_write_addr_captured[27:0]=0002018
+               96265=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               96265=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=e33724c6, soc_to_fpga_mailbox_write_data_captured=e33724c6
+-----------------
+               96585=> soc_aa_cfg_write : wbs_adr=3000201c, wbs_sel=1111, wbs_wdata=e2f784c5
+               97025=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =f0002018, fpga_is_as_tdata=f000201c
+               97025=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =f000201c, fpga_is_as_tdata=f000201c
+               97065=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =e33724c6, fpga_is_as_tdata=e2f784c5
+               97065=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =e2f784c5, fpga_is_as_tdata=e2f784c5
+               97065=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event
+               97385=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_expect_value=000201c, soc_to_fpga_mailbox_write_addr_captured[27:0]=000201c
+               97385=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_addr_BE_expect_value=f, soc_to_fpga_mailbox_write_addr_captured[31:28]=f
+               97385=> test005_aa_mailbox_soc_cfg [PASS] soc_to_fpga_mailbox_write_data_expect_value=e2f784c5, soc_to_fpga_mailbox_write_data_captured=e2f784c5
+-----------------
+test005_aa_mailbox_soc_cfg: AA Mail Box read/write test - end
+--------------------------------------------------------------------
+test006: fpga to soc cfg write test - loop 00
+               97625=> soc POR Assert
+               97625=> fpga POR Assert
+               97625=> fpga reset Assert
+               97665=> soc POR De-Assert
+               97665=> fpga POR De-Assert
+               97705=> fpga reset De-Assert
+               97765=> fpga_as_to_is_init done
+               97805=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               98005=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+               98005=> soc rxen_ctl=1
+               98005=> fpga rxen_ctl=1
+               98445=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+               98605=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+               98605=> soc txen_ctl=1
+               98605=> fpga txen_ctl=1
+               99045=> test006_fpga_to_soc_cfg_write - for AA_Internal_Reg default value check
+               99565=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+               99565=> soc wishbone read data result : send soc_cfg_read_event
+               99565=> soc_aa_cfg_read : got soc_cfg_read_event
+               99565=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000000, cfg_read_data_captured=00000000
+-----------------
+               99605=> fpga_axilite_write_req in address phase = 10002100 - tvalid
+               99645=> fpga_axilite_write_req in address phase = 10002100 - transfer
+               99645=> fpga_axilite_write_req in data phase = 00000001 - tvalid
+               99685=> fpga_axilite_write_req in data phase = 00000001 - transfer
+              104245=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              104245=> soc wishbone read data result : send soc_cfg_read_event
+              104245=> soc_aa_cfg_read : got soc_cfg_read_event
+              104245=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+              104245=> test006_fpga_to_soc_cfg_write done
+test006: fpga to soc cfg write test - loop 01
+              104485=> soc POR Assert
+              104485=> fpga POR Assert
+              104485=> fpga reset Assert
+              104525=> fpga POR De-Assert
+              104535=> soc POR De-Assert
+              104565=> fpga reset De-Assert
+              104625=> fpga_as_to_is_init done
+              104665=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              104835=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+              104835=> soc rxen_ctl=1
+              104835=> fpga rxen_ctl=1
+              105265=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              105435=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+              105435=> soc txen_ctl=1
+              105435=> fpga txen_ctl=1
+              105905=> test006_fpga_to_soc_cfg_write - for AA_Internal_Reg default value check
+              106395=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              106395=> soc wishbone read data result : send soc_cfg_read_event
+              106395=> soc_aa_cfg_read : got soc_cfg_read_event
+              106395=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000000, cfg_read_data_captured=00000000
+-----------------
+              106425=> fpga_axilite_write_req in address phase = 10002100 - tvalid
+              106465=> fpga_axilite_write_req in address phase = 10002100 - transfer
+              106465=> fpga_axilite_write_req in data phase = 00000001 - tvalid
+              106505=> fpga_axilite_write_req in data phase = 00000001 - transfer
+              111035=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              111035=> soc wishbone read data result : send soc_cfg_read_event
+              111035=> soc_aa_cfg_read : got soc_cfg_read_event
+              111035=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+              111035=> test006_fpga_to_soc_cfg_write done
+test006: fpga to soc cfg write test - loop 02
+              111275=> soc POR Assert
+              111275=> fpga POR Assert
+              111275=> fpga reset Assert
+              111315=> fpga POR De-Assert
+              111335=> soc POR De-Assert
+              111355=> fpga reset De-Assert
+              111415=> fpga_as_to_is_init done
+              111455=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              111635=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+              111635=> soc rxen_ctl=1
+              111635=> fpga rxen_ctl=1
+              112055=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              112235=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+              112235=> soc txen_ctl=1
+              112235=> fpga txen_ctl=1
+              112695=> test006_fpga_to_soc_cfg_write - for AA_Internal_Reg default value check
+              113195=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              113195=> soc wishbone read data result : send soc_cfg_read_event
+              113195=> soc_aa_cfg_read : got soc_cfg_read_event
+              113195=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000000, cfg_read_data_captured=00000000
+-----------------
+              113215=> fpga_axilite_write_req in address phase = 10002100 - tvalid
+              113255=> fpga_axilite_write_req in address phase = 10002100 - transfer
+              113255=> fpga_axilite_write_req in data phase = 00000001 - tvalid
+              113295=> fpga_axilite_write_req in data phase = 00000001 - transfer
+              117835=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              117835=> soc wishbone read data result : send soc_cfg_read_event
+              117835=> soc_aa_cfg_read : got soc_cfg_read_event
+              117835=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+              117835=> test006_fpga_to_soc_cfg_write done
+test006: fpga to soc cfg write test - loop 03
+              118075=> soc POR Assert
+              118075=> fpga POR Assert
+              118075=> fpga reset Assert
+              118115=> fpga POR De-Assert
+              118145=> soc POR De-Assert
+              118155=> fpga reset De-Assert
+              118255=> fpga_as_to_is_init done
+              118295=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              118485=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+              118485=> soc rxen_ctl=1
+              118485=> fpga rxen_ctl=1
+              118895=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              119085=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+              119085=> soc txen_ctl=1
+              119085=> fpga txen_ctl=1
+              119535=> test006_fpga_to_soc_cfg_write - for AA_Internal_Reg default value check
+              120045=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              120045=> soc wishbone read data result : send soc_cfg_read_event
+              120045=> soc_aa_cfg_read : got soc_cfg_read_event
+              120045=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000000, cfg_read_data_captured=00000000
+-----------------
+              120055=> fpga_axilite_write_req in address phase = 10002100 - tvalid
+              120095=> fpga_axilite_write_req in address phase = 10002100 - transfer
+              120095=> fpga_axilite_write_req in data phase = 00000001 - tvalid
+              120135=> fpga_axilite_write_req in data phase = 00000001 - transfer
+              124685=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              124685=> soc wishbone read data result : send soc_cfg_read_event
+              124685=> soc_aa_cfg_read : got soc_cfg_read_event
+              124685=> test006_fpga_to_soc_cfg_write [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+-----------------
+              124685=> test006_fpga_to_soc_cfg_write done
+test007: mailbox interrupt test
+test007: TX/RX test
+              125025=> soc POR Assert
+              125025=> fpga POR Assert
+              125025=> fpga reset Assert
+              125065=> soc POR De-Assert
+              125065=> fpga POR De-Assert
+              125105=> fpga reset De-Assert
+              125165=> fpga_as_to_is_init done
+              125205=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000001, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              125405=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000001
+              125405=> soc rxen_ctl=1
+              125405=> fpga rxen_ctl=1
+              125845=> fpga_cfg_write : fpga_axi_awaddr=0000, fpga_axi_awvalid=1, fpga_axi_awready=1, fpga_axi_wdata=00000003, axi_wstrb=1, fpga_axi_wvalid=1, fpga_axi_wready=1
+              126005=> soc_is_cfg_write : wbs_adr=30003000, wbs_sel=0001, wbs_wdata=00000003
+              126005=> soc txen_ctl=1
+              126005=> fpga txen_ctl=1
+Enable interrupt, set aa_regs offset 0, bit 0 = 1
+              126725=> soc_aa_cfg_write : wbs_adr=30002100, wbs_sel=1111, wbs_wdata=00000001
+              127245=> soc_aa_cfg_read : wbs_adr=30002100, wbs_sel=1111
+              127245=> soc wishbone read data result : send soc_cfg_read_event
+              127245=> soc_aa_cfg_read : got soc_cfg_read_event
+              127245=> test007_aa_internal_soc_mb_interrupt_en [PASS] cfg_read_data_expect_value=00000001, cfg_read_data_captured=00000001
+Read interrupt status, aa_regs offset 4, bit 0 should be 0 by default
+              127765=> soc_aa_cfg_read : wbs_adr=30002104, wbs_sel=1111
+              127765=> soc wishbone read data result : send soc_cfg_read_event
+              127765=> soc_aa_cfg_read : got soc_cfg_read_event
+              127765=> test007_aa_internal_soc_mb_interrupt_en [PASS] cfg_read_data_expect_value[0]=0, cfg_read_data_captured[0]=0
+              127965=> test007_fpga_mail_box_write done
+Read mb_regs offset 0
+              128605=> soc_aa_cfg_read : wbs_adr=30002000, wbs_sel=1111
+              128605=> soc wishbone read data result : send soc_cfg_read_event
+              128605=> soc_aa_cfg_read : got soc_cfg_read_event
+              128605=> Result: mb_regs offset 0 [PASS] cfg_read_data_expect_value=11111111, cfg_read_data_captured=11111111
+Check interrupt status, read aa_regs offset 4, bit 0
+              129205=> soc_aa_cfg_read : wbs_adr=30002104, wbs_sel=1111
+              129205=> soc wishbone read data result : send soc_cfg_read_event
+              129205=> soc_aa_cfg_read : got soc_cfg_read_event
+              129205=> Read soc_mb_interrupt_status [PASS] cfg_read_data_expect_value[0]=1, cfg_read_data_captured[0]=1
+Clear interrupt status, write aa_regs offset 4, bit 0 = 1
+              129525=> soc_aa_cfg_write : wbs_adr=30002104, wbs_sel=1111, wbs_wdata=00000001
+              130045=> soc_aa_cfg_read : wbs_adr=30002104, wbs_sel=1111
+              130045=> soc wishbone read data result : send soc_cfg_read_event
+              130045=> soc_aa_cfg_read : got soc_cfg_read_event
+              130045=>Read soc_mb_interrupt_status [PASS] cfg_read_data_expect_value[0]=0, cfg_read_data_captured[0]=0
+=============================================================================================
+=============================================================================================
+=============================================================================================
+              130545=> Final result [PASS], check_cnt = 0115, error_cnt = 0000
+=============================================================================================
+=============================================================================================
+=============================================================================================
+$finish called at time : 130545 ns : File "D:/kgfu_fsic_tony/dsn/testbench/tb_fsic.v" Line 361

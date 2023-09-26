@@ -1,3 +1,29 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/config_ctrl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module CFG_CTRL
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/testbench/fpga.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fpga
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/fsic.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module FSIC
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/fsic_clkrst.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module FSIC_CLKRST
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/fsic_coreclk_phase_cnt.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsic_coreclk_phase_cnt
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/fsic_io_serdes_rx.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module fsic_io_serdes_rx
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/io_serdes.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module IO_SERDES
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/logic_anlz.dummy_io.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module LOGIC_ANLZ
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/sw_caravel.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AXIS_SW
+INFO: [VRFC 10-2263] Analyzing Verilog file "D:/kgfu_fsic_tony/dsn/rtl/user_subsys.all.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module AXIL_SLAV
+INFO: [VRFC 10-311] analyzing module AXIS_MSTR
+INFO: [VRFC 10-311] analyzing module AXIS_SLAV
+INFO: [VRFC 10-311] analyzing module IRQ_MUX
+INFO: [VRFC 10-311] analyzing module LA_MUX
+INFO: [VRFC 10-311] analyzing module USER_PRJ
+INFO: [VRFC 10-311] analyzing module USER_SUBSYS
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axi_ctrl_logic.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module axi_ctrl_logic
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axil_axis.sv" into library xil_defaultlib
@@ -11,3 +37,5 @@ INFO: [VRFC 10-311] analyzing module axi_fifo
 INFO: [VRFC 10-311] analyzing module axis_master
 INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/axis_slave.sv" into library xil_defaultlib
 INFO: [VRFC 10-311] analyzing module axis_slave
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "D:/kgfu_fsic_tony/dsn/rtl/mprj_io.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module MPRJ_IO
