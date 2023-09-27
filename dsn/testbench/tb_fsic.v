@@ -104,6 +104,8 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_mailbox_write_data_captured;
 	event soc_to_fpga_mailbox_write_event;
 
+    reg stream_data_addr_or_data; //0: address, 1: data, use to identify the write transaction from AA.
+
 	reg [31:0] soc_to_fpga_axilite_read_cpl_expect_value;
 	reg [31:0] soc_to_fpga_axilite_read_cpl_captured;
 	event soc_to_fpga_axilite_read_cpl_event;
@@ -670,6 +672,8 @@ FSIC #(
 
 	task test005_aa_mailbox_soc_cfg;
 		begin
+		 
+
 			//Test offset 0x00~0xff for mail box write to AA
 			$display("test005_aa_mailbox_soc_cfg: soc cfg read/write test - check soc cfg read value part");
 
@@ -884,20 +888,32 @@ FSIC #(
 
 
 	initial begin		//when soc cfg write to AA, then AA in soc generate soc_to_fpga_mailbox_write, 
+	   stream_data_addr_or_data = 0;
 		while (1) begin
 			@(posedge fpga_coreclk);
-			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_AA && fpga_is_as_tuser == TUSER_AXILITE_WRITE && fpga_is_as_tlast == 0) begin
-				$display($time, "=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
-				soc_to_fpga_mailbox_write_addr_captured = fpga_is_as_tdata ;		//use block assignment
-				$display($time, "=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
-				@(posedge fpga_coreclk);
-				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
-				soc_to_fpga_mailbox_write_data_captured = fpga_is_as_tdata ;		//use block assignment
-				$display($time, "=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
-				#0 -> soc_to_fpga_mailbox_write_event;
-				$display($time, "=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event");
-
+			//New AA version, all stream data with last = 1.  
+			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_AA && fpga_is_as_tuser == TUSER_AXILITE_WRITE && fpga_is_as_tlast == 1) begin
+			
+                if(stream_data_addr_or_data == 1'b0) begin
+                    //Address
+                    $display($time, "=> get soc_to_fpga_mailbox_write_addr_captured be : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
+                    soc_to_fpga_mailbox_write_addr_captured = fpga_is_as_tdata ;		//use block assignment
+                    $display($time, "=> get soc_to_fpga_mailbox_write_addr_captured af : soc_to_fpga_mailbox_write_addr_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_addr_captured, fpga_is_as_tdata);
+                    //Next should be data
+                    stream_data_addr_or_data = 1; 
+                end else begin
+                    //Data
+                    $display($time, "=> get soc_to_fpga_mailbox_write_data_captured be : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
+                    soc_to_fpga_mailbox_write_data_captured = fpga_is_as_tdata ;		//use block assignment
+                    $display($time, "=> get soc_to_fpga_mailbox_write_data_captured af : soc_to_fpga_mailbox_write_data_captured =%x, fpga_is_as_tdata=%x", soc_to_fpga_mailbox_write_data_captured, fpga_is_as_tdata);
+                    #0 -> soc_to_fpga_mailbox_write_event;
+                    $display($time, "=> soc_to_fpga_mailbox_write_data_captured : send soc_to_fpga_mailbox_write_event");                    
+                    //Next should be address
+                    stream_data_addr_or_data = 0;
+                end
 			end	
+			
+			
 		end
 	end
 
