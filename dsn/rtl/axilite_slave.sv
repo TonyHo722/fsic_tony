@@ -54,6 +54,7 @@ module axilite_slave(
     enum logic [2:0] {WR_WAIT_ADDR, WR_WRITE_ADDR, WR_WRITE_DATA, WR_WRITE_WAIT_BK} axi_wr_state, axi_wr_next_state;
     enum logic [2:0] {RD_WAIT_ADDR, RD_READ_ADDR, RD_READ_DATA}   axi_rd_state, axi_rd_next_state;
 
+	logic bk_busy;
 	assign bk_busy = cache_wstart | cache_rstart;
 
 	

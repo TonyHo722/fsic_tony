@@ -46,14 +46,12 @@ module axi_ctrl_logic(
 
     // FSM state
     enum logic [2:0] {AXI_WAIT_DATA, AXI_FETCH_DATA, AXI_DECIDE_DEST, AXI_MOVE_DATA, AXI_SEND_BKEND, AXI_TRIG_INT} axi_state, axi_next_state;
-    //enum logic {AXI_WR, AXI_RD} trans_typ;
+    enum logic {AXI_WR, AXI_RD} trans_typ;
     enum logic {TRANS_LS, TRANS_SS} next_trans, last_trans;
     enum logic [2:0] {REG_IDLE, REG_RST, REG_RD_AA, REG_WR_AA, REG_RD_MB, REG_WR_MB} axi_reg_debug; // for verification purpose, add a monitor point for registers
     enum logic [2:0] {SS_WAIT_GET_SECND, SS_SEND_BKRDY, SS_WAIT_BKVLD, SS_SECND_DATA} ss_secnd_state, ss_secnd_next_state;
     enum logic [2:0] {SM_WAIT_SEND_DATA, SM_SEND_BK_DATA, SM_SEND_DATA_DONE} sm_state, sm_next_state;
 
-    logic trans_typ;
-    
     // FSM state, sequential logic
     always_ff@(posedge axi_aclk or negedge axi_aresetn)begin
         if(~axi_aresetn)begin
@@ -105,8 +103,12 @@ module axi_ctrl_logic(
                 axi_next_state = AXI_WAIT_DATA;
         endcase
     end
-    
-    assign trans_typ = bk_ls_rd_wr;
+
+    // assign trans_typ = bk_ls_rd_wr; // xsim do not allow this
+    always_comb begin
+        if(bk_ls_rd_wr == 1'b0) trans_typ = AXI_WR;
+        else trans_typ = AXI_RD;
+    end
 
     // get data from LS
     always_comb begin
@@ -133,7 +135,7 @@ module axi_ctrl_logic(
             end
         end
     end
-    
+
     // get second data from SS 
     // FSM state, sequential logic
     always_ff@(posedge axi_aclk or negedge axi_aresetn)begin
@@ -317,7 +319,7 @@ module axi_ctrl_logic(
             case(next_trans)
                 TRANS_LS: begin // request come from left side - axilite_slave
                     case(trans_typ)
-                        1'b0: begin
+                        AXI_WR: begin
                             if( (bk_ls_addr >= MB_SUPP_LOW) &&
                                 (bk_ls_addr <= MB_SUPP_HIGH))begin // local access MB_reg
                                 wr_mb = 1'b1;
@@ -344,7 +346,7 @@ module axi_ctrl_logic(
                             else
                                 do_nothing = 1'b1;
                         end
-                        1'b1: begin
+                        AXI_RD: begin
                             if( (bk_ls_addr >= MB_SUPP_LOW) &&
                                 (bk_ls_addr <= MB_SUPP_HIGH))begin // local access MB_reg
                                 rd_mb = 1'b1;
