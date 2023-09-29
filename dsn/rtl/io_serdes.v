@@ -266,7 +266,7 @@ module IO_SERDES #(
 		pre_as_is_tid_tuser_buf[1:0] <= as_is_tuser;
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			pre_as_is_tlast_tvalid_tready_buf[3] <= as_is_tupsb[0];
-			pre_as_is_tlast_tupsb_buf <= as_is_tupsb[4:1]
+			pre_as_is_tlast_tupsb_buf <= as_is_tupsb[4:1];
 		`endif
 		pre_as_is_tlast_tvalid_tready_buf[2] <= as_is_tlast;
 		pre_as_is_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
