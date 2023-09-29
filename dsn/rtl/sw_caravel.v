@@ -165,7 +165,7 @@ reg                         frame_start_reg = 1'b0, frame_start_next;
 reg [N-1:0]                 hi_req_flag;
 reg [pDATA_WIDTH-1:0]       m_axis_tdata_reg;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]     m_axis_tsupsb_reg;
+	reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]     m_axis_tupsb_reg;
 `endif
 reg [pDATA_WIDTH/8-1:0]     m_axis_tstrb_reg;
 reg [pDATA_WIDTH/8-1:0]     m_axis_tkeep_reg; 
@@ -327,6 +327,9 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
         grant_reg <= 0;
         frame_start_reg <= 0;   
         m_axis_tdata_reg <= 0;
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		m_axis_tupsb_reg <= 0;
+`endif
         m_axis_tstrb_reg <= 0;
         m_axis_tkeep_reg <= 0;
         m_axis_tlast_reg <= 0;
