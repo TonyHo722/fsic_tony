@@ -4,7 +4,8 @@
 
 
 
-module USER_PRJ0 #( parameter pADDR_WIDTH   = 12,
+module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
+					parameter pADDR_WIDTH   = 12,
                    parameter pDATA_WIDTH   = 32
                  )
 (
@@ -24,6 +25,9 @@ module USER_PRJ0 #( parameter pADDR_WIDTH   = 12,
   input  wire                        ss_tvalid,
   input  wire  [(pDATA_WIDTH-1) : 0] ss_tdata,
   input  wire                 [1: 0] ss_tuser,
+  `if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
+  `endif
   input  wire                 [3: 0] ss_tstrb,
   input  wire                 [3: 0] ss_tkeep,
   input  wire                        ss_tlast,
@@ -32,6 +36,9 @@ module USER_PRJ0 #( parameter pADDR_WIDTH   = 12,
   output wire                        sm_tvalid,
   output wire  [(pDATA_WIDTH-1) : 0] sm_tdata,
   output wire                 [2: 0] sm_tid,
+  `if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
+  `endif
   output wire                 [3: 0] sm_tstrb,
   output wire                        sm_tkeep,
   output wire                        sm_tlast,
@@ -46,7 +53,12 @@ module USER_PRJ0 #( parameter pADDR_WIDTH   = 12,
   input  wire                        uck2_rst_n
 );
 
-localparam	FIFO_WIDTH = 4 + 1 + 1 + pDATA_WIDTH;		//tid, tstrb, tkeep, tlast, tdata
+`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	localparam	FIFO_WIDTH = pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 1 + 1 + pDATA_WIDTH;		//upsb, tid, tstrb, tkeep, tlast, tdata
+`else
+	localparam	FIFO_WIDTH = 4 + 1 + 1 + pDATA_WIDTH;		//tid, tstrb, tkeep, tlast, tdata
+`endif
+
 
 wire awvalid_in;
 wire wvalid_in;
@@ -112,13 +124,24 @@ always @(posedge axis_clk or negedge axis_rst_n)  begin
   else begin
 	if ( ss_tready && ss_tvalid) begin
 		fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
+		`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			fifo[w_ptr] <= {ss_tupsb, ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
+		`else
+			fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
+		`endif
 		w_ptr <= w_ptr + 1;
 	end
   end
 end  
 
 //for pop from fifo
-assign {sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
+
+`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	assign {sm_tupsb, sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
+`else
+	assign {sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
+`endif
+
 assign sm_tvalid = !empty;
 always @(posedge axis_clk or negedge axis_rst_n)  begin
   if ( !axis_rst_n ) begin

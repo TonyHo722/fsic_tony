@@ -20,7 +20,8 @@
 
 
 module fpga #(
-		parameter pSERIALIO_WIDTH   = 12,
+		parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
+		parameter pSERIALIO_WIDTH   = 13,
 		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter pRxFIFO_DEPTH = 5,
@@ -94,7 +95,8 @@ module fpga #(
 
 
 
-IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
+IO_SERDES #(.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pSERIALIO_WIDTH( pSERIALIO_WIDTH ),
             .pADDR_WIDTH( pADDR_WIDTH ),
             .pDATA_WIDTH( 32 ),
             .pRxFIFO_DEPTH( 5 ),
