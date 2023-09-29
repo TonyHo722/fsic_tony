@@ -110,7 +110,7 @@ wire    [1: 0] is_as_tid;
 wire           is_as_tvalid;
 wire    [1: 0] is_as_tuser;
 wire           is_as_tready;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb,
 `endif
 wire   [31: 0] m_tdata_la_as_tdata;
@@ -121,7 +121,7 @@ wire           m_tvalid_la_as_tvalid;
 wire    [1: 0] m_tuser_la_as_tuser;
 wire           la_hpri_req;
 wire   [31: 0] m_tdata_up_as_tdata;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] m_tupsb_up_as_tupsb,
 `endif
 wire    [3: 0] m_tstrb_up_as_tstrb;
@@ -140,7 +140,7 @@ wire    [1: 0] as_is_tid;
 wire           as_is_tvalid;
 wire    [1: 0] as_is_tuser;
 wire           as_is_tready;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb,
 `endif
 wire           ioclk;
@@ -152,7 +152,7 @@ wire   [63: 0] up_la_data;
 wire           cc_up_enable;
 wire    [4: 0] user_prj_sel;
 wire   [31: 0] as_up_tdata_s_tdata;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_up_tupsb_s_tupsb,
 `endif
 wire    [3: 0] as_up_tstrb_s_tstrb;
@@ -341,7 +341,7 @@ AXIS_SW #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                         .la_as_tuser  (m_tuser_la_as_tuser),     // I  2
                                         .la_hpri_req  (la_hpri_req),             // I  
                                         .up_as_tdata  (m_tdata_up_as_tdata),     // I  32
-										`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 											.up_as_tupsb  (m_tupsb_up_as_tupsb),     // I  5
 										`endif
                                         .up_as_tstrb  (m_tstrb_up_as_tstrb),     // I  4
@@ -361,7 +361,7 @@ AXIS_SW #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                         .as_is_tready (as_is_tready),            // O  
                                         .as_la_tready (as_la_tready_m_tready),   // O  
                                         .as_up_tdata  (as_up_tdata_s_tdata),     // O  32
-										`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 											.as_up_tupsb  (as_up_tupsb_s_tupsb),     // O  5
 										`endif
                                         .as_up_tstrb  (as_up_tstrb_s_tstrb),     // O  4
@@ -488,7 +488,7 @@ USER_SUBSYS #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                                   .axi_rdata    (axi_rdata_axi_rdata2),    // O  32
                                                   .axi_rvalid   (axi_rvalid_axi_rvalid2),  // O  
                                                   .m_tdata      (m_tdata_up_as_tdata),     // O  32
-												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 												  	.m_tupsb    (m_tupsb_up_as_tupsb),     // O  5
 												  `endif
                                                   .m_tstrb      (m_tstrb_up_as_tstrb),     // O  4
@@ -510,7 +510,7 @@ USER_SUBSYS #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                                   .cc_up_enable (cc_up_enable),            // I  
                                                   .user_prj_sel (user_prj_sel),            // I  5
                                                   .s_tdata      (as_up_tdata_s_tdata),     // I  32
-												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 												 	 .s_tupsb   (as_up_tupsb_s_tupsb),     // I  5
 												  `endif
                                                   .s_tstrb      (as_up_tstrb_s_tstrb),     // I  4

@@ -48,7 +48,7 @@ module AXIS_SW #(
 	input wire 	cc_as_enable,		//axi_lite enable        
     //AXI Stream inputs for User Project grant 0
     input  wire [pDATA_WIDTH-1:0]           up_as_tdata,
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		input wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] up_as_tupsb,
 	`endif
     input  wire [pDATA_WIDTH/8-1:0]         up_as_tstrb,
@@ -77,7 +77,7 @@ module AXIS_SW #(
     output wire                             as_la_tready,
     //AXI Stream outputs for IO Serdes
     output  wire [pDATA_WIDTH-1:0]          as_is_tdata,
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		output wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb,
 	`endif
     output  wire [pDATA_WIDTH/8-1:0]        as_is_tstrb,
@@ -91,7 +91,7 @@ module AXIS_SW #(
     //Demux
     //AXI Input Stream for IO_Serdes
     input  wire [pDATA_WIDTH-1:0]           is_as_tdata,
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		input wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb,
 	`endif
     input  wire [pDATA_WIDTH/8-1:0]         is_as_tstrb,    
@@ -104,7 +104,7 @@ module AXIS_SW #(
 	
     //AXI Output Stream for User Project
     output wire [pDATA_WIDTH-1:0]           as_up_tdata,
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		output wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_up_tupsb,
 	`endif
     output wire [pDATA_WIDTH/8-1:0]         as_up_tstrb,    
@@ -138,7 +138,7 @@ localparam  FIFO_DEPTH = 16;
 //FIFO address width
 localparam ADDR_WIDTH   = $clog2(FIFO_DEPTH);
 //field offset for mem unit 
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	localparam UPSB_OFFSET  = pDATA_WIDTH;
 	localparam STRB_OFFSET  = UPSB_OFFSET + 5;
 `else
@@ -164,7 +164,7 @@ reg  [N-1:0]                grant_reg = 3'b000, grant_next, shift_grant = 3'b000
 reg                         frame_start_reg = 1'b0, frame_start_next;   
 reg [N-1:0]                 hi_req_flag;
 reg [pDATA_WIDTH-1:0]       m_axis_tdata_reg;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]     m_axis_tsupsb_reg;
 `endif
 reg [pDATA_WIDTH/8-1:0]     m_axis_tstrb_reg;
@@ -188,7 +188,7 @@ reg as_is_tready_reg;
 wire [WIDTH-1:0] s_axis;
 generate
     assign s_axis[pDATA_WIDTH-1:0]                  = is_as_tdata;
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		assign s_axis[UPSB_OFFSET +: pUSER_PROJECT_SIDEBAND_WIDTH]     = is_as_tupsb;
 	`endif
     assign s_axis[STRB_OFFSET +: pDATA_WIDTH/8]     = is_as_tstrb;
@@ -240,7 +240,7 @@ assign  hi_req[0] = up_hpri_req & hi_req_mask[0];
 assign  hi_req[1] = hi_req_mask[1];
 assign  hi_req[2] = la_hpri_req & hi_req_mask[2];
 assign  as_is_tdata     = m_axis_tdata_reg;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	assign  as_is_tupsb     = m_axis_tupsb_reg;
 `endif
 assign  as_is_tstrb     = m_axis_tstrb_reg;
@@ -350,7 +350,7 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
        case (grant_reg)
             3'b001: begin
                 m_axis_tdata_reg <= up_as_tdata;
-				`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 					m_axis_tupsb_reg <= up_as_tupsb;
 				`endif
                 m_axis_tstrb_reg <= up_as_tstrb;
@@ -408,7 +408,7 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
             end
             default: begin
                 m_axis_tdata_reg <= 0;
-				`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 					m_axis_tupsb_reg <= 0;
 				`endif
                 m_axis_tstrb_reg <= 0;
@@ -483,7 +483,7 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
 end
 assign as_up_tvalid = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? as_up_tvalid_reg: 0;   
 assign as_up_tdata = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? m_axis[pDATA_WIDTH - 1:0]: 0;
-`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	assign as_up_tupsb = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? m_axis[UPSB_OFFSET +: pUSER_PROJECT_SIDEBAND_WIDTH]: 0;
 `endif
 assign as_up_tstrb = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? m_axis[STRB_OFFSET +: pDATA_WIDTH/8]: 0;

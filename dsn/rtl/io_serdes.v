@@ -78,7 +78,7 @@ module IO_SERDES #(
 		input wire 	[pDATA_WIDTH-1:0] as_is_tdata,
 		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tstrb,
 		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tkeep,
-		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			input wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb,
 		`endif
 		input wire 	as_is_tlast,
@@ -97,7 +97,7 @@ module IO_SERDES #(
 		output wire 	[pDATA_WIDTH-1:0] is_as_tdata,
 		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tstrb,
 		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tkeep,
-		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			output wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb,
 		`endif
 		output wire 	is_as_tlast,
@@ -122,7 +122,7 @@ module IO_SERDES #(
 	assign serial_tclk = txclk;
 	assign rxclk = serial_rclk;
 
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		wire Serial_Data_Out_tupsb;
 	`endif
 	wire Serial_Data_Out_tlast_tvalid_tready;
@@ -131,7 +131,7 @@ module IO_SERDES #(
 	wire Serial_Data_Out_tstrb;
 	wire [pSERIALIO_TDATA_WIDTH-1:0] Serial_Data_Out_tdata;
 
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		assign 	serial_txd[pSERIALIO_WIDTH-1:0] = {Serial_Data_Out_tupsb, Serial_Data_Out_tlast_tvalid_tready, Serial_Data_Out_tid_tuser, Serial_Data_Out_tkeep, Serial_Data_Out_tstrb, Serial_Data_Out_tdata[pSERIALIO_TDATA_WIDTH-1:0]};
 	`else
 		assign 	serial_txd[pSERIALIO_WIDTH-1:0] = {Serial_Data_Out_tlast_tvalid_tready, Serial_Data_Out_tid_tuser, Serial_Data_Out_tkeep, Serial_Data_Out_tstrb, Serial_Data_Out_tdata[pSERIALIO_TDATA_WIDTH-1:0]};
@@ -252,7 +252,7 @@ module IO_SERDES #(
 	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tid_tuser_buf;
 	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tlast_tvalid_tready_buf;
 
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		reg [3:0] pre_as_is_tlast_tupsb_buf;
 	`endif
 
@@ -264,7 +264,7 @@ module IO_SERDES #(
 		pre_as_is_tkeep_buf <= as_is_tkeep;
 		pre_as_is_tid_tuser_buf[3:2] <= as_is_tid;
 		pre_as_is_tid_tuser_buf[1:0] <= as_is_tuser;
-		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			pre_as_is_tlast_tvalid_tready_buf[3] <= as_is_tupsb[0];
 			pre_as_is_tlast_tupsb_buf <= as_is_tupsb[4:1]
 		`endif
@@ -278,7 +278,7 @@ module IO_SERDES #(
 			pre_as_is_tkeep_buf <= 0;
 			pre_as_is_tid_tuser_buf <= 0;
 			pre_as_is_tlast_tvalid_tready_buf <= 0;
-			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 				pre_as_is_tlast_tupsb_buf <= 0;
 			`endif
 		end 
@@ -297,7 +297,7 @@ module IO_SERDES #(
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tkeep_buf;
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tid_tuser_buf;
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tlast_tvalid_tready_buf;
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		reg [3:0] as_is_tlast_tupsb_buf;
 	`endif
 
@@ -308,7 +308,7 @@ module IO_SERDES #(
 			as_is_tkeep_buf <= 0;
 			as_is_tid_tuser_buf <= 0;
 			as_is_tlast_tvalid_tready_buf <= 0;
-			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 				as_is_tlast_tupsb_buf <= 0;
 			`endif
 		end
@@ -368,14 +368,14 @@ module IO_SERDES #(
 	assign Serial_Data_Out_tkeep = as_is_tkeep_buf[tx_shift_phase_cnt] & txen ;
 	assign Serial_Data_Out_tid_tuser = as_is_tid_tuser_buf[tx_shift_phase_cnt] & txen ;
 	assign Serial_Data_Out_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		assign Serial_Data_Out_tupsb = as_is_tlast_tupsb_buf[tx_shift_phase_cnt] & txen ;
 	`endif
 
 
 
 // For Rx Path
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		wire rxdata_out_valid[pSERIALIO_TDATA_WIDTH+3:0];		//add dummy connection to avoid WARNING message by xelab
 	`else
 		wire rxdata_out_valid[pSERIALIO_TDATA_WIDTH+2:0];		//add dummy connection to avoid WARNING message by xelab
@@ -466,7 +466,7 @@ module IO_SERDES #(
 	);
 
 
-	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		fsic_io_serdes_rx  #(
 			.pRxFIFO_DEPTH(pRxFIFO_DEPTH),
 			.pCLK_RATIO(pCLK_RATIO)
