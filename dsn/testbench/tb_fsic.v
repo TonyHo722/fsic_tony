@@ -57,6 +57,7 @@ module tb_fsic #( parameter BITS=32,
 		localparam TID_UP_UP = 2'b00;
 		localparam TID_UP_AA = 2'b01;
 		localparam TID_UP_LA = 2'b10;
+		localparam fpga_axis_test_length = 16;
 		
 		
     real ioclk_pd = IOCLK_Period;
@@ -107,6 +108,12 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_axilite_read_cpl_expect_value;
 	reg [31:0] soc_to_fpga_axilite_read_cpl_captured;
 	event soc_to_fpga_axilite_read_cpl_event;
+
+    reg [6:0] soc_to_fpga_axis_expect_count;
+	reg [31:0] soc_to_fpga_axis_expect_value[127:0];
+    reg [6:0] soc_to_fpga_axis_captured_count;
+	reg [31:0] soc_to_fpga_axis_captured[127:0];
+	event soc_to_fpga_axis_event;
 
 	reg [31:0] error_cnt;
 	reg [31:0] check_cnt;
@@ -915,6 +922,29 @@ FSIC #(
 		end
 	end
 
+    reg soc_to_fpga_axis_event_triggered;
+
+	initial begin		//get upstream soc_to_fpga_axis - for loop back test
+        soc_to_fpga_axis_captured_count = 0;
+        soc_to_fpga_axis_event_triggered = 0;
+		while (1) begin
+			@(posedge fpga_coreclk);
+			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_UP && fpga_is_as_tuser == TUSER_AXIS) begin
+				$display($time, "=> get soc_to_fpga_axis be : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tdata);
+				soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count] = fpga_is_as_tdata ;		//use block assignment
+				$display($time, "=> get soc_to_fpga_axis af : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tdata);
+                soc_to_fpga_axis_captured_count = soc_to_fpga_axis_captured_count+1;
+			end	
+            if ( (soc_to_fpga_axis_captured_count == fpga_axis_test_length) && !soc_to_fpga_axis_event_triggered) begin
+				$display($time, "=> soc_to_fpga_axis_captured : send soc_to_fpga_axiis_event");
+    			#0 -> soc_to_fpga_axis_event;
+                soc_to_fpga_axis_event_triggered = 1;
+            end 
+            if (soc_to_fpga_axis_captured_count != fpga_axis_test_length)
+                soc_to_fpga_axis_event_triggered = 0;
+
+		end
+	end
 
 	task test004;
 		//input [7:0] compare_data;
@@ -1140,7 +1170,6 @@ FSIC #(
 		// input [31:0] address;
 		begin
 			fpga_as_is_tready <= 1;		//TODO change to other location for set fpga_as_is_tready
-			//force fpga_is_as_tvalid=1;
 			
 			$strobe($time, "=> fpga_is_as_data_valid wait fpga_is_as_tvalid");
 			@ (posedge fpga_coreclk);
@@ -1151,6 +1180,8 @@ FSIC #(
 		
 		end
 	endtask
+
+	reg[31:0]idx3;
 
 	task test002;		//test002_fpga_axis_req
 		//input [7:0] compare_data;
@@ -1188,31 +1219,55 @@ FSIC #(
 				#40;
 				#200;
 
+                soc_to_fpga_axis_expect_count = 0;
 				test002_fpga_axis_req();		//target to Axis Switch
+
+				$display($time, "=> wait for soc_to_fpga_axis_event");
+                @(soc_to_fpga_axis_event);
+                $display($time, "=> soc_to_fpga_axis_expect_count = %d", soc_to_fpga_axis_expect_count);
+                $display($time, "=> soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_captured_count);
+                
+				check_cnt = check_cnt + 1;
+				if ( soc_to_fpga_axis_expect_count != fpga_axis_test_length) begin
+                    $display($time, "=> test002 [Error] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
+					error_cnt = error_cnt + 1;
+				end	
+				else 
+                    $display($time, "=> test002 [PASS] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
+
+				
+                for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin	
+					check_cnt = check_cnt + 1;
+                    if (soc_to_fpga_axis_expect_value[idx3] != soc_to_fpga_axis_captured[idx3] ) begin
+                        $display($time, "=> test002 [Error] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
+						error_cnt = error_cnt + 1;
+					end
+					else
+                        $display($time, "=> test002 [PASS] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
+					
+                end
+                soc_to_fpga_axis_captured_count = 0;		//reset soc_to_fpga_axis_captured_count for next loop
+
 
 				#200;
 			end
 		end
 	endtask
 
-	reg[31:0]idx3;
+
 
 	task test002_fpga_axis_req;
 		//input [7:0] compare_data;
 
 		//FPGA to SOC Axilite test
 		begin
-			//force User project up_as_tready = 1;
-			force dut.AXIS_SW0.up_as_tready = 1;
 
 			@ (posedge fpga_coreclk);
 			fpga_as_is_tready <= 1;
 			
-			for(idx3=0; idx3<32; idx3=idx3+1)begin		//
+			for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin		//
 				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP);		//target to User Project
-				//if (idx3 > 12 ) 			force dut.AXIS_SW0.up_as_tready = 1;
 			end
-			release dut.AXIS_SW0.up_as_tready;
 			
 			$display($time, "=> test002_fpga_axis_req done");
 		end
@@ -1223,13 +1278,15 @@ FSIC #(
 		input [1:0] tid;
 		begin
 			fpga_as_is_tdata <= data;	//for axis write data
-			$strobe($time, "=> fpga_axis_req fpga_as_is_tdata = %x", fpga_as_is_tdata);
+			$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tdata = %x", fpga_as_is_tdata);
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  tid;		//set target
 			fpga_as_is_tuser <=  TUSER_AXIS;		//for axis req
 			fpga_as_is_tlast <=  1'b0;
 			fpga_as_is_tvalid <= 1;
+            soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= data;
+            soc_to_fpga_axis_expect_count <= soc_to_fpga_axis_expect_count+1;
 
 			@ (posedge fpga_coreclk);
 			while (fpga_is_as_tready == 0) begin		// wait util fpga_is_as_tready == 1 then change data
@@ -1373,42 +1430,6 @@ FSIC #(
 			
 			
 			fpga_as_is_tvalid <= 0;
-		
-		end
-	endtask
-
-// soc_axis_loopback
-initial begin
-	//connect_fpga_soc_serdes();
-	soc_axis_loopback();
-end
-
-/*
-	task connect_fpga_soc_serdes;
-		begin
-			$display($time, "=> connect_fpga_soc_serdes connect serdes tx/rx");
-			force fpga_fsic.serial_rclk = dut.serial_tclk;
-			force dut.serial_rclk = fpga_fsic.serial_tclk;
-
-			force fpga_fsic.serial_rxd = dut.serial_txd;
-			force dut.serial_rxd = fpga_fsic.serial_txd;
-		end
-	endtask
-*/
-
-	task soc_axis_loopback;
-		//input [31:0] data;
-		//input [1:0] tid;
-		begin
-			$display($time, "=> soc_axis_loopback force dut.AXIS_SW0.up_as_tvalid = 1");
-			force dut.AXIS_SW0.up_as_tvalid = dut.AXIS_SW0.as_up_tvalid;
-			force dut.AXIS_SW0.up_as_tdata = dut.AXIS_SW0.as_up_tdata;
-			force dut.AXIS_SW0.up_as_tstrb =  dut.AXIS_SW0.as_up_tstrb;
-			force dut.AXIS_SW0.up_as_tkeep =  dut.AXIS_SW0.as_up_tkeep;
-			//force dut.AXIS_SW0.up_as_tid =    dut.AXIS_SW0.as_up_tid;
-			force dut.AXIS_SW0.up_as_tuser =  dut.AXIS_SW0.as_up_tuser;
-			force dut.AXIS_SW0.up_as_tlast =  dut.AXIS_SW0.as_up_tlast;
-
 		
 		end
 	endtask
@@ -1646,6 +1667,7 @@ end
 	endtask
 
 endmodule
+
 
 
 

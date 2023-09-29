@@ -90,9 +90,46 @@ always @(posedge axi_clk or negedge axi_reset_n)  begin
   end
 end
 
-assign ss_tready     = 1'b0;
-assign sm_tvalid     = 1'b0;
-assign sm_tdata      = {pDATA_WIDTH{1'b0}};
+reg [2:0] r_ptr;
+reg [2:0] w_ptr;
+reg [(pDATA_WIDTH-1) : 0] fifo[7:0];
+
+wire full;
+wire empty;
+
+assign empty = (r_ptr == w_ptr);
+assign full = (r_ptr == (w_ptr+1) );
+
+assign ss_tready = !full;
+
+//for write to fifo
+always @(posedge axis_clk or negedge axis_rst_n)  begin
+  if ( !axis_rst_n ) begin
+    w_ptr <= 0;
+  end
+  else begin
+	if ( ss_tready && ss_tvalid) begin
+		fifo[w_ptr] <= ss_tdata;
+		w_ptr <= w_ptr + 1;
+	end
+  end
+end  
+
+//for read from fifo
+assign sm_tdata = fifo[r_ptr];
+assign sm_tvalid = !empty;
+always @(posedge axis_clk or negedge axis_rst_n)  begin
+  if ( !axis_rst_n ) begin
+    r_ptr <= 0;
+  end
+  else begin
+	if ( sm_tready && sm_tvalid) begin
+		r_ptr <= r_ptr + 1;
+	end
+  end
+end  
+
+
 assign sm_tid        = 3'b0;
 assign sm_tstrb      = 4'b0;
 assign sm_tkeep      = 1'b0;
@@ -103,3 +140,4 @@ assign la_data_o     = 24'b0;
 
 
 endmodule // USER_PRJ0
+

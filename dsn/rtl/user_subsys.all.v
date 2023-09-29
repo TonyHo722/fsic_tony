@@ -204,14 +204,56 @@ module AXIS_MSTR #( parameter pADDR_WIDTH   = 12,
   input  wire                 [4: 0] user_prj_sel
 );
 
+//common part
+assign sm_tready =  m_tready;
 
-assign sm_tready     = 1'b0;
-assign m_tvalid      = 1'b0;
-assign m_tdata       = {pDATA_WIDTH{1'b0}};
-assign m_tuser       = 2'b0;
-assign m_tstrb       = 4'b0;
-assign m_tkeep       = 4'b0;
-assign m_tlast       = 1'b0;
+//bus
+wire [3:0] sm_tvalid_bus;
+assign	m_tvalid = |sm_tvalid_bus;
+
+wire [(pDATA_WIDTH-1) : 0] sm_tdata_bus[3:0];
+assign	m_tdata = sm_tdata_bus[0] | sm_tdata_bus[1] | sm_tdata_bus[2] | sm_tdata_bus[3];
+
+//wire [2: 0] sm_tid_bus;
+
+wire [3: 0] sm_tstrb_bus[3:0];
+assign	m_tstrb = sm_tstrb_bus[0] | sm_tstrb_bus[1] | sm_tstrb_bus[2] | sm_tstrb_bus[3];
+
+wire [3: 0] sm_tkeep_bus[3:0];
+assign	m_tkeep = sm_tkeep_bus[0] | sm_tkeep_bus[1] | sm_tkeep_bus[2] | sm_tkeep_bus[3];
+
+wire [3: 0] sm_tlast_bus[3:0];
+assign	m_tlast = sm_tlast_bus[0] | sm_tlast_bus[1] | sm_tlast_bus[2] | sm_tlast_bus[3];
+
+//user project 0 
+assign sm_tvalid_bus[0] =  (user_prj_sel == 5'b00000)  ? sm_tvalid_0 : 0;
+assign sm_tdata_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tdata_0 : 0;
+assign sm_tstrb_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tstrb_0 : 0;
+assign sm_tkeep_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tkeep_0 : 0;
+assign sm_tlast_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tlast_0 : 0;
+
+//user project 1 
+assign sm_tvalid_bus[1] =  (user_prj_sel == 5'b00001)  ? sm_tvalid_1 : 0;
+assign sm_tdata_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tdata_1 : 0;
+assign sm_tstrb_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tstrb_1 : 0;
+assign sm_tkeep_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tkeep_1 : 0;
+assign sm_tlast_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tlast_1 : 0;
+
+//user project 2 
+assign sm_tvalid_bus[2] =  (user_prj_sel == 5'b00010)  ? sm_tvalid_2 : 0;
+assign sm_tdata_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tdata_2 : 0;
+assign sm_tstrb_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tstrb_2 : 0;
+assign sm_tkeep_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tkeep_2 : 0;
+assign sm_tlast_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tlast_2 : 0;
+
+//user project 3 
+assign sm_tvalid_bus[3] =  (user_prj_sel == 5'b00011)  ? sm_tvalid_3 : 0;
+assign sm_tdata_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tdata_3 : 0;
+assign sm_tstrb_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tstrb_3 : 0;
+assign sm_tkeep_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tkeep_3 : 0;
+assign sm_tlast_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tlast_3 : 0;
+
+assign m_tuser       = 2'b00;		//MUST be 2'b00 for user project output axis from UP to AS.
 
 
 endmodule // AXIS_MSTR
@@ -251,17 +293,33 @@ module AXIS_SLAV #( parameter pADDR_WIDTH   = 12,
   input  wire                 [4: 0] user_prj_sel
 );
 
+//common part
+assign ss_tdata =  s_tdata;
+assign ss_tuser =  2'b00;		//UP always received tuser = 2'b00, the tuser is used by AS, should not send to UP.
+assign ss_tstrb =  s_tstrb;
+assign ss_tkeep =  s_tkeep;
+assign ss_tlast =  s_tlast;
 
-assign ss_tvalid_0   = 1'b0;
-assign ss_tdata      = {pDATA_WIDTH{1'b0}};
-assign ss_tuser      = 2'b0;
-assign ss_tstrb      = 4'b0;
-assign ss_tkeep      = 4'b0;
-assign ss_tlast      = 1'b0;
-assign ss_tvalid_1   = 1'b0;
-assign ss_tvalid_2   = 1'b0;
-assign ss_tvalid_3   = 1'b0;
-assign s_tready      = 1'b0;
+wire [3:0] s_tready_bus;
+assign	s_tready = |s_tready_bus;
+
+//user project 0 
+assign ss_tvalid_0 =  (user_prj_sel == 5'b00000)  ? s_tvalid : 0;
+assign s_tready_bus[0] = (user_prj_sel == 5'b00000)  ? ss_tready_0 : 0;
+
+//user project 1 
+assign ss_tvalid_1 =  (user_prj_sel == 5'b00001)  ? s_tvalid : 0;
+assign s_tready_bus[1] = (user_prj_sel == 5'b00001)  ? ss_tready_1 : 0;
+
+//user project 2 
+assign ss_tvalid_2 =  (user_prj_sel == 5'b00010)  ? s_tvalid : 0;
+assign s_tready_bus[2] = (user_prj_sel == 5'b00010)  ? ss_tready_2 : 0;
+
+//user project 3 
+assign ss_tvalid_3 =  (user_prj_sel == 5'b00011)  ? s_tvalid : 0;
+assign s_tready_bus[3] = (user_prj_sel == 5'b00011)  ? ss_tready_3 : 0;
+
+
 
 
 endmodule // AXIS_SLAV
@@ -854,3 +912,4 @@ LA_MUX #(.pADDR_WIDTH( 12 ),
 
 
 endmodule // USER_SUBSYS
+
