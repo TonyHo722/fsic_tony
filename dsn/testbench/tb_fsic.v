@@ -1336,7 +1336,7 @@ FSIC #(
 			fpga_as_is_tready <= 1;
 			
 			for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin		//
-				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP, 1);		//target to User Project
+				fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP, 0);		//target to User Project
 			end
 			
 			$display($time, "=> test002_fpga_axis_req done");
