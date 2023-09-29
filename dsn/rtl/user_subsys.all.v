@@ -516,7 +516,7 @@ wire                         ss_tvalid_0_ss_tvalid;
 wire   [(pDATA_WIDTH-1) : 0] ss_tdata;
 wire                  [1: 0] ss_tuser;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
+	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb;
 `endif
 wire                  [3: 0] ss_tstrb;
 wire                  [3: 0] ss_tkeep;
@@ -545,7 +545,7 @@ wire                         sm_tvalid_0;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_0;
 wire                  [2: 0] sm_tid_0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0,
+	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0;
 `endif
 wire                  [3: 0] sm_tstrb_0;
 wire                         sm_tkeep_0;
@@ -554,7 +554,7 @@ wire                         sm_tvalid_1;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_1;
 wire                  [2: 0] sm_tid_1;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1,
+	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1;
 `endif
 wire                  [3: 0] sm_tstrb_1;
 wire                         sm_tkeep_1;
@@ -563,7 +563,7 @@ wire                         sm_tvalid_2;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_2;
 wire                  [2: 0] sm_tid_2;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2,
+	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2;
 `endif
 wire                  [3: 0] sm_tstrb_2;
 wire                         sm_tkeep_2;
@@ -572,7 +572,7 @@ wire                         sm_tvalid_3;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_3;
 wire                  [2: 0] sm_tid_3;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3,
+	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3;
 `endif
 wire                  [3: 0] sm_tstrb_3;
 wire                         sm_tkeep_3;
