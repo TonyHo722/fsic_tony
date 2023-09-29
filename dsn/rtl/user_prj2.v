@@ -25,7 +25,7 @@ module USER_PRJ2 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire                        ss_tvalid,
   input  wire  [(pDATA_WIDTH-1) : 0] ss_tdata,
   input  wire                 [1: 0] ss_tuser,
-    `if USER_PROJECT_SIDEBAND_SUPPORT != 0
+    `ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
   `endif
   input  wire                 [3: 0] ss_tstrb,
@@ -36,7 +36,7 @@ module USER_PRJ2 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   output wire                        sm_tvalid,
   output wire  [(pDATA_WIDTH-1) : 0] sm_tdata,
   output wire                 [2: 0] sm_tid,
-  `if USER_PROJECT_SIDEBAND_SUPPORT != 0
+  `ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
   `endif
   output wire                 [3: 0] sm_tstrb,
@@ -63,7 +63,7 @@ assign ss_tready     = 1'b0;
 assign sm_tvalid     = 1'b0;
 assign sm_tdata      = {pDATA_WIDTH{1'b0}};
 assign sm_tid        = 3'b0;
-`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 	assign sm_tupsb      = 5'b0;
 `endif
 assign sm_tstrb      = 4'b0;

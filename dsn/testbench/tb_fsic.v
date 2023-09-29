@@ -21,7 +21,7 @@
 //20230804 1. use #0 for create event to avoid potencial race condition. I didn't found issue right now, just update the code to improve it.
 //	reference https://blog.csdn.net/seabeam/article/details/41078023, the source is come from http://www.deepchip.com/items/0466-07.html
 //	 Not using #0 is a good guideline, except for event data types.  In Verilog, there is no way to defer the event triggering to the nonblocking event queue.
-`define USER_PROJECT_SIDEBAND_SUPPORT 1;
+`define USER_PROJECT_SIDEBAND_SUPPORT 1
 
 module tb_fsic #( parameter BITS=32,
 		parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
@@ -115,13 +115,13 @@ module tb_fsic #( parameter BITS=32,
 
     reg [6:0] soc_to_fpga_axis_expect_count;
 	
-	`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
 	`else
 		reg [(4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
 	`endif
     reg [6:0] soc_to_fpga_axis_captured_count;
-	`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
 	`else
 		reg [(4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
@@ -169,7 +169,7 @@ module tb_fsic #( parameter BITS=32,
 	wire fpga_txclk;
 	
 	reg [pDATA_WIDTH-1:0] fpga_as_is_tdata;
-	`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_as_is_tupsb,
 	`endif
 	reg [3:0] fpga_as_is_tstrb;
@@ -188,7 +188,7 @@ module tb_fsic #( parameter BITS=32,
 //	wire fpga_Serial_Data_Out_tlast_tvalid_tready;		//flowcontrol
 
 	wire [pDATA_WIDTH-1:0] fpga_is_as_tdata;
-	`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_is_as_tupsb,
 	`endif
 	wire [3:0] fpga_is_as_tstrb;
@@ -305,7 +305,7 @@ FSIC #(
 
 
 		.as_is_tdata(fpga_as_is_tdata),
-		`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 			.as_is_tupsb(fpga_as_is_tupsb),
 		`endif
 		.as_is_tstrb(fpga_as_is_tstrb),
@@ -318,7 +318,7 @@ FSIC #(
 		.serial_txd(fpga_serial_txd),
 		.serial_rxd(soc_serial_txd),
 		.is_as_tdata(fpga_is_as_tdata),
-		`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 			.is_as_tupsb(fpga_is_as_tupsb),
 		`endif
 		.is_as_tstrb(fpga_is_as_tstrb),
@@ -971,7 +971,7 @@ FSIC #(
         soc_to_fpga_axis_event_triggered = 0;
 		while (1) begin
 			@(posedge fpga_coreclk);
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_UP && fpga_is_as_tuser == TUSER_AXIS) begin
 					$display($time, "=> get soc_to_fpga_axis be : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tupsb=%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tupsb, fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
 					soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count] = {fpga_is_as_tupsb, fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata} ;		//use block assignment
@@ -1072,7 +1072,7 @@ FSIC #(
 		begin
 			fpga_as_is_tdata <= (BE<<28) + address;	//for axilite write address phase
 			//$strobe($time, "=> fpga_as_is_tdata in address phase = %x", fpga_as_is_tdata);
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
@@ -1088,7 +1088,7 @@ FSIC #(
 			end
 
 			fpga_as_is_tdata <=  data;	//for axilite write data phase
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
@@ -1159,7 +1159,7 @@ FSIC #(
 			//init fpga as to is signal, set fpga_as_is_tready = 1 for receives data from soc
 			@ (posedge fpga_coreclk);
 			fpga_as_is_tdata <=  32'h0;
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
@@ -1216,7 +1216,7 @@ FSIC #(
 		begin
 			fpga_as_is_tdata <= address;	//for axilite read address req phase
 			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x - tvalid", fpga_as_is_tdata);
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
@@ -1348,7 +1348,7 @@ FSIC #(
 		input [1:0] tid;
 		input mode;	//o ffor noram, 1 for random data
 		reg [31:0] tdata;
-		`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 			reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]tupsb;
 		`endif
 		reg [3:0] tstrb;
@@ -1358,7 +1358,7 @@ FSIC #(
 		begin
 			if (mode) begin		//for random data
 				tdata = $random;
-				`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 					tupsb = $random;
 				`endif
 				tstrb = $random;
@@ -1367,21 +1367,21 @@ FSIC #(
 			end
 			else begin
 				tdata = data;
-				`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 					tupsb = 5'b00000;
 				`endif
 				tstrb = 4'b0000;
 				tkeep = 4'b0000;
 				tlast = 1'b0;
 			end
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <= tupsb;
 			`endif
 			fpga_as_is_tstrb <=  tstrb;
 			fpga_as_is_tkeep <=  tkeep;
 			fpga_as_is_tlast <=  tlast;
 			fpga_as_is_tdata <= tdata;	//for axis write data
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tupsb = %b, fpga_as_is_tstrb = %b, fpga_as_is_tkeep = %b, fpga_as_is_tlast = %b, fpga_as_is_tdata = %x", fpga_as_is_tupsb, fpga_as_is_tstrb, fpga_as_is_tkeep, fpga_as_is_tlast, fpga_as_is_tdata);
 			`else	
 				$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tupsb = %b, fpga_as_is_tstrb = %b, fpga_as_is_tkeep = %b, fpga_as_is_tlast = %b, fpga_as_is_tdata = %x", fpga_as_is_tupsb, fpga_as_is_tstrb, fpga_as_is_tkeep, fpga_as_is_tlast, fpga_as_is_tdata);
@@ -1506,7 +1506,7 @@ FSIC #(
 			fpga_as_is_tdata[27:0] <= address;	//for axilite write address phase
 			fpga_as_is_tdata[31:28] <= BE;	
 			$strobe($time, "=> fpga_axilite_write_req in address phase = %x - tvalid", fpga_as_is_tdata);
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
@@ -1524,7 +1524,7 @@ FSIC #(
 
 			fpga_as_is_tdata <= data;	//for axilite write data phase
 			$strobe($time, "=> fpga_axilite_write_req in data phase = %x - tvalid", fpga_as_is_tdata);
-			`if USER_PROJECT_SIDEBAND_SUPPORT != 0
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT != 0
 				fpga_as_is_tupsb <=  5'b00000;
 			`endif
 			fpga_as_is_tstrb <=  4'b0000;
