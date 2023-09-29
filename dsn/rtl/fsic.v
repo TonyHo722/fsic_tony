@@ -491,7 +491,7 @@ USER_SUBSYS #(.pADDR_WIDTH( pADDR_WIDTH ),
                                                   .s_tvalid     (as_up_tvalid_s_tvalid),   // I  
                                                   .s_tuser      (as_up_tuser_s_tuser),     // I  2
                                                   .m_tready     (as_up_tready_m_tready),   // I  
-                                                  .la_up_data   (la_up_data),              // I  64
+                                                  //.la_up_data   (la_up_data),              // I  64
                                                   .low__pri_irq (low__pri_irq),            // O  
                                                   .user_clock2  (user_clock2),             // I  
                                                   .uck2_rst_n   (uck2_rst_n),              // I  
