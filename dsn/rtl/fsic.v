@@ -111,7 +111,7 @@ wire           is_as_tvalid;
 wire    [1: 0] is_as_tuser;
 wire           is_as_tready;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb,
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb;
 `endif
 wire   [31: 0] m_tdata_la_as_tdata;
 wire    [3: 0] m_tstrb_la_as_tstrb;
@@ -122,7 +122,7 @@ wire    [1: 0] m_tuser_la_as_tuser;
 wire           la_hpri_req;
 wire   [31: 0] m_tdata_up_as_tdata;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] m_tupsb_up_as_tupsb,
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] m_tupsb_up_as_tupsb;
 `endif
 wire    [3: 0] m_tstrb_up_as_tstrb;
 wire    [3: 0] m_tkeep_up_as_tkeep;
@@ -141,7 +141,7 @@ wire           as_is_tvalid;
 wire    [1: 0] as_is_tuser;
 wire           as_is_tready;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb,
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb;
 `endif
 wire           ioclk;
 wire   [pSERIALIO_WIDTH-1: 0] serial_rxd;
@@ -153,7 +153,7 @@ wire           cc_up_enable;
 wire    [4: 0] user_prj_sel;
 wire   [31: 0] as_up_tdata_s_tdata;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_up_tupsb_s_tupsb,
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_up_tupsb_s_tupsb;
 `endif
 wire    [3: 0] as_up_tstrb_s_tstrb;
 wire    [3: 0] as_up_tkeep_s_tkeep;
