@@ -10,15 +10,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
-      <ZoomEndTime time="127.985001 us"></ZoomEndTime>
-      <Cursor1Time time="17.485000 us"></Cursor1Time>
+      <ZoomStartTime time="5,874.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="6,575.001 ns"></ZoomEndTime>
+      <Cursor1Time time="6,125.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="108"></ValueColumnWidth>
+      <ValueColumnWidth column_width="96"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="9" />
+   <WVObjectSize size="13" />
    <wave_markers>
       <marker label="" time="17485000" />
    </wave_markers>
@@ -29,11 +29,9 @@
    <wvobject type="group" fp_name="group301">
       <obj_property name="label">FPGA to SOC</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="group" fp_name="group205">
          <obj_property name="label">FPGA AS to IS</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
             <obj_property name="ElementShortName">axis_clk</obj_property>
             <obj_property name="ObjectShortName">axis_clk</obj_property>
@@ -86,7 +84,6 @@
       <wvobject type="group" fp_name="group430">
          <obj_property name="label">FPGA U IS txen rxen</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
             <obj_property name="ElementShortName">ioclk</obj_property>
             <obj_property name="ObjectShortName">ioclk</obj_property>
@@ -115,7 +112,6 @@
       <wvobject type="group" fp_name="group160">
          <obj_property name="label">mprj_io</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/wb_rst">
             <obj_property name="ElementShortName">wb_rst</obj_property>
             <obj_property name="ObjectShortName">wb_rst</obj_property>
@@ -156,7 +152,6 @@
       <wvobject type="group" fp_name="group490">
          <obj_property name="label">U_MPRJ_IO</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="array" fp_name="/tb_fsic/dut/U_MPRJ_IO0/serial_rxd">
             <obj_property name="ElementShortName">serial_rxd[11:0]</obj_property>
             <obj_property name="ObjectShortName">serial_rxd[11:0]</obj_property>
@@ -237,7 +232,6 @@
       <wvobject type="group" fp_name="group441">
          <obj_property name="label">SOC IS rx_fc</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/axis_rst_n">
             <obj_property name="ElementShortName">axis_rst_n</obj_property>
             <obj_property name="ObjectShortName">axis_rst_n</obj_property>
@@ -835,7 +829,6 @@
    <wvobject type="group" fp_name="group203">
       <obj_property name="label">fpga_fsic</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/ioclk">
          <obj_property name="ElementShortName">ioclk</obj_property>
          <obj_property name="ObjectShortName">ioclk</obj_property>
@@ -1032,11 +1025,521 @@
          <obj_property name="ElementShortName">pCLK_RATIO[31:0]</obj_property>
          <obj_property name="ObjectShortName">pCLK_RATIO[31:0]</obj_property>
       </wvobject>
+      <wvobject type="group" fp_name="group473">
+         <obj_property name="label">SOC AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_reset_n">
+            <obj_property name="ElementShortName">axi_reset_n</obj_property>
+            <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axis_rst_n">
+            <obj_property name="ElementShortName">axis_rst_n</obj_property>
+            <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_awvalid">
+            <obj_property name="ElementShortName">axi_awvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_awvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/axi_awaddr">
+            <obj_property name="ElementShortName">axi_awaddr[14:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_awaddr[14:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_awready">
+            <obj_property name="ElementShortName">axi_awready</obj_property>
+            <obj_property name="ObjectShortName">axi_awready</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wvalid">
+            <obj_property name="ElementShortName">axi_wvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wdata">
+            <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wstrb">
+            <obj_property name="ElementShortName">axi_wstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_wstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wready">
+            <obj_property name="ElementShortName">axi_wready</obj_property>
+            <obj_property name="ObjectShortName">axi_wready</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_arvalid">
+            <obj_property name="ElementShortName">axi_arvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/axi_araddr">
+            <obj_property name="ElementShortName">axi_araddr[14:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_araddr[14:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_arready">
+            <obj_property name="ElementShortName">axi_arready</obj_property>
+            <obj_property name="ObjectShortName">axi_arready</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_rvalid">
+            <obj_property name="ElementShortName">axi_rvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_rvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/axi_rdata">
+            <obj_property name="ElementShortName">axi_rdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_rdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_rready">
+            <obj_property name="ElementShortName">axi_rready</obj_property>
+            <obj_property name="ObjectShortName">axi_rready</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/cc_as_enable">
+            <obj_property name="ElementShortName">cc_as_enable</obj_property>
+            <obj_property name="ObjectShortName">cc_as_enable</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tdata">
+            <obj_property name="ElementShortName">aa_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tstrb">
+            <obj_property name="ElementShortName">aa_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tkeep">
+            <obj_property name="ElementShortName">aa_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tlast">
+            <obj_property name="ElementShortName">aa_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tvalid">
+            <obj_property name="ElementShortName">aa_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tuser">
+            <obj_property name="ElementShortName">aa_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tready">
+            <obj_property name="ElementShortName">as_aa_tready</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tdata">
+            <obj_property name="ElementShortName">la_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">la_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tstrb">
+            <obj_property name="ElementShortName">la_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">la_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tkeep">
+            <obj_property name="ElementShortName">la_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">la_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tlast">
+            <obj_property name="ElementShortName">la_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">la_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tvalid">
+            <obj_property name="ElementShortName">la_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">la_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/la_as_tuser">
+            <obj_property name="ElementShortName">la_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">la_as_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/la_hpri_req">
+            <obj_property name="ElementShortName">la_hpri_req</obj_property>
+            <obj_property name="ObjectShortName">la_hpri_req</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_la_tready">
+            <obj_property name="ElementShortName">as_la_tready</obj_property>
+            <obj_property name="ObjectShortName">as_la_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tdata">
+            <obj_property name="ElementShortName">as_is_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tstrb">
+            <obj_property name="ElementShortName">as_is_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tkeep">
+            <obj_property name="ElementShortName">as_is_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tlast">
+            <obj_property name="ElementShortName">as_is_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_is_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tid">
+            <obj_property name="ElementShortName">as_is_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tvalid">
+            <obj_property name="ElementShortName">as_is_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_is_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tuser">
+            <obj_property name="ElementShortName">as_is_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_is_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tready">
+            <obj_property name="ElementShortName">is_as_tready</obj_property>
+            <obj_property name="ObjectShortName">is_as_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tready">
+            <obj_property name="ElementShortName">as_is_tready</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready</obj_property>
+         </wvobject>
+         <wvobject type="group" fp_name="group598">
+            <obj_property name="label">UP to AS</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axis_clk">
+               <obj_property name="ElementShortName">axis_clk</obj_property>
+               <obj_property name="ObjectShortName">axis_clk</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tvalid">
+               <obj_property name="ElementShortName">up_as_tvalid</obj_property>
+               <obj_property name="ObjectShortName">up_as_tvalid</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tready">
+               <obj_property name="ElementShortName">as_up_tready</obj_property>
+               <obj_property name="ObjectShortName">as_up_tready</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tdata">
+               <obj_property name="ElementShortName">up_as_tdata[31:0]</obj_property>
+               <obj_property name="ObjectShortName">up_as_tdata[31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tstrb">
+               <obj_property name="ElementShortName">up_as_tstrb[3:0]</obj_property>
+               <obj_property name="ObjectShortName">up_as_tstrb[3:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tkeep">
+               <obj_property name="ElementShortName">up_as_tkeep[3:0]</obj_property>
+               <obj_property name="ObjectShortName">up_as_tkeep[3:0]</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tlast">
+               <obj_property name="ElementShortName">up_as_tlast</obj_property>
+               <obj_property name="ObjectShortName">up_as_tlast</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tuser">
+               <obj_property name="ElementShortName">up_as_tuser[1:0]</obj_property>
+               <obj_property name="ObjectShortName">up_as_tuser[1:0]</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/up_hpri_req">
+               <obj_property name="ElementShortName">up_hpri_req</obj_property>
+               <obj_property name="ObjectShortName">up_hpri_req</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="group" fp_name="group596">
+            <obj_property name="label">AS to UP</obj_property>
+            <obj_property name="DisplayName">label</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axis_clk">
+               <obj_property name="ElementShortName">axis_clk</obj_property>
+               <obj_property name="ObjectShortName">axis_clk</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid">
+               <obj_property name="ElementShortName">as_up_tvalid</obj_property>
+               <obj_property name="ObjectShortName">as_up_tvalid</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tready">
+               <obj_property name="ElementShortName">up_as_tready</obj_property>
+               <obj_property name="ObjectShortName">up_as_tready</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tdata">
+               <obj_property name="ElementShortName">as_up_tdata[31:0]</obj_property>
+               <obj_property name="ObjectShortName">as_up_tdata[31:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tstrb">
+               <obj_property name="ElementShortName">as_up_tstrb[3:0]</obj_property>
+               <obj_property name="ObjectShortName">as_up_tstrb[3:0]</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tkeep">
+               <obj_property name="ElementShortName">as_up_tkeep[3:0]</obj_property>
+               <obj_property name="ObjectShortName">as_up_tkeep[3:0]</obj_property>
+            </wvobject>
+            <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tlast">
+               <obj_property name="ElementShortName">as_up_tlast</obj_property>
+               <obj_property name="ObjectShortName">as_up_tlast</obj_property>
+            </wvobject>
+            <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tuser">
+               <obj_property name="ElementShortName">as_up_tuser[1:0]</obj_property>
+               <obj_property name="ObjectShortName">as_up_tuser[1:0]</obj_property>
+            </wvobject>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tdata">
+            <obj_property name="ElementShortName">as_aa_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tstrb">
+            <obj_property name="ElementShortName">as_aa_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tkeep">
+            <obj_property name="ElementShortName">as_aa_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tlast">
+            <obj_property name="ElementShortName">as_aa_tlast</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tlast</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tvalid">
+            <obj_property name="ElementShortName">as_aa_tvalid</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tuser">
+            <obj_property name="ElementShortName">as_aa_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/aa_as_tready">
+            <obj_property name="ElementShortName">aa_as_tready</obj_property>
+            <obj_property name="ObjectShortName">aa_as_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/TH_reg">
+            <obj_property name="ElementShortName">TH_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">TH_reg[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_awvalid_in">
+            <obj_property name="ElementShortName">axi_awvalid_in</obj_property>
+            <obj_property name="ObjectShortName">axi_awvalid_in</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wvalid_in">
+            <obj_property name="ElementShortName">axi_wvalid_in</obj_property>
+            <obj_property name="ObjectShortName">axi_wvalid_in</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_awready_out">
+            <obj_property name="ElementShortName">axi_awready_out</obj_property>
+            <obj_property name="ObjectShortName">axi_awready_out</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axi_wready_out">
+            <obj_property name="ElementShortName">axi_wready_out</obj_property>
+            <obj_property name="ObjectShortName">axi_wready_out</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/req">
+            <obj_property name="ElementShortName">req[2:0]</obj_property>
+            <obj_property name="ObjectShortName">req[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/hi_req">
+            <obj_property name="ElementShortName">hi_req[2:0]</obj_property>
+            <obj_property name="ObjectShortName">hi_req[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/shift_req">
+            <obj_property name="ElementShortName">shift_req[2:0]</obj_property>
+            <obj_property name="ObjectShortName">shift_req[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/shift_hi_req">
+            <obj_property name="ElementShortName">shift_hi_req[2:0]</obj_property>
+            <obj_property name="ObjectShortName">shift_hi_req[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/base_ptr">
+            <obj_property name="ElementShortName">base_ptr[1:0]</obj_property>
+            <obj_property name="ObjectShortName">base_ptr[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/grant_reg">
+            <obj_property name="ElementShortName">grant_reg[2:0]</obj_property>
+            <obj_property name="ObjectShortName">grant_reg[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/grant_next">
+            <obj_property name="ElementShortName">grant_next[2:0]</obj_property>
+            <obj_property name="ObjectShortName">grant_next[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/shift_grant">
+            <obj_property name="ElementShortName">shift_grant[2:0]</obj_property>
+            <obj_property name="ObjectShortName">shift_grant[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/shift_hi_grant">
+            <obj_property name="ElementShortName">shift_hi_grant[2:0]</obj_property>
+            <obj_property name="ObjectShortName">shift_hi_grant[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/frame_start_reg">
+            <obj_property name="ElementShortName">frame_start_reg</obj_property>
+            <obj_property name="ObjectShortName">frame_start_reg</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/frame_start_next">
+            <obj_property name="ElementShortName">frame_start_next</obj_property>
+            <obj_property name="ObjectShortName">frame_start_next</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/hi_req_flag">
+            <obj_property name="ElementShortName">hi_req_flag[2:0]</obj_property>
+            <obj_property name="ObjectShortName">hi_req_flag[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tdata_reg">
+            <obj_property name="ElementShortName">m_axis_tdata_reg[31:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tdata_reg[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tstrb_reg">
+            <obj_property name="ElementShortName">m_axis_tstrb_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tstrb_reg[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tkeep_reg">
+            <obj_property name="ElementShortName">m_axis_tkeep_reg[3:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tkeep_reg[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tlast_reg">
+            <obj_property name="ElementShortName">m_axis_tlast_reg</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tlast_reg</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tvalid_reg">
+            <obj_property name="ElementShortName">m_axis_tvalid_reg</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tvalid_reg</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tuser_reg">
+            <obj_property name="ElementShortName">m_axis_tuser_reg[1:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tuser_reg[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis_tid_reg">
+            <obj_property name="ElementShortName">m_axis_tid_reg[1:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis_tid_reg[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/wr_ptr_reg">
+            <obj_property name="ElementShortName">wr_ptr_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">wr_ptr_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/rd_ptr_reg">
+            <obj_property name="ElementShortName">rd_ptr_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">rd_ptr_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/pre_rd_ptr_reg">
+            <obj_property name="ElementShortName">pre_rd_ptr_reg[4:0]</obj_property>
+            <obj_property name="ObjectShortName">pre_rd_ptr_reg[4:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/mem">
+            <obj_property name="ElementShortName">mem[15:0][44:0]</obj_property>
+            <obj_property name="ObjectShortName">mem[15:0][44:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid_reg">
+            <obj_property name="ElementShortName">as_up_tvalid_reg</obj_property>
+            <obj_property name="ObjectShortName">as_up_tvalid_reg</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_aa_tvalid_reg">
+            <obj_property name="ElementShortName">as_aa_tvalid_reg</obj_property>
+            <obj_property name="ObjectShortName">as_aa_tvalid_reg</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/delaynext">
+            <obj_property name="ElementShortName">delaynext</obj_property>
+            <obj_property name="ObjectShortName">delaynext</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/above_th">
+            <obj_property name="ElementShortName">above_th</obj_property>
+            <obj_property name="ObjectShortName">above_th</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_is_tready_reg">
+            <obj_property name="ElementShortName">as_is_tready_reg</obj_property>
+            <obj_property name="ObjectShortName">as_is_tready_reg</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/s_axis">
+            <obj_property name="ElementShortName">s_axis[44:0]</obj_property>
+            <obj_property name="ObjectShortName">s_axis[44:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/m_axis">
+            <obj_property name="ElementShortName">m_axis[44:0]</obj_property>
+            <obj_property name="ObjectShortName">m_axis[44:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/pre_m_axis">
+            <obj_property name="ElementShortName">pre_m_axis[44:0]</obj_property>
+            <obj_property name="ObjectShortName">pre_m_axis[44:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/pADDR_WIDTH">
+            <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/pDATA_WIDTH">
+            <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/USER_WIDTH">
+            <obj_property name="ElementShortName">USER_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">USER_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/TID_WIDTH">
+            <obj_property name="ElementShortName">TID_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">TID_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/N">
+            <obj_property name="ElementShortName">N[31:0]</obj_property>
+            <obj_property name="ObjectShortName">N[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/req_mask">
+            <obj_property name="ElementShortName">req_mask[2:0]</obj_property>
+            <obj_property name="ObjectShortName">req_mask[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/hi_req_mask">
+            <obj_property name="ElementShortName">hi_req_mask[2:0]</obj_property>
+            <obj_property name="ObjectShortName">hi_req_mask[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/last_support">
+            <obj_property name="ElementShortName">last_support[2:0]</obj_property>
+            <obj_property name="ObjectShortName">last_support[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/FIFO_DEPTH">
+            <obj_property name="ElementShortName">FIFO_DEPTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">FIFO_DEPTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/ADDR_WIDTH">
+            <obj_property name="ElementShortName">ADDR_WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">ADDR_WIDTH[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/STRB_OFFSET">
+            <obj_property name="ElementShortName">STRB_OFFSET[31:0]</obj_property>
+            <obj_property name="ObjectShortName">STRB_OFFSET[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/KEEP_OFFSET">
+            <obj_property name="ElementShortName">KEEP_OFFSET[31:0]</obj_property>
+            <obj_property name="ObjectShortName">KEEP_OFFSET[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/LAST_OFFSET">
+            <obj_property name="ElementShortName">LAST_OFFSET[31:0]</obj_property>
+            <obj_property name="ObjectShortName">LAST_OFFSET[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/TID_OFFSET">
+            <obj_property name="ElementShortName">TID_OFFSET[31:0]</obj_property>
+            <obj_property name="ObjectShortName">TID_OFFSET[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/USER_OFFSET">
+            <obj_property name="ElementShortName">USER_OFFSET[31:0]</obj_property>
+            <obj_property name="ObjectShortName">USER_OFFSET[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/AXIS_SW0/WIDTH">
+            <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+            <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
    <wvobject type="group" fp_name="group293">
       <obj_property name="label">SOC IS</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/ioclk">
          <obj_property name="ElementShortName">ioclk</obj_property>
          <obj_property name="ObjectShortName">ioclk</obj_property>
@@ -1116,6 +1619,7 @@
       <wvobject type="group" fp_name="group294">
          <obj_property name="label">SOC AS to IS</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
             <obj_property name="ElementShortName">axis_clk</obj_property>
             <obj_property name="ObjectShortName">axis_clk</obj_property>
@@ -1180,6 +1684,7 @@
       <wvobject type="group" fp_name="group295">
          <obj_property name="label">SOC IS to AS</obj_property>
          <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/axis_clk">
             <obj_property name="ElementShortName">axis_clk</obj_property>
             <obj_property name="ObjectShortName">axis_clk</obj_property>
@@ -1404,7 +1909,6 @@
       <wvobject type="group" fp_name="group441">
          <obj_property name="label">SOC IS rx_fc</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_IO_SERDES0/fsic_io_serdes_rx_fc/axis_rst_n">
             <obj_property name="ElementShortName">axis_rst_n</obj_property>
             <obj_property name="ObjectShortName">axis_rst_n</obj_property>
@@ -1502,7 +2006,6 @@
    <wvobject type="group" fp_name="group338">
       <obj_property name="label">FPGA IS</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
          <obj_property name="ElementShortName">ioclk</obj_property>
          <obj_property name="ObjectShortName">ioclk</obj_property>
@@ -1750,7 +2253,6 @@
       <wvobject type="group" fp_name="group430">
          <obj_property name="label">FPGA U IS txen rxen</obj_property>
          <obj_property name="DisplayName">label</obj_property>
-         <obj_property name="isExpanded"></obj_property>
          <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/U_IO_SERDES0/ioclk">
             <obj_property name="ElementShortName">ioclk</obj_property>
             <obj_property name="ObjectShortName">ioclk</obj_property>
@@ -1868,6 +2370,47 @@
          <obj_property name="ElementShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
          <obj_property name="ObjectShortName">pSERIALIO_TDATA_WIDTH[31:0]</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tready">
+         <obj_property name="ElementShortName">is_as_tready</obj_property>
+         <obj_property name="ObjectShortName">is_as_tready</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group461">
+         <obj_property name="label">FPGA IS to AS</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tdata">
+            <obj_property name="ElementShortName">is_as_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tstrb">
+            <obj_property name="ElementShortName">is_as_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tkeep">
+            <obj_property name="ElementShortName">is_as_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tlast">
+            <obj_property name="ElementShortName">is_as_tlast</obj_property>
+            <obj_property name="ObjectShortName">is_as_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tid">
+            <obj_property name="ElementShortName">is_as_tid[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tid[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/fpga_fsic/is_as_tvalid">
+            <obj_property name="ElementShortName">is_as_tvalid</obj_property>
+            <obj_property name="ObjectShortName">is_as_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/fpga_fsic/is_as_tuser">
+            <obj_property name="ElementShortName">is_as_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">is_as_tuser[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="divider119" type="divider">
       <obj_property name="label">end</obj_property>
@@ -1876,5 +2419,570 @@
    <wvobject type="logic" fp_name="/tb_fsic/wb_rst">
       <obj_property name="ElementShortName">wb_rst</obj_property>
       <obj_property name="ObjectShortName">wb_rst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_reset_n">
+      <obj_property name="ElementShortName">axi_reset_n</obj_property>
+      <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group642">
+      <obj_property name="label">U_AXIL_SLAV</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/cc_up_enable">
+         <obj_property name="ElementShortName">cc_up_enable</obj_property>
+         <obj_property name="ObjectShortName">cc_up_enable</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/user_prj_sel">
+         <obj_property name="ElementShortName">user_prj_sel[4:0]</obj_property>
+         <obj_property name="ObjectShortName">user_prj_sel[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group710">
+         <obj_property name="label">Write ADDR</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_awvalid">
+            <obj_property name="ElementShortName">axi_awvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_awvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awready_0">
+            <obj_property name="ElementShortName">awready_0</obj_property>
+            <obj_property name="ObjectShortName">awready_0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awaddr">
+            <obj_property name="ElementShortName">awaddr[11:0]</obj_property>
+            <obj_property name="ObjectShortName">awaddr[11:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group712">
+         <obj_property name="label">W DATA</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wvalid">
+            <obj_property name="ElementShortName">axi_wvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wready_0">
+            <obj_property name="ElementShortName">wready_0</obj_property>
+            <obj_property name="ObjectShortName">wready_0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wstrb">
+            <obj_property name="ElementShortName">axi_wstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_wstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wdata">
+            <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group716">
+         <obj_property name="label">R ADDR</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_arvalid">
+            <obj_property name="ElementShortName">axi_arvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arready_0">
+            <obj_property name="ElementShortName">arready_0</obj_property>
+            <obj_property name="ObjectShortName">arready_0</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_araddr">
+            <obj_property name="ElementShortName">axi_araddr[14:0]</obj_property>
+            <obj_property name="ObjectShortName">axi_araddr[14:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group719">
+         <obj_property name="label">R DATA</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rvalid_0">
+            <obj_property name="ElementShortName">rvalid_0</obj_property>
+            <obj_property name="ObjectShortName">rvalid_0</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/cc_up_enable">
+            <obj_property name="ElementShortName">cc_up_enable</obj_property>
+            <obj_property name="ObjectShortName">cc_up_enable</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rvalid">
+            <obj_property name="ElementShortName">axi_rvalid</obj_property>
+            <obj_property name="ObjectShortName">axi_rvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rready">
+            <obj_property name="ElementShortName">axi_rready</obj_property>
+            <obj_property name="ObjectShortName">axi_rready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rdata_0">
+            <obj_property name="ElementShortName">rdata_0[31:0]</obj_property>
+            <obj_property name="ObjectShortName">rdata_0[31:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awready_1">
+         <obj_property name="ElementShortName">awready_1</obj_property>
+         <obj_property name="ObjectShortName">awready_1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arready_1">
+         <obj_property name="ElementShortName">arready_1</obj_property>
+         <obj_property name="ObjectShortName">arready_1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wready_1">
+         <obj_property name="ElementShortName">wready_1</obj_property>
+         <obj_property name="ObjectShortName">wready_1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rvalid_1">
+         <obj_property name="ElementShortName">rvalid_1</obj_property>
+         <obj_property name="ObjectShortName">rvalid_1</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rdata_1">
+         <obj_property name="ElementShortName">rdata_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awready_2">
+         <obj_property name="ElementShortName">awready_2</obj_property>
+         <obj_property name="ObjectShortName">awready_2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arready_2">
+         <obj_property name="ElementShortName">arready_2</obj_property>
+         <obj_property name="ObjectShortName">arready_2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wready_2">
+         <obj_property name="ElementShortName">wready_2</obj_property>
+         <obj_property name="ObjectShortName">wready_2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rvalid_2">
+         <obj_property name="ElementShortName">rvalid_2</obj_property>
+         <obj_property name="ObjectShortName">rvalid_2</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rdata_2">
+         <obj_property name="ElementShortName">rdata_2[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata_2[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awready_3">
+         <obj_property name="ElementShortName">awready_3</obj_property>
+         <obj_property name="ObjectShortName">awready_3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arready_3">
+         <obj_property name="ElementShortName">arready_3</obj_property>
+         <obj_property name="ObjectShortName">arready_3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wready_3">
+         <obj_property name="ElementShortName">wready_3</obj_property>
+         <obj_property name="ObjectShortName">wready_3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rvalid_3">
+         <obj_property name="ElementShortName">rvalid_3</obj_property>
+         <obj_property name="ObjectShortName">rvalid_3</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rdata_3">
+         <obj_property name="ElementShortName">rdata_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata_3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awvalid_0">
+         <obj_property name="ElementShortName">awvalid_0</obj_property>
+         <obj_property name="ObjectShortName">awvalid_0</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awaddr">
+         <obj_property name="ElementShortName">awaddr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">awaddr[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arvalid_0">
+         <obj_property name="ElementShortName">arvalid_0</obj_property>
+         <obj_property name="ObjectShortName">arvalid_0</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/araddr">
+         <obj_property name="ElementShortName">araddr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">araddr[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wvalid_0">
+         <obj_property name="ElementShortName">wvalid_0</obj_property>
+         <obj_property name="ObjectShortName">wvalid_0</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wstrb_0">
+         <obj_property name="ElementShortName">wstrb_0[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb_0[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wdata">
+         <obj_property name="ElementShortName">wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/rready">
+         <obj_property name="ElementShortName">rready</obj_property>
+         <obj_property name="ObjectShortName">rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awvalid_1">
+         <obj_property name="ElementShortName">awvalid_1</obj_property>
+         <obj_property name="ObjectShortName">awvalid_1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arvalid_1">
+         <obj_property name="ElementShortName">arvalid_1</obj_property>
+         <obj_property name="ObjectShortName">arvalid_1</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wvalid_1">
+         <obj_property name="ElementShortName">wvalid_1</obj_property>
+         <obj_property name="ObjectShortName">wvalid_1</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wstrb_1">
+         <obj_property name="ElementShortName">wstrb_1[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb_1[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awvalid_2">
+         <obj_property name="ElementShortName">awvalid_2</obj_property>
+         <obj_property name="ObjectShortName">awvalid_2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arvalid_2">
+         <obj_property name="ElementShortName">arvalid_2</obj_property>
+         <obj_property name="ObjectShortName">arvalid_2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wvalid_2">
+         <obj_property name="ElementShortName">wvalid_2</obj_property>
+         <obj_property name="ObjectShortName">wvalid_2</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wstrb_2">
+         <obj_property name="ElementShortName">wstrb_2[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb_2[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/awvalid_3">
+         <obj_property name="ElementShortName">awvalid_3</obj_property>
+         <obj_property name="ObjectShortName">awvalid_3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/arvalid_3">
+         <obj_property name="ElementShortName">arvalid_3</obj_property>
+         <obj_property name="ObjectShortName">arvalid_3</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wvalid_3">
+         <obj_property name="ElementShortName">wvalid_3</obj_property>
+         <obj_property name="ObjectShortName">wvalid_3</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/wstrb_3">
+         <obj_property name="ElementShortName">wstrb_3[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb_3[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_awaddr">
+         <obj_property name="ElementShortName">axi_awaddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awaddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_arvalid">
+         <obj_property name="ElementShortName">axi_arvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_araddr">
+         <obj_property name="ElementShortName">axi_araddr[14:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_araddr[14:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wvalid">
+         <obj_property name="ElementShortName">axi_wvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wstrb">
+         <obj_property name="ElementShortName">axi_wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wdata">
+         <obj_property name="ElementShortName">axi_wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rready">
+         <obj_property name="ElementShortName">axi_rready</obj_property>
+         <obj_property name="ObjectShortName">axi_rready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_awready">
+         <obj_property name="ElementShortName">axi_awready</obj_property>
+         <obj_property name="ObjectShortName">axi_awready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_arready">
+         <obj_property name="ElementShortName">axi_arready</obj_property>
+         <obj_property name="ObjectShortName">axi_arready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wready">
+         <obj_property name="ElementShortName">axi_wready</obj_property>
+         <obj_property name="ObjectShortName">axi_wready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rvalid">
+         <obj_property name="ElementShortName">axi_rvalid</obj_property>
+         <obj_property name="ObjectShortName">axi_rvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rdata">
+         <obj_property name="ElementShortName">axi_rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/user_prj_sel">
+         <obj_property name="ElementShortName">user_prj_sel[4:0]</obj_property>
+         <obj_property name="ObjectShortName">user_prj_sel[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_awready_bus">
+         <obj_property name="ElementShortName">axi_awready_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_awready_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_wready_bus">
+         <obj_property name="ElementShortName">axi_wready_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_wready_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_arready_bus">
+         <obj_property name="ElementShortName">axi_arready_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_arready_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rvalid_bus">
+         <obj_property name="ElementShortName">axi_rvalid_bus[3:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rvalid_bus[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/axi_rdata_bus">
+         <obj_property name="ElementShortName">axi_rdata_bus[3:0][31:0]</obj_property>
+         <obj_property name="ObjectShortName">axi_rdata_bus[3:0][31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_AXIL_SLAV0/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="group" fp_name="group598">
+      <obj_property name="label">USER 0</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/RegisterData">
+         <obj_property name="ElementShortName">RegisterData[31:0]</obj_property>
+         <obj_property name="ObjectShortName">RegisterData[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/awready">
+         <obj_property name="ElementShortName">awready</obj_property>
+         <obj_property name="ObjectShortName">awready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/arready">
+         <obj_property name="ElementShortName">arready</obj_property>
+         <obj_property name="ObjectShortName">arready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wready">
+         <obj_property name="ElementShortName">wready</obj_property>
+         <obj_property name="ObjectShortName">wready</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/rvalid">
+         <obj_property name="ElementShortName">rvalid</obj_property>
+         <obj_property name="ObjectShortName">rvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/rdata">
+         <obj_property name="ElementShortName">rdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">rdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/awvalid">
+         <obj_property name="ElementShortName">awvalid</obj_property>
+         <obj_property name="ObjectShortName">awvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/awaddr">
+         <obj_property name="ElementShortName">awaddr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">awaddr[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/arvalid">
+         <obj_property name="ElementShortName">arvalid</obj_property>
+         <obj_property name="ObjectShortName">arvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/araddr">
+         <obj_property name="ElementShortName">araddr[11:0]</obj_property>
+         <obj_property name="ObjectShortName">araddr[11:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wvalid">
+         <obj_property name="ElementShortName">wvalid</obj_property>
+         <obj_property name="ObjectShortName">wvalid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wstrb">
+         <obj_property name="ElementShortName">wstrb[3:0]</obj_property>
+         <obj_property name="ObjectShortName">wstrb[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wdata">
+         <obj_property name="ElementShortName">wdata[31:0]</obj_property>
+         <obj_property name="ObjectShortName">wdata[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/rready">
+         <obj_property name="ElementShortName">rready</obj_property>
+         <obj_property name="ObjectShortName">rready</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group726">
+         <obj_property name="label">axis Rx</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tvalid">
+            <obj_property name="ElementShortName">ss_tvalid</obj_property>
+            <obj_property name="ObjectShortName">ss_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tready">
+            <obj_property name="ElementShortName">ss_tready</obj_property>
+            <obj_property name="ObjectShortName">ss_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tdata">
+            <obj_property name="ElementShortName">ss_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">ss_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tuser">
+            <obj_property name="ElementShortName">ss_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">ss_tuser[1:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tstrb">
+            <obj_property name="ElementShortName">ss_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">ss_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tkeep">
+            <obj_property name="ElementShortName">ss_tkeep[3:0]</obj_property>
+            <obj_property name="ObjectShortName">ss_tkeep[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tlast">
+            <obj_property name="ElementShortName">ss_tlast</obj_property>
+            <obj_property name="ObjectShortName">ss_tlast</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="group" fp_name="group727">
+         <obj_property name="label">axis TX</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tvalid">
+            <obj_property name="ElementShortName">sm_tvalid</obj_property>
+            <obj_property name="ObjectShortName">sm_tvalid</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tready">
+            <obj_property name="ElementShortName">sm_tready</obj_property>
+            <obj_property name="ObjectShortName">sm_tready</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tdata">
+            <obj_property name="ElementShortName">sm_tdata[31:0]</obj_property>
+            <obj_property name="ObjectShortName">sm_tdata[31:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tid">
+            <obj_property name="ElementShortName">sm_tid[2:0]</obj_property>
+            <obj_property name="ObjectShortName">sm_tid[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tstrb">
+            <obj_property name="ElementShortName">sm_tstrb[3:0]</obj_property>
+            <obj_property name="ObjectShortName">sm_tstrb[3:0]</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tkeep">
+            <obj_property name="ElementShortName">sm_tkeep</obj_property>
+            <obj_property name="ObjectShortName">sm_tkeep</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/sm_tlast">
+            <obj_property name="ElementShortName">sm_tlast</obj_property>
+            <obj_property name="ObjectShortName">sm_tlast</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/low__pri_irq">
+         <obj_property name="ElementShortName">low__pri_irq</obj_property>
+         <obj_property name="ObjectShortName">low__pri_irq</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/High_pri_req">
+         <obj_property name="ElementShortName">High_pri_req</obj_property>
+         <obj_property name="ObjectShortName">High_pri_req</obj_property>
+      </wvobject>
+      <wvobject type="group" fp_name="group733">
+         <obj_property name="label">FIFO</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/r_ptr">
+            <obj_property name="ElementShortName">r_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">r_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/w_ptr">
+            <obj_property name="ElementShortName">w_ptr[2:0]</obj_property>
+            <obj_property name="ObjectShortName">w_ptr[2:0]</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/fifo">
+            <obj_property name="ElementShortName">fifo[7:0][31:0]</obj_property>
+            <obj_property name="ObjectShortName">fifo[7:0][31:0]</obj_property>
+            <obj_property name="isExpanded"></obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/full">
+            <obj_property name="ElementShortName">full</obj_property>
+            <obj_property name="ObjectShortName">full</obj_property>
+         </wvobject>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/empty">
+            <obj_property name="ElementShortName">empty</obj_property>
+            <obj_property name="ObjectShortName">empty</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/la_data_o">
+         <obj_property name="ElementShortName">la_data_o[23:0]</obj_property>
+         <obj_property name="ObjectShortName">la_data_o[23:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axi_clk">
+         <obj_property name="ElementShortName">axi_clk</obj_property>
+         <obj_property name="ObjectShortName">axi_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axis_clk">
+         <obj_property name="ElementShortName">axis_clk</obj_property>
+         <obj_property name="ObjectShortName">axis_clk</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axi_reset_n">
+         <obj_property name="ElementShortName">axi_reset_n</obj_property>
+         <obj_property name="ObjectShortName">axi_reset_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axis_rst_n">
+         <obj_property name="ElementShortName">axis_rst_n</obj_property>
+         <obj_property name="ObjectShortName">axis_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/user_clock2">
+         <obj_property name="ElementShortName">user_clock2</obj_property>
+         <obj_property name="ObjectShortName">user_clock2</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/uck2_rst_n">
+         <obj_property name="ElementShortName">uck2_rst_n</obj_property>
+         <obj_property name="ObjectShortName">uck2_rst_n</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/awvalid_in">
+         <obj_property name="ElementShortName">awvalid_in</obj_property>
+         <obj_property name="ObjectShortName">awvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wvalid_in">
+         <obj_property name="ElementShortName">wvalid_in</obj_property>
+         <obj_property name="ObjectShortName">wvalid_in</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/awready_out">
+         <obj_property name="ElementShortName">awready_out</obj_property>
+         <obj_property name="ObjectShortName">awready_out</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/wready_out">
+         <obj_property name="ElementShortName">wready_out</obj_property>
+         <obj_property name="ObjectShortName">wready_out</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/pADDR_WIDTH">
+         <obj_property name="ElementShortName">pADDR_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pADDR_WIDTH[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/pDATA_WIDTH">
+         <obj_property name="ElementShortName">pDATA_WIDTH[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pDATA_WIDTH[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/axi_reset_n">
+      <obj_property name="ElementShortName">axi_reset_n</obj_property>
+      <obj_property name="ObjectShortName">axi_reset_n</obj_property>
    </wvobject>
 </wave_config>
