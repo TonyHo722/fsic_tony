@@ -10,13 +10,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="5,874.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="6,575.001 ns"></ZoomEndTime>
+      <ZoomStartTime time="5,941.117 ns"></ZoomStartTime>
+      <ZoomEndTime time="6,888.215 ns"></ZoomEndTime>
       <Cursor1Time time="6,125.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="96"></ValueColumnWidth>
+      <ValueColumnWidth column_width="92"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="13" />
    <wave_markers>
@@ -2836,10 +2836,6 @@
             <obj_property name="ElementShortName">ss_tdata[31:0]</obj_property>
             <obj_property name="ObjectShortName">ss_tdata[31:0]</obj_property>
          </wvobject>
-         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tuser">
-            <obj_property name="ElementShortName">ss_tuser[1:0]</obj_property>
-            <obj_property name="ObjectShortName">ss_tuser[1:0]</obj_property>
-         </wvobject>
          <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tstrb">
             <obj_property name="ElementShortName">ss_tstrb[3:0]</obj_property>
             <obj_property name="ObjectShortName">ss_tstrb[3:0]</obj_property>
@@ -2851,6 +2847,10 @@
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tlast">
             <obj_property name="ElementShortName">ss_tlast</obj_property>
             <obj_property name="ObjectShortName">ss_tlast</obj_property>
+         </wvobject>
+         <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/ss_tuser">
+            <obj_property name="ElementShortName">ss_tuser[1:0]</obj_property>
+            <obj_property name="ObjectShortName">ss_tuser[1:0]</obj_property>
          </wvobject>
       </wvobject>
       <wvobject type="group" fp_name="group727">
@@ -2915,8 +2915,8 @@
             <obj_property name="ObjectShortName">w_ptr[2:0]</obj_property>
          </wvobject>
          <wvobject type="array" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/fifo">
-            <obj_property name="ElementShortName">fifo[7:0][31:0]</obj_property>
-            <obj_property name="ObjectShortName">fifo[7:0][31:0]</obj_property>
+            <obj_property name="ElementShortName">fifo[7:0][37:0]</obj_property>
+            <obj_property name="ObjectShortName">fifo[7:0][37:0]</obj_property>
             <obj_property name="isExpanded"></obj_property>
          </wvobject>
          <wvobject type="logic" fp_name="/tb_fsic/dut/U_USER_SUBSYS0/U_USRPRJ0/full">
