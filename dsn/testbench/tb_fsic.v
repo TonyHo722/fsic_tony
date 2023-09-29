@@ -170,7 +170,7 @@ module tb_fsic #( parameter BITS=32,
 	
 	reg [pDATA_WIDTH-1:0] fpga_as_is_tdata;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_as_is_tupsb,
+		reg 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_as_is_tupsb;
 	`endif
 	reg [3:0] fpga_as_is_tstrb;
 	reg [3:0] fpga_as_is_tkeep;
@@ -189,7 +189,7 @@ module tb_fsic #( parameter BITS=32,
 
 	wire [pDATA_WIDTH-1:0] fpga_is_as_tdata;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_is_as_tupsb,
+		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_is_as_tupsb;
 	`endif
 	wire [3:0] fpga_is_as_tstrb;
 	wire [3:0] fpga_is_as_tkeep;
