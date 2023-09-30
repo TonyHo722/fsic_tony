@@ -233,7 +233,7 @@ assign	m_tdata = sm_tdata_bus[0] | sm_tdata_bus[1] | sm_tdata_bus[2] | sm_tdata_
 //wire [2: 0] sm_tid_bus;
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire [3: 0] sm_tupsb_bus[3:0];
+	wire [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_bus[3:0];
 	assign	m_tupsb = sm_tupsb_bus[0] | sm_tupsb_bus[1] | sm_tupsb_bus[2] | sm_tupsb_bus[3];
 `endif
 
