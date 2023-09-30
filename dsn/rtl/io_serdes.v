@@ -37,7 +37,7 @@ module IO_SERDES #(
 		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter pRxFIFO_DEPTH = 5,
-		parameter pCLK_RATIO =4
+		parameter pCLK_RATIO =4			//[TODO]: use pCLK_RATIO for register define
 	) (
 
 
@@ -123,30 +123,39 @@ module IO_SERDES #(
 	assign rxclk = serial_rclk;
 
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		wire Serial_Data_Out_tupsb;
+		wire Serial_Data_Out_tupsb_4_1;
+		wire Serial_Data_Out_tupsb_tlast_tvalid_tready;
+	`else
+		wire Serial_Data_Out_tlast_tvalid_tready;
 	`endif
-	wire Serial_Data_Out_tlast_tvalid_tready;
 	wire Serial_Data_Out_tid_tuser;
 	wire Serial_Data_Out_tkeep;
 	wire Serial_Data_Out_tstrb;
 	wire [pSERIALIO_TDATA_WIDTH-1:0] Serial_Data_Out_tdata;
 
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		assign 	serial_txd[pSERIALIO_WIDTH-1:0] = {Serial_Data_Out_tupsb, Serial_Data_Out_tlast_tvalid_tready, Serial_Data_Out_tid_tuser, Serial_Data_Out_tkeep, Serial_Data_Out_tstrb, Serial_Data_Out_tdata[pSERIALIO_TDATA_WIDTH-1:0]};
+		assign 	serial_txd[pSERIALIO_WIDTH-1:0] = {Serial_Data_Out_tupsb_4_1, Serial_Data_Out_tupsb_tlast_tvalid_tready, Serial_Data_Out_tid_tuser, Serial_Data_Out_tkeep, Serial_Data_Out_tstrb, Serial_Data_Out_tdata[pSERIALIO_TDATA_WIDTH-1:0]};
 	`else
 		assign 	serial_txd[pSERIALIO_WIDTH-1:0] = {Serial_Data_Out_tlast_tvalid_tready, Serial_Data_Out_tid_tuser, Serial_Data_Out_tkeep, Serial_Data_Out_tstrb, Serial_Data_Out_tdata[pSERIALIO_TDATA_WIDTH-1:0]};
 	`endif
 
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		wire Serial_Data_In_tupsb;
+		wire Serial_Data_In_tupsb_4_1;
+		wire Serial_Data_In_tupsb_tlast_tvalid_tready;
+	`else
+		wire Serial_Data_In_tlast_tvalid_tready;
 	`endif
-	wire Serial_Data_In_tlast_tvalid_tready;
 	wire Serial_Data_In_tid_tuser;
 	wire Serial_Data_In_tkeep;
 	wire Serial_Data_In_tstrb;
 	wire [pSERIALIO_TDATA_WIDTH-1:0] Serial_Data_In_tdata;
 
-	assign {Serial_Data_In_tlast_tvalid_tready, Serial_Data_In_tid_tuser, Serial_Data_In_tkeep, Serial_Data_In_tstrb, Serial_Data_In_tdata[pSERIALIO_TDATA_WIDTH-1:0] } = serial_rxd[pSERIALIO_WIDTH-1:0];
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		assign {Serial_Data_In_tupsb_4_1, Serial_Data_In_tupsb_tlast_tvalid_tready, Serial_Data_In_tid_tuser, Serial_Data_In_tkeep, Serial_Data_In_tstrb, Serial_Data_In_tdata[pSERIALIO_TDATA_WIDTH-1:0] } = serial_rxd[pSERIALIO_WIDTH-1:0];
+	`else
+		assign {Serial_Data_In_tlast_tvalid_tready, Serial_Data_In_tid_tuser, Serial_Data_In_tkeep, Serial_Data_In_tstrb, Serial_Data_In_tdata[pSERIALIO_TDATA_WIDTH-1:0] } = serial_rxd[pSERIALIO_WIDTH-1:0];
+	`endif
+
 
 	reg	txen;
 
@@ -253,10 +262,12 @@ module IO_SERDES #(
 	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tstrb_buf;
 	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tkeep_buf;
 	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tid_tuser_buf;
-	reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tlast_tvalid_tready_buf;
 
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		reg [3:0] pre_as_is_tupsb_buf;
+		reg [3:0] pre_as_is_tupsb_4_1_buf;
+		reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tupsb_tlast_tvalid_tready_buf;
+	`else
+		reg [(pDATA_WIDTH/8)-1:0] pre_as_is_tlast_tvalid_tready_buf;
 	`endif
 
 	wire txen_rst_n = axis_rst_n & txen;
@@ -268,29 +279,45 @@ module IO_SERDES #(
 		pre_as_is_tid_tuser_buf[3:2] <= as_is_tid;
 		pre_as_is_tid_tuser_buf[1:0] <= as_is_tuser;
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-			pre_as_is_tupsb_buf <= as_is_tupsb[pUSER_PROJECT_SIDEBAND_WIDTH-1:1];
-			pre_as_is_tlast_tvalid_tready_buf[3] <= as_is_tupsb[0];
+			pre_as_is_tupsb_4_1_buf <= as_is_tupsb[pUSER_PROJECT_SIDEBAND_WIDTH-1:1];
+			pre_as_is_tupsb_tlast_tvalid_tready_buf[3] <= as_is_tupsb[0];
+			pre_as_is_tupsb_tlast_tvalid_tready_buf[2] <= as_is_tlast;
+			pre_as_is_tupsb_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
+			pre_as_is_tupsb_tlast_tvalid_tready_buf[0] <= as_is_tready;
+		`else
+			pre_as_is_tlast_tvalid_tready_buf[2] <= as_is_tlast;
+			pre_as_is_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
+			pre_as_is_tlast_tvalid_tready_buf[0] <= as_is_tready;
 		`endif
-		pre_as_is_tlast_tvalid_tready_buf[2] <= as_is_tlast;
-		pre_as_is_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
-		pre_as_is_tlast_tvalid_tready_buf[0] <= as_is_tready;
 
 		if ( !txen_rst_n ) begin
 			pre_as_is_tdata_buf <= 0;
 			pre_as_is_tstrb_buf <= 0;
 			pre_as_is_tkeep_buf <= 0;
 			pre_as_is_tid_tuser_buf <= 0;
-			pre_as_is_tlast_tvalid_tready_buf <= 0;
 			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-				pre_as_is_tupsb_buf <= 0;
+				pre_as_is_tupsb_4_1_buf <= 0;
+				pre_as_is_tupsb_tlast_tvalid_tready_buf <= 0;
+			`else
+				pre_as_is_tlast_tvalid_tready_buf <= 0;
 			`endif
 		end 
 		else begin
 			if (is_as_tready && as_is_tvalid) begin			//data transfer from Axis siwtch to io serdes when is_as_tready=1 and as_is_tvalid=1
-				pre_as_is_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
+				
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+					pre_as_is_tupsb_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
+				`else
+					pre_as_is_tlast_tvalid_tready_buf[1] <= as_is_tvalid;
+				`endif
 			end
 			else begin
-				pre_as_is_tlast_tvalid_tready_buf[1] <= 0;			// set as_is_tvalid =0 to remote side
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+					pre_as_is_tupsb_tlast_tvalid_tready_buf[1] <= 0;			// set as_is_tvalid =0 to remote side
+				`else
+					pre_as_is_tlast_tvalid_tready_buf[1] <= 0;			// set as_is_tvalid =0 to remote side
+				`endif
+
 			end
 		end
 	end
@@ -299,9 +326,11 @@ module IO_SERDES #(
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tstrb_buf;
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tkeep_buf;
 	reg [(pDATA_WIDTH/8)-1:0] as_is_tid_tuser_buf;
-	reg [(pDATA_WIDTH/8)-1:0] as_is_tlast_tvalid_tready_buf;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		reg [3:0] as_is_tupsb_buf;
+		reg [pCLK_RATIO-1:0] as_is_tupsb_4_1_buf;
+		reg [pCLK_RATIO-1:0] as_is_tupsb_tlast_tvalid_tready_buf;		
+	`else
+		reg [pCLK_RATIO-1:0] as_is_tlast_tvalid_tready_buf;		
 	`endif
 
 	always @(posedge ioclk or negedge axis_rst_n)  begin
@@ -310,9 +339,11 @@ module IO_SERDES #(
 			as_is_tstrb_buf <= 0;
 			as_is_tkeep_buf <= 0;
 			as_is_tid_tuser_buf <= 0;
-			as_is_tlast_tvalid_tready_buf <= 0;
 			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-				as_is_tupsb_buf <= 0;
+				as_is_tupsb_4_1_buf <= 0;
+				as_is_tupsb_tlast_tvalid_tready_buf <= 0;
+			`else
+				as_is_tlast_tvalid_tready_buf <= 0;
 			`endif
 		end
 		else begin
@@ -321,9 +352,11 @@ module IO_SERDES #(
 				as_is_tstrb_buf <= pre_as_is_tstrb_buf;
 				as_is_tkeep_buf <= pre_as_is_tkeep_buf;
 				as_is_tid_tuser_buf <= pre_as_is_tid_tuser_buf;
-				as_is_tlast_tvalid_tready_buf <= pre_as_is_tlast_tvalid_tready_buf;
 				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-					as_is_tupsb_buf <= pre_as_is_tupsb_buf;
+					as_is_tupsb_4_1_buf <= pre_as_is_tupsb_4_1_buf;
+					as_is_tupsb_tlast_tvalid_tready_buf <= pre_as_is_tupsb_tlast_tvalid_tready_buf;
+				`else
+					as_is_tlast_tvalid_tready_buf <= pre_as_is_tlast_tvalid_tready_buf;
 				`endif
 			end
 		end
@@ -372,9 +405,11 @@ module IO_SERDES #(
 	assign Serial_Data_Out_tstrb = as_is_tstrb_buf[tx_shift_phase_cnt] & txen ;
 	assign Serial_Data_Out_tkeep = as_is_tkeep_buf[tx_shift_phase_cnt] & txen ;
 	assign Serial_Data_Out_tid_tuser = as_is_tid_tuser_buf[tx_shift_phase_cnt] & txen ;
-	assign Serial_Data_Out_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-		assign Serial_Data_Out_tupsb = as_is_tupsb_buf[tx_shift_phase_cnt] & txen ;
+		assign Serial_Data_Out_tupsb_4_1 = as_is_tupsb_4_1_buf[tx_shift_phase_cnt] & txen ;
+		assign Serial_Data_Out_tupsb_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
+	`else
+		assign Serial_Data_Out_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
 	`endif
 
 
@@ -482,7 +517,7 @@ module IO_SERDES #(
 			.rxen(rxen),
 			.ioclk(ioclk),
 			.coreclk(coreclk),
-			.Serial_Data_in(Serial_Data_In_tupsb),
+			.Serial_Data_in(Serial_Data_In_tupsb_4_1),
 			.rxdata_out( is_as_tupsb[4:1]),	  
 			.rxdata_out_valid(rxdata_out_valid[pSERIALIO_TDATA_WIDTH+3])
 		);
@@ -497,7 +532,7 @@ module IO_SERDES #(
 			.rxen(rxen),
 			.ioclk(ioclk),
 			.coreclk(coreclk),
-			.Serial_Data_in(Serial_Data_In_tlast_tvalid_tready),
+			.Serial_Data_in(Serial_Data_In_tupsb_tlast_tvalid_tready),
 			.rxdata_out( {is_as_tupsb[0], is_as_tlast, is_as_tvalid, is_as_tready_remote}),	  
 			.rxdata_out_valid(rx_received_data)
 		);
