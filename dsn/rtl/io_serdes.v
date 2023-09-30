@@ -407,7 +407,7 @@ module IO_SERDES #(
 	assign Serial_Data_Out_tid_tuser = as_is_tid_tuser_buf[tx_shift_phase_cnt] & txen ;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		assign Serial_Data_Out_tupsb_4_1 = as_is_tupsb_4_1_buf[tx_shift_phase_cnt] & txen ;
-		assign Serial_Data_Out_tupsb_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
+		assign Serial_Data_Out_tupsb_tlast_tvalid_tready = as_is_tupsb_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
 	`else
 		assign Serial_Data_Out_tlast_tvalid_tready = as_is_tlast_tvalid_tready_buf[tx_shift_phase_cnt] & txen ;
 	`endif
