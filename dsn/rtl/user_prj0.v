@@ -40,7 +40,7 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
   `endif
   output wire                 [3: 0] sm_tstrb,
-  output wire                        sm_tkeep,
+  output wire                 [3: 0] sm_tkeep,
   output wire                        sm_tlast,
   output wire                        low__pri_irq,
   output wire                        High_pri_req,
@@ -53,10 +53,11 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire                        uck2_rst_n
 );
 
+//[TODO] does tlast from FPGA to SOC need send to UP? or use upsb as UP's tlast?
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	localparam	FIFO_WIDTH = pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 1 + 1 + pDATA_WIDTH;		//upsb, tid, tstrb, tkeep, tlast, tdata
+	localparam	FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);		//upsb, tstrb, tkeep, tlast, tdata  
 `else
-	localparam	FIFO_WIDTH = 4 + 1 + 1 + pDATA_WIDTH;		//tid, tstrb, tkeep, tlast, tdata
+	localparam	FIFO_WIDTH = (4 + 4 + 1 + pDATA_WIDTH);		//tstrb, tkeep, tlast, tdata
 `endif
 
 

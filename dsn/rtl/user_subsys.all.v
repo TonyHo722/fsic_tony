@@ -175,7 +175,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0,
 `endif
   input  wire                 [3: 0] sm_tstrb_0,
-  input  wire                        sm_tkeep_0,
+  input  wire                 [3: 0] sm_tkeep_0,
   input  wire                        sm_tlast_0,
   input  wire                        sm_tvalid_1,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_1,
@@ -184,7 +184,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1,
 `endif
   input  wire                 [3: 0] sm_tstrb_1,
-  input  wire                        sm_tkeep_1,
+  input  wire                 [3: 0] sm_tkeep_1,
   input  wire                        sm_tlast_1,
   input  wire                        sm_tvalid_2,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_2,
@@ -193,7 +193,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2,
 `endif
   input  wire                 [3: 0] sm_tstrb_2,
-  input  wire                        sm_tkeep_2,
+  input  wire                 [3: 0] sm_tkeep_2,
   input  wire                        sm_tlast_2,
   input  wire                        sm_tvalid_3,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_3,
@@ -202,7 +202,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3,
 `endif
   input  wire                 [3: 0] sm_tstrb_3,
-  input  wire                        sm_tkeep_3,
+  input  wire                 [3: 0] sm_tkeep_3,
   input  wire                        sm_tlast_3,
   input  wire                        m_tready,
   output wire                        m_tvalid,
@@ -548,7 +548,7 @@ wire                  [2: 0] sm_tid_0;
 	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0;
 `endif
 wire                  [3: 0] sm_tstrb_0;
-wire                         sm_tkeep_0;
+wire                  [3: 0] sm_tkeep_0;
 wire                         sm_tlast_0;
 wire                         sm_tvalid_1;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_1;
@@ -557,7 +557,7 @@ wire                  [2: 0] sm_tid_1;
 	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1;
 `endif
 wire                  [3: 0] sm_tstrb_1;
-wire                         sm_tkeep_1;
+wire                  [3: 0] sm_tkeep_1;
 wire                         sm_tlast_1;
 wire                         sm_tvalid_2;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_2;
@@ -566,7 +566,7 @@ wire                  [2: 0] sm_tid_2;
 	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2;
 `endif
 wire                  [3: 0] sm_tstrb_2;
-wire                         sm_tkeep_2;
+wire                  [3: 0] sm_tkeep_2;
 wire                         sm_tlast_2;
 wire                         sm_tvalid_3;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_3;
@@ -575,7 +575,7 @@ wire                  [2: 0] sm_tid_3;
 	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3;
 `endif
 wire                  [3: 0] sm_tstrb_3;
-wire                         sm_tkeep_3;
+wire                  [3: 0] sm_tkeep_3;
 wire                         sm_tlast_3;
 wire                         low__pri_irq_0;
 wire                         High_pri_req_0;
@@ -699,7 +699,7 @@ USER_PRJ0 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											 .sm_tupsb     (sm_tupsb_0),                // I  5		
 										  `endif
                                           .sm_tstrb     (sm_tstrb_0),              // O  4
-                                          .sm_tkeep     (sm_tkeep_0),              // O  
+                                          .sm_tkeep     (sm_tkeep_0),              // O  4 
                                           .sm_tlast     (sm_tlast_0),              // O  
                                           .low__pri_irq (low__pri_irq_0),          // O  
                                           .High_pri_req (High_pri_req_0),          // O  
@@ -752,7 +752,7 @@ USER_PRJ1 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											 .sm_tupsb     (sm_tupsb_1),                // I  5		
 										  `endif
                                           .sm_tstrb     (sm_tstrb_1),              // O  4
-                                          .sm_tkeep     (sm_tkeep_1),              // O  
+                                          .sm_tkeep     (sm_tkeep_1),              // O  4
                                           .sm_tlast     (sm_tlast_1),              // O  
                                           .low__pri_irq (low__pri_irq_1),          // O  
                                           .High_pri_req (High_pri_req_1),          // O  
@@ -806,7 +806,7 @@ USER_PRJ2 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											 .sm_tupsb     (sm_tupsb_2),                // I  5		
 										  `endif
                                           .sm_tstrb     (sm_tstrb_2),              // O  4
-                                          .sm_tkeep     (sm_tkeep_2),              // O  
+                                          .sm_tkeep     (sm_tkeep_2),              // O  4
                                           .sm_tlast     (sm_tlast_2),              // O  
                                           .low__pri_irq (low__pri_irq_2),          // O  
                                           .High_pri_req (High_pri_req_2),          // O  
@@ -860,7 +860,7 @@ USER_PRJ3 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											 .sm_tupsb     (sm_tupsb_3),                // I  5		
 										  `endif
                                           .sm_tstrb     (sm_tstrb_3),              // O  4
-                                          .sm_tkeep     (sm_tkeep_3),              // O  
+                                          .sm_tkeep     (sm_tkeep_3),              // O  4
                                           .sm_tlast     (sm_tlast_3),              // O  
                                           .low__pri_irq (low__pri_irq_3),          // O  
                                           .High_pri_req (High_pri_req_3),          // O  
@@ -933,7 +933,7 @@ AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											  	.sm_tupsb_0     (sm_tupsb_0),                // I  5		
 											  `endif
                                               .sm_tstrb_0   (sm_tstrb_0),              // I  4
-                                              .sm_tkeep_0   (sm_tkeep_0),              // I  
+                                              .sm_tkeep_0   (sm_tkeep_0),              // I  4
                                               .sm_tlast_0   (sm_tlast_0),              // I  
                                               .sm_tvalid_1  (sm_tvalid_1),             // I  
                                               .sm_tdata_1   (sm_tdata_1),              // I  pDATA_WIDTH
@@ -942,7 +942,7 @@ AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											  	.sm_tupsb_1     (sm_tupsb_1),                // I  5		
 											  `endif
                                               .sm_tstrb_1   (sm_tstrb_1),              // I  4
-                                              .sm_tkeep_1   (sm_tkeep_1),              // I  
+                                              .sm_tkeep_1   (sm_tkeep_1),              // I  4
                                               .sm_tlast_1   (sm_tlast_1),              // I  
                                               .sm_tvalid_2  (sm_tvalid_2),             // I  
                                               .sm_tdata_2   (sm_tdata_2),              // I  pDATA_WIDTH
@@ -951,7 +951,7 @@ AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											  	.sm_tupsb_2     (sm_tupsb_2),                // I  5		
 											  `endif
                                               .sm_tstrb_2   (sm_tstrb_2),              // I  4
-                                              .sm_tkeep_2   (sm_tkeep_2),              // I  
+                                              .sm_tkeep_2   (sm_tkeep_2),              // I  4
                                               .sm_tlast_2   (sm_tlast_2),              // I  
                                               .sm_tvalid_3  (sm_tvalid_3),             // I  
                                               .sm_tdata_3   (sm_tdata_3),              // I  pDATA_WIDTH
@@ -960,7 +960,7 @@ AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 											  	.sm_tupsb_3     (sm_tupsb_3),                // I  5		
 											  `endif
                                               .sm_tstrb_3   (sm_tstrb_3),              // I  4
-                                              .sm_tkeep_3   (sm_tkeep_3),              // I  
+                                              .sm_tkeep_3   (sm_tkeep_3),              // I  4
                                               .sm_tlast_3   (sm_tlast_3),              // I  
                                               .m_tready     (m_tready),                // I  
                                               .m_tvalid     (m_tvalid),                // O  
