@@ -61,12 +61,13 @@ module tb_fsic #( parameter BITS=32,
 		localparam TID_UP_LA = 2'b10;
 		localparam fpga_axis_test_length = 16;
 		
-		localparam RXD_OFFSET = 8;
+		localparam BASE_OFFSET = 8;
+		localparam RXD_OFFSET = BASE_OFFSET;
 		localparam RXCLK_OFFSET = RXD_OFFSET + pSERIALIO_WIDTH;
 		localparam TXD_OFFSET = RXCLK_OFFSET + 1;
 		localparam TXCLK_OFFSET = TXD_OFFSET + pSERIALIO_WIDTH;
 		localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
-		localparam TXRX_WIDTH = IOCLK_OFFSET + 1;
+		localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET;
 		
     real ioclk_pd = IOCLK_Period;
 

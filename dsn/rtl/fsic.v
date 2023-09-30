@@ -573,8 +573,10 @@ FSIC_CLKRST  U_FSIC_CLKRST0 (
 
 
 
-MPRJ_IO #(.pADDR_WIDTH( pADDR_WIDTH ),
-          .pDATA_WIDTH( 32 )) U_MPRJ_IO0 (
+MPRJ_IO #(
+			.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pADDR_WIDTH( pADDR_WIDTH ),
+			.pDATA_WIDTH( 32 )) U_MPRJ_IO0 (
                                           .serial_rxd   (serial_rxd),              // O  12
                                           .serial_rclk  (serial_rclk),             // O  
                                           .user_prj_sel (user_prj_sel),            // I  5
