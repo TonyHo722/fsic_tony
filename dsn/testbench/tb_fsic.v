@@ -1368,7 +1368,8 @@ FSIC #(
 			else begin
 				tdata = data;
 				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-					tupsb = 5'b00000;
+					//tupsb = 5'b00000;
+					tupsb = tdata[4:0];
 				`endif
 				tstrb = 4'b0000;
 				tkeep = 4'b0000;
