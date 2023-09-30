@@ -37,7 +37,7 @@ module MPRJ_IO #( 	parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 	localparam TXD_OFFSET = RXCLK_OFFSET + 1;
 	localparam TXCLK_OFFSET = TXD_OFFSET + pSERIALIO_WIDTH;
 	localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
-	localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET;
+	localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET + 1;
 
 // MPRJ_IO PIN PLANNING
 // --------------------------------

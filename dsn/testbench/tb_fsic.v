@@ -67,7 +67,7 @@ module tb_fsic #( parameter BITS=32,
 		localparam TXD_OFFSET = RXCLK_OFFSET + 1;
 		localparam TXCLK_OFFSET = TXD_OFFSET + pSERIALIO_WIDTH;
 		localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
-		localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET;
+		localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET + 1;
 		
     real ioclk_pd = IOCLK_Period;
 
