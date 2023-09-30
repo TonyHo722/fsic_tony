@@ -1306,7 +1306,7 @@ FSIC #(
                 
 				check_cnt = check_cnt + 1;
 				if ( soc_to_fpga_axis_expect_count != fpga_axis_test_length) begin
-                    $display($time, "=> test002 [Error] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
+                    $display($time, "=> test002 [ERROR] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
 					error_cnt = error_cnt + 1;
 				end	
 				else 
@@ -1316,7 +1316,7 @@ FSIC #(
                 for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin	
 					check_cnt = check_cnt + 1;
                     if (soc_to_fpga_axis_expect_value[idx3] != soc_to_fpga_axis_captured[idx3] ) begin
-                        $display($time, "=> test002 [Error] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
+                        $display($time, "=> test002 [ERROR] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
 						error_cnt = error_cnt + 1;
 					end
 					else
@@ -1398,7 +1398,11 @@ FSIC #(
 			fpga_as_is_tid <=  tid;		//set target
 			fpga_as_is_tuser <=  TUSER_AXIS;		//for axis req
 			fpga_as_is_tvalid <= 1;
-			soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tstrb, tkeep, tlast, tdata};
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tupsb, tstrb, tkeep, tlast, tdata};
+			`else	
+				soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tstrb, tkeep, tlast, tdata};
+			`endif
 			soc_to_fpga_axis_expect_count <= soc_to_fpga_axis_expect_count+1;
 
 			@ (posedge fpga_coreclk);
