@@ -24,8 +24,12 @@
 `define USER_PROJECT_SIDEBAND_SUPPORT 1
 
 module tb_fsic #( parameter BITS=32,
-		parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
-		parameter pSERIALIO_WIDTH   = 13,
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+			parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
+			parameter pSERIALIO_WIDTH   = 13,
+		`else
+			parameter pSERIALIO_WIDTH   = 12,
+		`endif
 		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter IOCLK_Period	= 10,
