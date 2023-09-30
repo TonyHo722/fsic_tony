@@ -76,11 +76,11 @@ module IO_SERDES #(
 
 		//TX path
 		input wire 	[pDATA_WIDTH-1:0] as_is_tdata,
-		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tstrb,
-		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tkeep,
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			input wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb,
 		`endif
+		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tstrb,
+		input wire 	[(pDATA_WIDTH/8)-1:0] as_is_tkeep,
 		input wire 	as_is_tlast,
 		input wire 	[1:0] as_is_tid,
 		input wire 	as_is_tvalid,
@@ -95,11 +95,11 @@ module IO_SERDES #(
 		input  wire  [pSERIALIO_WIDTH-1: 0] serial_rxd,
 
 		output wire 	[pDATA_WIDTH-1:0] is_as_tdata,
-		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tstrb,
-		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tkeep,
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			output wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb,
 		`endif
+		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tstrb,
+		output wire 	[(pDATA_WIDTH/8)-1:0] is_as_tkeep,
 		output wire 	is_as_tlast,
 		output wire 	[1:0] is_as_tid,
 		output wire 	is_as_tvalid,

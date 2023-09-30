@@ -61,6 +61,12 @@ module tb_fsic #( parameter BITS=32,
 		localparam TID_UP_LA = 2'b10;
 		localparam fpga_axis_test_length = 16;
 		
+		localparam RXD_OFFSET = 8;
+		localparam RXCLK_OFFSET = RXD_OFFSET + pSERIALIO_WIDTH;
+		localparam TXD_OFFSET = RXCLK_OFFSET + 1;
+		localparam TXCLK_OFFSET = TXD_OFFSET + pSERIALIO_WIDTH;
+		localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
+		localparam TXRX_WIDTH = IOCLK_OFFSET + 1;
 		
     real ioclk_pd = IOCLK_Period;
 
@@ -334,21 +340,21 @@ FSIC #(
 	assign wb_rst = ~soc_resetb;		//wb_rst is high active
 	//assign ioclk = ioclk_source;
 	
-    assign mprj_io[37] = ioclk_source;
-    assign mprj_io[20] = fpga_txclk;
-    assign mprj_io[19:8] = fpga_serial_txd;
+    assign mprj_io[IOCLK_OFFSET] = ioclk_source;
+    assign mprj_io[RXCLK_OFFSET] = fpga_txclk;
+    assign mprj_io[RXD_OFFSET +: pSERIALIO_WIDTH] = fpga_serial_txd;
 
-    assign soc_txclk = mprj_io[33];
-    assign soc_serial_txd = mprj_io[32:21];
+    assign soc_txclk = mprj_io[TXCLK_OFFSET];
+    assign soc_serial_txd = mprj_io[TXD_OFFSET +: pSERIALIO_WIDTH];
 
 	//connect input part : mprj_io to io_in
-	assign io_in[37] = mprj_io[37];
-	assign io_in[20] = mprj_io[20];
-	assign io_in[19:8] = mprj_io[19:8];
+	assign io_in[IOCLK_OFFSET] = mprj_io[IOCLK_OFFSET];
+	assign io_in[RXCLK_OFFSET] = mprj_io[RXCLK_OFFSET];
+	assign io_in[RXD_OFFSET +: pSERIALIO_WIDTH] = mprj_io[RXD_OFFSET +: pSERIALIO_WIDTH];
 
 	//connect output part : io_out to mprj_io
-	assign mprj_io[33] = io_out[33];
-	assign mprj_io[32:21] = io_out[32:21];
+	assign mprj_io[TXCLK_OFFSET] = io_out[TXCLK_OFFSET];
+	assign mprj_io[TXD_OFFSET +: pSERIALIO_WIDTH] = io_out[TXD_OFFSET +: pSERIALIO_WIDTH];
 	
     initial begin
 		ioclk_source=0;
