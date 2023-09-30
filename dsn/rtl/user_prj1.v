@@ -40,7 +40,7 @@ module USER_PRJ1 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
   `endif
   output wire                 [3: 0] sm_tstrb,
-  output wire                        sm_tkeep,
+  output wire                 [3: 0] sm_tkeep,
   output wire                        sm_tlast,
   output wire                        low__pri_irq,
   output wire                        High_pri_req,
