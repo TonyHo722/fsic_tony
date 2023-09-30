@@ -572,9 +572,9 @@ FSIC_CLKRST  U_FSIC_CLKRST0 (
 // Date: Jul-14-23
 
 
-
 MPRJ_IO #(
 			.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pSERIALIO_WIDTH ( pSERIALIO_WIDTH ),
 			.pADDR_WIDTH( pADDR_WIDTH ),
 			.pDATA_WIDTH( 32 )) U_MPRJ_IO0 (
                                           .serial_rxd   (serial_rxd),              // O  12
