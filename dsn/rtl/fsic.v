@@ -326,6 +326,9 @@ AXIS_SW #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                         .aa_as_tuser  (aa_as_tuser),             // I  2
                                         .aa_as_tready (aa_as_tready),            // I  
                                         .is_as_tdata  (is_as_tdata),             // I  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.is_as_tupsb  (is_as_tupsb),     // I  5
+										`endif
                                         .is_as_tstrb  (is_as_tstrb),             // I  4
                                         .is_as_tkeep  (is_as_tkeep),             // I  4
                                         .is_as_tlast  (is_as_tlast),             // I  
@@ -352,6 +355,9 @@ AXIS_SW #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                         .up_as_tready (s_tready_up_as_tready),   // I  
                                         .up_hpri_req  (high_pri_irq_up_hpri_req),// I  
                                         .as_is_tdata  (as_is_tdata),             // O  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.as_is_tupsb  (as_is_tupsb),     // O  5
+										`endif
                                         .as_is_tstrb  (as_is_tstrb),             // O  4
                                         .as_is_tkeep  (as_is_tkeep),             // O  4
                                         .as_is_tlast  (as_is_tlast),             // O  
@@ -394,7 +400,10 @@ IO_SERDES #(.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                                   .axi_rdata    (axi_rdata_axi_rdata3),    // O  32
                                                   .axi_rvalid   (axi_rvalid_axi_rvalid3),  // O  
                                                   .is_as_tdata  (is_as_tdata),             // O  32
-                                                  .is_as_tstrb  (is_as_tstrb),             // O  4
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+													 .is_as_tupsb  (is_as_tupsb),     // O  5
+												  `endif
+												  .is_as_tstrb  (is_as_tstrb),             // O  4
                                                   .is_as_tkeep  (is_as_tkeep),             // O  4
                                                   .is_as_tlast  (is_as_tlast),             // O  
                                                   .is_as_tid    (is_as_tid),               // O  2
@@ -411,6 +420,9 @@ IO_SERDES #(.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                                   .axi_rready   (axi_rready_s_rready),     // I  
                                                   .cc_is_enable (cc_is_enable),            // I  
                                                   .as_is_tdata  (as_is_tdata),             // I  32
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+													 .as_is_tupsb  (as_is_tupsb),     // I  5
+												  `endif
                                                   .as_is_tstrb  (as_is_tstrb),             // I  4
                                                   .as_is_tkeep  (as_is_tkeep),             // I  4
                                                   .as_is_tlast  (as_is_tlast),             // I  
