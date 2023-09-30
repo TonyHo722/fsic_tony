@@ -124,7 +124,6 @@ always @(posedge axis_clk or negedge axis_rst_n)  begin
   end
   else begin
 	if ( ss_tready && ss_tvalid) begin
-		fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			fifo[w_ptr] <= {ss_tupsb, ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
 		`else
