@@ -28,6 +28,7 @@ module tb_fsic #( parameter BITS=32,
 			parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 			parameter pSERIALIO_WIDTH   = 13,
 		`else
+			parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 0,
 			parameter pSERIALIO_WIDTH   = 12,
 		`endif
 		parameter pADDR_WIDTH   = 15,
