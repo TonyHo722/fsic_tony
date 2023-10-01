@@ -65,8 +65,8 @@ assign io_oeb[ 7: 0]   =  8'h00;
 assign io_oeb[RXD_OFFSET +: pSERIALIO_WIDTH]   = 0;  // RXD
 assign io_oeb[RXCLK_OFFSET]   =  0;    // RX_CLK
 
-assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = 13'h1FFF;  // TXD		//[TODO]
-//assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = ~0;  // TXD		//[TODO]
+//assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = 13'h1FFF;  // TXD		//[TODO]
+assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = ~32'b0;  // TXD		//[TODO]
 assign io_oeb[TXCLK_OFFSET]   =  1'b1;    // TX_CLK
 
 assign io_oeb[IOCLK_OFFSET]   =  1'b0;    // IO_CLK (from FPGA)
