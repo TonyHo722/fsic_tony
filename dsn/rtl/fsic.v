@@ -5,7 +5,8 @@
 
 
 module FSIC #(
-		parameter pSERIALIO_WIDTH   = 12,
+		parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
+		parameter pSERIALIO_WIDTH   = 13,
 		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter pRxFIFO_DEPTH = 5,
@@ -109,6 +110,9 @@ wire    [1: 0] is_as_tid;
 wire           is_as_tvalid;
 wire    [1: 0] is_as_tuser;
 wire           is_as_tready;
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] is_as_tupsb;
+`endif
 wire   [31: 0] m_tdata_la_as_tdata;
 wire    [3: 0] m_tstrb_la_as_tstrb;
 wire    [3: 0] m_tkeep_la_as_tkeep;
@@ -117,6 +121,9 @@ wire           m_tvalid_la_as_tvalid;
 wire    [1: 0] m_tuser_la_as_tuser;
 wire           la_hpri_req;
 wire   [31: 0] m_tdata_up_as_tdata;
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] m_tupsb_up_as_tupsb;
+`endif
 wire    [3: 0] m_tstrb_up_as_tstrb;
 wire    [3: 0] m_tkeep_up_as_tkeep;
 wire           m_tlast_up_as_tlast;
@@ -133,8 +140,11 @@ wire    [1: 0] as_is_tid;
 wire           as_is_tvalid;
 wire    [1: 0] as_is_tuser;
 wire           as_is_tready;
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_is_tupsb;
+`endif
 wire           ioclk;
-wire   [11: 0] serial_rxd;
+wire   [pSERIALIO_WIDTH-1: 0] serial_rxd;
 wire           serial_rclk;
 wire           cc_la_enable;
 wire           as_la_tready_m_tready;
@@ -142,6 +152,9 @@ wire   [63: 0] up_la_data;
 wire           cc_up_enable;
 wire    [4: 0] user_prj_sel;
 wire   [31: 0] as_up_tdata_s_tdata;
+`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+	wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] as_up_tupsb_s_tupsb;
+`endif
 wire    [3: 0] as_up_tstrb_s_tstrb;
 wire    [3: 0] as_up_tkeep_s_tkeep;
 wire           as_up_tlast_s_tlast;
@@ -151,7 +164,7 @@ wire           as_up_tready_m_tready;
 wire   [63: 0] la_up_data;
 wire           mb_irq;
 wire           low__pri_irq;
-wire   [11: 0] serial_txd;
+wire   [pSERIALIO_WIDTH-1: 0] serial_txd;
 wire           serial_tclk;
 wire           axi_clk;
 wire           axi_reset_n;
@@ -295,8 +308,9 @@ AXIL_AXIS #(.pADDR_WIDTH( pADDR_WIDTH ),
 
 
 
-AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
-          .pDATA_WIDTH( 32 )) AXIS_SW0 (
+AXIS_SW #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pADDR_WIDTH( pADDR_WIDTH ),
+			.pDATA_WIDTH( 32 )) AXIS_SW0 (
                                         .as_aa_tdata  (as_aa_tdata),             // O  32
                                         .as_aa_tstrb  (as_aa_tstrb),             // O  4
                                         .as_aa_tkeep  (as_aa_tkeep),             // O  4
@@ -312,6 +326,9 @@ AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
                                         .aa_as_tuser  (aa_as_tuser),             // I  2
                                         .aa_as_tready (aa_as_tready),            // I  
                                         .is_as_tdata  (is_as_tdata),             // I  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.is_as_tupsb  (is_as_tupsb),     // I  5
+										`endif
                                         .is_as_tstrb  (is_as_tstrb),             // I  4
                                         .is_as_tkeep  (is_as_tkeep),             // I  4
                                         .is_as_tlast  (is_as_tlast),             // I  
@@ -327,6 +344,9 @@ AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
                                         .la_as_tuser  (m_tuser_la_as_tuser),     // I  2
                                         .la_hpri_req  (la_hpri_req),             // I  
                                         .up_as_tdata  (m_tdata_up_as_tdata),     // I  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.up_as_tupsb  (m_tupsb_up_as_tupsb),     // I  5
+										`endif
                                         .up_as_tstrb  (m_tstrb_up_as_tstrb),     // I  4
                                         .up_as_tkeep  (m_tkeep_up_as_tkeep),     // I  4
                                         .up_as_tlast  (m_tlast_up_as_tlast),     // I  
@@ -335,6 +355,9 @@ AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
                                         .up_as_tready (s_tready_up_as_tready),   // I  
                                         .up_hpri_req  (high_pri_irq_up_hpri_req),// I  
                                         .as_is_tdata  (as_is_tdata),             // O  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.as_is_tupsb  (as_is_tupsb),     // O  5
+										`endif
                                         .as_is_tstrb  (as_is_tstrb),             // O  4
                                         .as_is_tkeep  (as_is_tkeep),             // O  4
                                         .as_is_tlast  (as_is_tlast),             // O  
@@ -344,6 +367,9 @@ AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
                                         .as_is_tready (as_is_tready),            // O  
                                         .as_la_tready (as_la_tready_m_tready),   // O  
                                         .as_up_tdata  (as_up_tdata_s_tdata),     // O  32
+										`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+											.as_up_tupsb  (as_up_tupsb_s_tupsb),     // O  5
+										`endif
                                         .as_up_tstrb  (as_up_tstrb_s_tstrb),     // O  4
                                         .as_up_tkeep  (as_up_tkeep_s_tkeep),     // O  4
                                         .as_up_tlast  (as_up_tlast_s_tlast),     // O  
@@ -362,18 +388,22 @@ AXIS_SW #(.pADDR_WIDTH( pADDR_WIDTH ),
 
 
 
-IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
+IO_SERDES #(.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pSERIALIO_WIDTH( pSERIALIO_WIDTH ),
             .pADDR_WIDTH( pADDR_WIDTH ),
-            .pDATA_WIDTH( 32 ),
-            .pRxFIFO_DEPTH( 5 ),
-            .pCLK_RATIO      ( 4 )) U_IO_SERDES0 (
+            .pDATA_WIDTH( pDATA_WIDTH ),
+            .pRxFIFO_DEPTH( pRxFIFO_DEPTH ),
+            .pCLK_RATIO      ( pCLK_RATIO)) U_IO_SERDES0 (
                                                   .axi_awready  (axi_awready_axi_awready3),// O  
                                                   .axi_wready   (axi_wready_axi_wready3),  // O  
                                                   .axi_arready  (axi_arready_axi_arready3),// O  
                                                   .axi_rdata    (axi_rdata_axi_rdata3),    // O  32
                                                   .axi_rvalid   (axi_rvalid_axi_rvalid3),  // O  
                                                   .is_as_tdata  (is_as_tdata),             // O  32
-                                                  .is_as_tstrb  (is_as_tstrb),             // O  4
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+													 .is_as_tupsb  (is_as_tupsb),     // O  5
+												  `endif
+												  .is_as_tstrb  (is_as_tstrb),             // O  4
                                                   .is_as_tkeep  (is_as_tkeep),             // O  4
                                                   .is_as_tlast  (is_as_tlast),             // O  
                                                   .is_as_tid    (is_as_tid),               // O  2
@@ -390,6 +420,9 @@ IO_SERDES #(.pSERIALIO_WIDTH( 12 ),
                                                   .axi_rready   (axi_rready_s_rready),     // I  
                                                   .cc_is_enable (cc_is_enable),            // I  
                                                   .as_is_tdata  (as_is_tdata),             // I  32
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+													 .as_is_tupsb  (as_is_tupsb),     // I  5
+												  `endif
                                                   .as_is_tstrb  (as_is_tstrb),             // I  4
                                                   .as_is_tkeep  (as_is_tkeep),             // I  4
                                                   .as_is_tlast  (as_is_tlast),             // I  
@@ -458,14 +491,18 @@ LOGIC_ANLZ #(.pADDR_WIDTH( pADDR_WIDTH ),
 
 
 
-USER_SUBSYS #(.pADDR_WIDTH( pADDR_WIDTH ),
-              .pDATA_WIDTH( 32 )) U_USER_SUBSYS0 (
+USER_SUBSYS #(	.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+				.pADDR_WIDTH( pADDR_WIDTH ),
+				.pDATA_WIDTH( 32 )) U_USER_SUBSYS0 (
                                                   .axi_awready  (axi_awready_axi_awready2),// O  
                                                   .axi_wready   (axi_wready_axi_wready2),  // O  
                                                   .axi_arready  (axi_arready_axi_arready2),// O  
                                                   .axi_rdata    (axi_rdata_axi_rdata2),    // O  32
                                                   .axi_rvalid   (axi_rvalid_axi_rvalid2),  // O  
                                                   .m_tdata      (m_tdata_up_as_tdata),     // O  32
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+												  	.m_tupsb    (m_tupsb_up_as_tupsb),     // O  5
+												  `endif
                                                   .m_tstrb      (m_tstrb_up_as_tstrb),     // O  4
                                                   .m_tkeep      (m_tkeep_up_as_tkeep),     // O  4
                                                   .m_tlast      (m_tlast_up_as_tlast),     // O  
@@ -485,6 +522,9 @@ USER_SUBSYS #(.pADDR_WIDTH( pADDR_WIDTH ),
                                                   .cc_up_enable (cc_up_enable),            // I  
                                                   .user_prj_sel (user_prj_sel),            // I  5
                                                   .s_tdata      (as_up_tdata_s_tdata),     // I  32
+												  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+												 	 .s_tupsb   (as_up_tupsb_s_tupsb),     // I  5
+												  `endif
                                                   .s_tstrb      (as_up_tstrb_s_tstrb),     // I  4
                                                   .s_tkeep      (as_up_tkeep_s_tkeep),     // I  4
                                                   .s_tlast      (as_up_tlast_s_tlast),     // I  
@@ -532,9 +572,11 @@ FSIC_CLKRST  U_FSIC_CLKRST0 (
 // Date: Jul-14-23
 
 
-
-MPRJ_IO #(.pADDR_WIDTH( pADDR_WIDTH ),
-          .pDATA_WIDTH( 32 )) U_MPRJ_IO0 (
+MPRJ_IO #(
+			.pUSER_PROJECT_SIDEBAND_WIDTH( pUSER_PROJECT_SIDEBAND_WIDTH ),
+			.pSERIALIO_WIDTH ( pSERIALIO_WIDTH ),
+			.pADDR_WIDTH( pADDR_WIDTH ),
+			.pDATA_WIDTH( 32 )) U_MPRJ_IO0 (
                                           .serial_rxd   (serial_rxd),              // O  12
                                           .serial_rclk  (serial_rclk),             // O  
                                           .user_prj_sel (user_prj_sel),            // I  5

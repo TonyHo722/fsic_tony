@@ -21,9 +21,16 @@
 //20230804 1. use #0 for create event to avoid potencial race condition. I didn't found issue right now, just update the code to improve it.
 //	reference https://blog.csdn.net/seabeam/article/details/41078023, the source is come from http://www.deepchip.com/items/0466-07.html
 //	 Not using #0 is a good guideline, except for event data types.  In Verilog, there is no way to defer the event triggering to the nonblocking event queue.
+`define USER_PROJECT_SIDEBAND_SUPPORT 1
 
 module tb_fsic #( parameter BITS=32,
-		parameter pSERIALIO_WIDTH   = 12,
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+			parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
+			parameter pSERIALIO_WIDTH   = 13,
+		`else
+			parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 0,
+			parameter pSERIALIO_WIDTH   = 12,
+		`endif
 		parameter pADDR_WIDTH   = 15,
 		parameter pDATA_WIDTH   = 32,
 		parameter IOCLK_Period	= 10,
@@ -59,6 +66,13 @@ module tb_fsic #( parameter BITS=32,
 		localparam TID_UP_LA = 2'b10;
 		localparam fpga_axis_test_length = 16;
 		
+		localparam BASE_OFFSET = 8;
+		localparam RXD_OFFSET = BASE_OFFSET;
+		localparam RXCLK_OFFSET = RXD_OFFSET + pSERIALIO_WIDTH;
+		localparam TXD_OFFSET = RXCLK_OFFSET + 1;
+		localparam TXCLK_OFFSET = TXD_OFFSET + pSERIALIO_WIDTH;
+		localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
+		localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET + 1;
 		
     real ioclk_pd = IOCLK_Period;
 
@@ -112,9 +126,19 @@ module tb_fsic #( parameter BITS=32,
 	event soc_to_fpga_axilite_read_cpl_event;
 
     reg [6:0] soc_to_fpga_axis_expect_count;
-	reg [(4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
+	
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
+	`else
+		reg [(4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
+	`endif
     reg [6:0] soc_to_fpga_axis_captured_count;
-	reg [(4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
+	`else
+		reg [(4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
+	`endif
+	
 	event soc_to_fpga_axis_event;
 
 	reg [31:0] error_cnt;
@@ -157,6 +181,9 @@ module tb_fsic #( parameter BITS=32,
 	wire fpga_txclk;
 	
 	reg [pDATA_WIDTH-1:0] fpga_as_is_tdata;
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		reg 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_as_is_tupsb;
+	`endif
 	reg [3:0] fpga_as_is_tstrb;
 	reg [3:0] fpga_as_is_tkeep;
 	reg fpga_as_is_tlast;
@@ -173,6 +200,9 @@ module tb_fsic #( parameter BITS=32,
 //	wire fpga_Serial_Data_Out_tlast_tvalid_tready;		//flowcontrol
 
 	wire [pDATA_WIDTH-1:0] fpga_is_as_tdata;
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		wire 	[pUSER_PROJECT_SIDEBAND_WIDTH-1:0] fpga_is_as_tupsb;
+	`endif
 	wire [3:0] fpga_is_as_tstrb;
 	wire [3:0] fpga_is_as_tkeep;
 	wire fpga_is_as_tlast;
@@ -209,6 +239,7 @@ module tb_fsic #( parameter BITS=32,
 	);
 
 FSIC #(
+		.pUSER_PROJECT_SIDEBAND_WIDTH(pUSER_PROJECT_SIDEBAND_WIDTH),
 		.pSERIALIO_WIDTH(pSERIALIO_WIDTH),
 		.pADDR_WIDTH(pADDR_WIDTH),
 		.pDATA_WIDTH(pDATA_WIDTH),
@@ -245,6 +276,7 @@ FSIC #(
 	);
 
 	fpga  #(
+		.pUSER_PROJECT_SIDEBAND_WIDTH(pUSER_PROJECT_SIDEBAND_WIDTH),
 		.pSERIALIO_WIDTH(pSERIALIO_WIDTH),
 		.pADDR_WIDTH(pADDR_WIDTH),
 		.pDATA_WIDTH(pDATA_WIDTH),
@@ -285,6 +317,9 @@ FSIC #(
 
 
 		.as_is_tdata(fpga_as_is_tdata),
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+			.as_is_tupsb(fpga_as_is_tupsb),
+		`endif
 		.as_is_tstrb(fpga_as_is_tstrb),
 		.as_is_tkeep(fpga_as_is_tkeep),
 		.as_is_tlast(fpga_as_is_tlast),
@@ -295,6 +330,9 @@ FSIC #(
 		.serial_txd(fpga_serial_txd),
 		.serial_rxd(soc_serial_txd),
 		.is_as_tdata(fpga_is_as_tdata),
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+			.is_as_tupsb(fpga_is_as_tupsb),
+		`endif
 		.is_as_tstrb(fpga_is_as_tstrb),
 		.is_as_tkeep(fpga_is_as_tkeep),
 		.is_as_tlast(fpga_is_as_tlast),
@@ -308,21 +346,21 @@ FSIC #(
 	assign wb_rst = ~soc_resetb;		//wb_rst is high active
 	//assign ioclk = ioclk_source;
 	
-    assign mprj_io[37] = ioclk_source;
-    assign mprj_io[20] = fpga_txclk;
-    assign mprj_io[19:8] = fpga_serial_txd;
+    assign mprj_io[IOCLK_OFFSET] = ioclk_source;
+    assign mprj_io[RXCLK_OFFSET] = fpga_txclk;
+    assign mprj_io[RXD_OFFSET +: pSERIALIO_WIDTH] = fpga_serial_txd;
 
-    assign soc_txclk = mprj_io[33];
-    assign soc_serial_txd = mprj_io[32:21];
+    assign soc_txclk = mprj_io[TXCLK_OFFSET];
+    assign soc_serial_txd = mprj_io[TXD_OFFSET +: pSERIALIO_WIDTH];
 
 	//connect input part : mprj_io to io_in
-	assign io_in[37] = mprj_io[37];
-	assign io_in[20] = mprj_io[20];
-	assign io_in[19:8] = mprj_io[19:8];
+	assign io_in[IOCLK_OFFSET] = mprj_io[IOCLK_OFFSET];
+	assign io_in[RXCLK_OFFSET] = mprj_io[RXCLK_OFFSET];
+	assign io_in[RXD_OFFSET +: pSERIALIO_WIDTH] = mprj_io[RXD_OFFSET +: pSERIALIO_WIDTH];
 
 	//connect output part : io_out to mprj_io
-	assign mprj_io[33] = io_out[33];
-	assign mprj_io[32:21] = io_out[32:21];
+	assign mprj_io[TXCLK_OFFSET] = io_out[TXCLK_OFFSET];
+	assign mprj_io[TXD_OFFSET +: pSERIALIO_WIDTH] = io_out[TXD_OFFSET +: pSERIALIO_WIDTH];
 	
     initial begin
 		ioclk_source=0;
@@ -945,17 +983,33 @@ FSIC #(
         soc_to_fpga_axis_event_triggered = 0;
 		while (1) begin
 			@(posedge fpga_coreclk);
-			if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_UP && fpga_is_as_tuser == TUSER_AXIS) begin
-				$display($time, "=> get soc_to_fpga_axis be : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
-				soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count] = {fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata} ;		//use block assignment
-				$display($time, "=> get soc_to_fpga_axis af : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
-                soc_to_fpga_axis_captured_count = soc_to_fpga_axis_captured_count+1;
-			end	
-            if ( (soc_to_fpga_axis_captured_count == fpga_axis_test_length) && !soc_to_fpga_axis_event_triggered) begin
-				$display($time, "=> soc_to_fpga_axis_captured : send soc_to_fpga_axiis_event");
-    			#0 -> soc_to_fpga_axis_event;
-                soc_to_fpga_axis_event_triggered = 1;
-            end 
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_UP && fpga_is_as_tuser == TUSER_AXIS) begin
+					$display($time, "=> get soc_to_fpga_axis be : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tupsb=%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tupsb, fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
+					soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count] = {fpga_is_as_tupsb, fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata} ;		//use block assignment
+					$display($time, "=> get soc_to_fpga_axis af : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tupsb=%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tupsb, fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
+					soc_to_fpga_axis_captured_count = soc_to_fpga_axis_captured_count+1;
+				end	
+				if ( (soc_to_fpga_axis_captured_count == fpga_axis_test_length) && !soc_to_fpga_axis_event_triggered) begin
+					$display($time, "=> soc_to_fpga_axis_captured : send soc_to_fpga_axiis_event");
+					#0 -> soc_to_fpga_axis_event;
+					soc_to_fpga_axis_event_triggered = 1;
+				end 
+			`else
+				if (fpga_is_as_tvalid == 1 && fpga_is_as_tid == TID_UP_UP && fpga_is_as_tuser == TUSER_AXIS) begin
+					$display($time, "=> get soc_to_fpga_axis be : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
+					soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count] = {fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata} ;		//use block assignment
+					$display($time, "=> get soc_to_fpga_axis af : soc_to_fpga_axis_captured_count=%d,  soc_to_fpga_axis_captured[%d] =%x, fpga_is_as_tstrb=%x, fpga_is_as_tkeep=%x , fpga_is_as_tlast=%x, fpga_is_as_tdata=%x", soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured_count, soc_to_fpga_axis_captured[soc_to_fpga_axis_captured_count], fpga_is_as_tstrb, fpga_is_as_tkeep , fpga_is_as_tlast, fpga_is_as_tdata);
+					soc_to_fpga_axis_captured_count = soc_to_fpga_axis_captured_count+1;
+				end	
+				if ( (soc_to_fpga_axis_captured_count == fpga_axis_test_length) && !soc_to_fpga_axis_event_triggered) begin
+					$display($time, "=> soc_to_fpga_axis_captured : send soc_to_fpga_axiis_event");
+					#0 -> soc_to_fpga_axis_event;
+					soc_to_fpga_axis_event_triggered = 1;
+				end 
+			`endif
+
+			
             if (soc_to_fpga_axis_captured_count != fpga_axis_test_length)
                 soc_to_fpga_axis_event_triggered = 0;
 
@@ -1030,6 +1084,9 @@ FSIC #(
 		begin
 			fpga_as_is_tdata <= (BE<<28) + address;	//for axilite write address phase
 			//$strobe($time, "=> fpga_as_is_tdata in address phase = %x", fpga_as_is_tdata);
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_AA ;		//target to Axis-Axilite
@@ -1043,6 +1100,9 @@ FSIC #(
 			end
 
 			fpga_as_is_tdata <=  data;	//for axilite write data phase
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
@@ -1111,6 +1171,9 @@ FSIC #(
 			//init fpga as to is signal, set fpga_as_is_tready = 1 for receives data from soc
 			@ (posedge fpga_coreclk);
 			fpga_as_is_tdata <=  32'h0;
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_UP;
@@ -1165,6 +1228,9 @@ FSIC #(
 		begin
 			fpga_as_is_tdata <= address;	//for axilite read address req phase
 			$strobe($time, "=> fpga_axilite_read_req in address req phase = %x - tvalid", fpga_as_is_tdata);
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
@@ -1245,7 +1311,7 @@ FSIC #(
                 
 				check_cnt = check_cnt + 1;
 				if ( soc_to_fpga_axis_expect_count != fpga_axis_test_length) begin
-                    $display($time, "=> test002 [Error] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
+                    $display($time, "=> test002 [ERROR] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
 					error_cnt = error_cnt + 1;
 				end	
 				else 
@@ -1255,7 +1321,7 @@ FSIC #(
                 for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin	
 					check_cnt = check_cnt + 1;
                     if (soc_to_fpga_axis_expect_value[idx3] != soc_to_fpga_axis_captured[idx3] ) begin
-                        $display($time, "=> test002 [Error] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
+                        $display($time, "=> test002 [ERROR] idx3=%d, soc_to_fpga_axis_expect_value[%d] = %x, soc_to_fpga_axis_captured[%d]  = %x", idx3, idx3, soc_to_fpga_axis_expect_value[idx3], idx3, soc_to_fpga_axis_captured[idx3]);
 						error_cnt = error_cnt + 1;
 					end
 					else
@@ -1294,6 +1360,9 @@ FSIC #(
 		input [1:0] tid;
 		input mode;	//o ffor noram, 1 for random data
 		reg [31:0] tdata;
+		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+			reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]tupsb;
+		`endif
 		reg [3:0] tstrb;
 		reg [3:0] tkeep;
 		reg tlast;
@@ -1301,25 +1370,44 @@ FSIC #(
 		begin
 			if (mode) begin		//for random data
 				tdata = $random;
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+					tupsb = $random;
+				`endif
 				tstrb = $random;
 				tkeep = $random;
 				tlast = $random;
 			end
 			else begin
 				tdata = data;
+				`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+					//tupsb = 5'b00000;
+					tupsb = tdata[4:0];
+				`endif
 				tstrb = 4'b0000;
 				tkeep = 4'b0000;
 				tlast = 1'b0;
 			end
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <= tupsb;
+			`endif
 			fpga_as_is_tstrb <=  tstrb;
 			fpga_as_is_tkeep <=  tkeep;
 			fpga_as_is_tlast <=  tlast;
 			fpga_as_is_tdata <= tdata;	//for axis write data
-			$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tstrb = %b, fpga_as_is_tkeep = %b, fpga_as_is_tlast = %b, fpga_as_is_tdata = %x", fpga_as_is_tstrb, fpga_as_is_tkeep, fpga_as_is_tlast, fpga_as_is_tdata);
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tupsb = %b, fpga_as_is_tstrb = %b, fpga_as_is_tkeep = %b, fpga_as_is_tlast = %b, fpga_as_is_tdata = %x", fpga_as_is_tupsb, fpga_as_is_tstrb, fpga_as_is_tkeep, fpga_as_is_tlast, fpga_as_is_tdata);
+			`else	
+				$strobe($time, "=> fpga_axis_req send data, fpga_as_is_tstrb = %b, fpga_as_is_tkeep = %b, fpga_as_is_tlast = %b, fpga_as_is_tdata = %x", fpga_as_is_tstrb, fpga_as_is_tkeep, fpga_as_is_tlast, fpga_as_is_tdata);
+			`endif
+			
 			fpga_as_is_tid <=  tid;		//set target
 			fpga_as_is_tuser <=  TUSER_AXIS;		//for axis req
 			fpga_as_is_tvalid <= 1;
-			soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tstrb, tkeep, tlast, tdata};
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tupsb, tstrb, tkeep, tlast, tdata};
+			`else	
+				soc_to_fpga_axis_expect_value[soc_to_fpga_axis_expect_count] <= {tstrb, tkeep, tlast, tdata};
+			`endif
 			soc_to_fpga_axis_expect_count <= soc_to_fpga_axis_expect_count+1;
 
 			@ (posedge fpga_coreclk);
@@ -1435,6 +1523,9 @@ FSIC #(
 			fpga_as_is_tdata[27:0] <= address;	//for axilite write address phase
 			fpga_as_is_tdata[31:28] <= BE;	
 			$strobe($time, "=> fpga_axilite_write_req in address phase = %x - tvalid", fpga_as_is_tdata);
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
@@ -1450,6 +1541,9 @@ FSIC #(
 
 			fpga_as_is_tdata <= data;	//for axilite write data phase
 			$strobe($time, "=> fpga_axilite_write_req in data phase = %x - tvalid", fpga_as_is_tdata);
+			`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+				fpga_as_is_tupsb <=  5'b00000;
+			`endif
 			fpga_as_is_tstrb <=  4'b0000;
 			fpga_as_is_tkeep <=  4'b0000;
 			fpga_as_is_tid <=  TID_DN_AA;		//target to Axis-Axilite
