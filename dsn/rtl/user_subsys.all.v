@@ -163,7 +163,7 @@ endmodule // AXIL_SLAV
 
 
 module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
-					parameter pADDR_WIDTH   = 12,
+          parameter pADDR_WIDTH   = 12,
                     parameter pDATA_WIDTH   = 32
                   )
 (
@@ -172,7 +172,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_0,
   input  wire                 [2: 0] sm_tid_0,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0,
 `endif
   input  wire                 [3: 0] sm_tstrb_0,
   input  wire                 [3: 0] sm_tkeep_0,
@@ -181,7 +181,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_1,
   input  wire                 [2: 0] sm_tid_1,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1,
 `endif
   input  wire                 [3: 0] sm_tstrb_1,
   input  wire                 [3: 0] sm_tkeep_1,
@@ -190,7 +190,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_2,
   input  wire                 [2: 0] sm_tid_2,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2,
 `endif
   input  wire                 [3: 0] sm_tstrb_2,
   input  wire                 [3: 0] sm_tkeep_2,
@@ -199,7 +199,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] sm_tdata_3,
   input  wire                 [2: 0] sm_tid_3,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3,
 `endif
   input  wire                 [3: 0] sm_tstrb_3,
   input  wire                 [3: 0] sm_tkeep_3,
@@ -209,7 +209,7 @@ module AXIS_MSTR #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   output wire  [(pDATA_WIDTH-1) : 0] m_tdata,
   output wire                 [1: 0] m_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	 output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] m_tupsb,
+   output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] m_tupsb,
   `endif
   output wire                 [3: 0] m_tstrb,
   output wire                 [3: 0] m_tkeep,
@@ -225,32 +225,32 @@ assign sm_tready =  m_tready;
 
 //bus
 wire [3:0] sm_tvalid_bus;
-assign	m_tvalid = |sm_tvalid_bus;
+assign  m_tvalid = |sm_tvalid_bus;
 
 wire [(pDATA_WIDTH-1) : 0] sm_tdata_bus[3:0];
-assign	m_tdata = sm_tdata_bus[0] | sm_tdata_bus[1] | sm_tdata_bus[2] | sm_tdata_bus[3];
+assign  m_tdata = sm_tdata_bus[0] | sm_tdata_bus[1] | sm_tdata_bus[2] | sm_tdata_bus[3];
 
 //wire [2: 0] sm_tid_bus;
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_bus[3:0];
-	assign	m_tupsb = sm_tupsb_bus[0] | sm_tupsb_bus[1] | sm_tupsb_bus[2] | sm_tupsb_bus[3];
+  wire [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_bus[3:0];
+  assign  m_tupsb = sm_tupsb_bus[0] | sm_tupsb_bus[1] | sm_tupsb_bus[2] | sm_tupsb_bus[3];
 `endif
 
 wire [3: 0] sm_tstrb_bus[3:0];
-assign	m_tstrb = sm_tstrb_bus[0] | sm_tstrb_bus[1] | sm_tstrb_bus[2] | sm_tstrb_bus[3];
+assign  m_tstrb = sm_tstrb_bus[0] | sm_tstrb_bus[1] | sm_tstrb_bus[2] | sm_tstrb_bus[3];
 
 wire [3: 0] sm_tkeep_bus[3:0];
-assign	m_tkeep = sm_tkeep_bus[0] | sm_tkeep_bus[1] | sm_tkeep_bus[2] | sm_tkeep_bus[3];
+assign  m_tkeep = sm_tkeep_bus[0] | sm_tkeep_bus[1] | sm_tkeep_bus[2] | sm_tkeep_bus[3];
 
 wire [3: 0] sm_tlast_bus[3:0];
-assign	m_tlast = sm_tlast_bus[0] | sm_tlast_bus[1] | sm_tlast_bus[2] | sm_tlast_bus[3];
+assign  m_tlast = sm_tlast_bus[0] | sm_tlast_bus[1] | sm_tlast_bus[2] | sm_tlast_bus[3];
 
 //user project 0 
 assign sm_tvalid_bus[0] =  (user_prj_sel == 5'b00000)  ? sm_tvalid_0 : 0;
 assign sm_tdata_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tdata_0 : 0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign sm_tupsb_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tupsb_0 : 0;
+  assign sm_tupsb_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tupsb_0 : 0;
 `endif
 assign sm_tstrb_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tstrb_0 : 0;
 assign sm_tkeep_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tkeep_0 : 0;
@@ -260,7 +260,7 @@ assign sm_tlast_bus[0] = (user_prj_sel == 5'b00000)  ? sm_tlast_0 : 0;
 assign sm_tvalid_bus[1] =  (user_prj_sel == 5'b00001)  ? sm_tvalid_1 : 0;
 assign sm_tdata_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tdata_1 : 0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign sm_tupsb_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tupsb_1 : 0;
+  assign sm_tupsb_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tupsb_1 : 0;
 `endif
 assign sm_tstrb_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tstrb_1 : 0;
 assign sm_tkeep_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tkeep_1 : 0;
@@ -270,7 +270,7 @@ assign sm_tlast_bus[1] = (user_prj_sel == 5'b00001)  ? sm_tlast_1 : 0;
 assign sm_tvalid_bus[2] =  (user_prj_sel == 5'b00010)  ? sm_tvalid_2 : 0;
 assign sm_tdata_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tdata_2 : 0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign sm_tupsb_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tupsb_2 : 0;
+  assign sm_tupsb_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tupsb_2 : 0;
 `endif
 assign sm_tstrb_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tstrb_2 : 0;
 assign sm_tkeep_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tkeep_2 : 0;
@@ -280,13 +280,13 @@ assign sm_tlast_bus[2] = (user_prj_sel == 5'b00010)  ? sm_tlast_2 : 0;
 assign sm_tvalid_bus[3] =  (user_prj_sel == 5'b00011)  ? sm_tvalid_3 : 0;
 assign sm_tdata_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tdata_3 : 0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign sm_tupsb_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tupsb_3 : 0;
+  assign sm_tupsb_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tupsb_3 : 0;
 `endif
 assign sm_tstrb_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tstrb_3 : 0;
 assign sm_tkeep_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tkeep_3 : 0;
 assign sm_tlast_bus[3] = (user_prj_sel == 5'b00011)  ? sm_tlast_3 : 0;
 
-assign m_tuser       = 2'b00;		//MUST be 2'b00 for user project output axis from UP to AS.
+assign m_tuser       = 2'b00;    //MUST be 2'b00 for user project output axis from UP to AS.
 
 
 endmodule // AXIS_MSTR
@@ -297,7 +297,7 @@ endmodule // AXIS_MSTR
 
 
 module AXIS_SLAV #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
-					parameter pADDR_WIDTH   = 12,
+          parameter pADDR_WIDTH   = 12,
                     parameter pDATA_WIDTH   = 32
                   )
 (
@@ -305,7 +305,7 @@ module AXIS_SLAV #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   output wire  [(pDATA_WIDTH-1) : 0] ss_tdata,
   output wire                 [1: 0] ss_tuser,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
+  output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
 `endif
   output wire                 [3: 0] ss_tstrb,
   output wire                 [3: 0] ss_tkeep,
@@ -321,7 +321,7 @@ module AXIS_SLAV #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] s_tdata,
   input  wire                 [1: 0] s_tuser,
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] s_tupsb,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] s_tupsb,
 `endif
   input  wire                 [3: 0] s_tstrb,
   input  wire                 [3: 0] s_tkeep,
@@ -335,16 +335,16 @@ module AXIS_SLAV #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
 
 //common part
 assign ss_tdata =  s_tdata;
-assign ss_tuser =  2'b00;		//UP always received tuser = 2'b00, the tuser is used by AS, should not send to UP.
+assign ss_tuser =  2'b00;    //UP always received tuser = 2'b00, the tuser is used by AS, should not send to UP.
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign ss_tupsb =  s_tupsb;
+  assign ss_tupsb =  s_tupsb;
 `endif
 assign ss_tstrb =  s_tstrb;
 assign ss_tkeep =  s_tkeep;
 assign ss_tlast =  s_tlast;
 
 wire [3:0] s_tready_bus;
-assign	s_tready = |s_tready_bus;
+assign  s_tready = |s_tready_bus;
 
 //user project 0 
 assign ss_tvalid_0 =  (user_prj_sel == 5'b00000)  ? s_tvalid : 0;
@@ -433,7 +433,7 @@ endmodule // LA_MUX
 
 
 module USER_SUBSYS #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
-					  parameter pADDR_WIDTH   = 12,
+            parameter pADDR_WIDTH   = 12,
                       parameter pDATA_WIDTH   = 32
                     )
 (
@@ -450,7 +450,7 @@ module USER_SUBSYS #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] s_tdata,
   input  wire                 [1: 0] s_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	 input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] s_tupsb,
+   input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] s_tupsb,
   `endif
   input  wire                 [3: 0] s_tstrb,
   input  wire                 [3: 0] s_tkeep,
@@ -466,7 +466,7 @@ module USER_SUBSYS #( parameter pUSER_PROJECT_SIDEBAND_WIDTH = 5,
   output wire  [(pDATA_WIDTH-1) : 0] m_tdata,
   output wire                 [1: 0] m_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	 output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] m_tupsb,
+   output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] m_tupsb,
   `endif
   output wire                 [3: 0] m_tstrb,
   output wire                 [3: 0] m_tkeep,
@@ -516,7 +516,7 @@ wire                         ss_tvalid_0_ss_tvalid;
 wire   [(pDATA_WIDTH-1) : 0] ss_tdata;
 wire                  [1: 0] ss_tuser;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb;
+  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb;
 `endif
 wire                  [3: 0] ss_tstrb;
 wire                  [3: 0] ss_tkeep;
@@ -545,7 +545,7 @@ wire                         sm_tvalid_0;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_0;
 wire                  [2: 0] sm_tid_0;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0;
+  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_0;
 `endif
 wire                  [3: 0] sm_tstrb_0;
 wire                  [3: 0] sm_tkeep_0;
@@ -554,7 +554,7 @@ wire                         sm_tvalid_1;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_1;
 wire                  [2: 0] sm_tid_1;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1;
+  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_1;
 `endif
 wire                  [3: 0] sm_tstrb_1;
 wire                  [3: 0] sm_tkeep_1;
@@ -563,7 +563,7 @@ wire                         sm_tvalid_2;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_2;
 wire                  [2: 0] sm_tid_2;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2;
+  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_2;
 `endif
 wire                  [3: 0] sm_tstrb_2;
 wire                  [3: 0] sm_tkeep_2;
@@ -572,7 +572,7 @@ wire                         sm_tvalid_3;
 wire   [(pDATA_WIDTH-1) : 0] sm_tdata_3;
 wire                  [2: 0] sm_tid_3;
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3;
+  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb_3;
 `endif
 wire                  [3: 0] sm_tstrb_3;
 wire                  [3: 0] sm_tkeep_3;
@@ -665,9 +665,9 @@ AXIL_SLAV #(.pADDR_WIDTH( 12 ),
 
 
 
-USER_PRJ0 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-				.pADDR_WIDTH( 12 ),
-				.pDATA_WIDTH( 32 )) U_USRPRJ0 (
+USER_PRJ0 #(  .pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
+        .pADDR_WIDTH( 12 ),
+        .pDATA_WIDTH( 32 )) U_USRPRJ0 (
                                           .awready      (awready_0),               // O  
                                           .arready      (arready_0),               // O  
                                           .wready       (wready_0),                // O  
@@ -684,9 +684,9 @@ USER_PRJ0 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .ss_tvalid    (ss_tvalid_0_ss_tvalid),   // I  
                                           .ss_tdata     (ss_tdata),                // I  pDATA_WIDTH
                                           .ss_tuser     (ss_tuser),                // I  2
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .ss_tupsb     (ss_tupsb),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .ss_tupsb     (ss_tupsb),                // I  5    
+                      `endif
                                           .ss_tstrb     (ss_tstrb),                // I  4
                                           .ss_tkeep     (ss_tkeep),                // I  4
                                           .ss_tlast     (ss_tlast),                // I  
@@ -695,9 +695,9 @@ USER_PRJ0 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .sm_tvalid    (sm_tvalid_0),             // O  
                                           .sm_tdata     (sm_tdata_0),              // O  pDATA_WIDTH
                                           .sm_tid       (sm_tid_0),                // O  3
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .sm_tupsb     (sm_tupsb_0),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .sm_tupsb     (sm_tupsb_0),                // I  5    
+                      `endif
                                           .sm_tstrb     (sm_tstrb_0),              // O  4
                                           .sm_tkeep     (sm_tkeep_0),              // O  4 
                                           .sm_tlast     (sm_tlast_0),              // O  
@@ -718,9 +718,9 @@ USER_PRJ0 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 // Date: Sep-22-23
 
 
-USER_PRJ1 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-				.pADDR_WIDTH( 12 ),
-				.pDATA_WIDTH( 32 )) U_USRPRJ1 (
+USER_PRJ1 #(  .pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
+        .pADDR_WIDTH( 12 ),
+        .pDATA_WIDTH( 32 )) U_USRPRJ1 (
                                           .awready      (awready_1),               // O  
                                           .arready      (arready_1),               // O  
                                           .wready       (wready_1),                // O  
@@ -737,9 +737,9 @@ USER_PRJ1 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .ss_tvalid    (ss_tvalid_1_ss_tvalid),   // I  
                                           .ss_tdata     (ss_tdata),                // I  pDATA_WIDTH
                                           .ss_tuser     (ss_tuser),                // I  2
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .ss_tupsb     (ss_tupsb),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .ss_tupsb     (ss_tupsb),                // I  5    
+                      `endif
                                           .ss_tstrb     (ss_tstrb),                // I  4
                                           .ss_tkeep     (ss_tkeep),                // I  4
                                           .ss_tlast     (ss_tlast),                // I  
@@ -748,9 +748,9 @@ USER_PRJ1 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .sm_tvalid    (sm_tvalid_1),             // O  
                                           .sm_tdata     (sm_tdata_1),              // O  pDATA_WIDTH
                                           .sm_tid       (sm_tid_1),                // O  3
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .sm_tupsb     (sm_tupsb_1),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .sm_tupsb     (sm_tupsb_1),                // I  5    
+                      `endif
                                           .sm_tstrb     (sm_tstrb_1),              // O  4
                                           .sm_tkeep     (sm_tkeep_1),              // O  4
                                           .sm_tlast     (sm_tlast_1),              // O  
@@ -772,9 +772,9 @@ USER_PRJ1 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 
 
 
-USER_PRJ2 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-				.pADDR_WIDTH( 12 ),
-				.pDATA_WIDTH( 32 )) U_USRPRJ2 (
+USER_PRJ2 #(  .pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
+        .pADDR_WIDTH( 12 ),
+        .pDATA_WIDTH( 32 )) U_USRPRJ2 (
                                           .awready      (awready_2),               // O  
                                           .arready      (arready_2),               // O  
                                           .wready       (wready_2),                // O  
@@ -791,9 +791,9 @@ USER_PRJ2 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .ss_tvalid    (ss_tvalid_2_ss_tvalid),   // I  
                                           .ss_tdata     (ss_tdata),                // I  pDATA_WIDTH
                                           .ss_tuser     (ss_tuser),                // I  2
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .ss_tupsb     (ss_tupsb),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .ss_tupsb     (ss_tupsb),                // I  5    
+                      `endif
                                           .ss_tstrb     (ss_tstrb),                // I  4
                                           .ss_tkeep     (ss_tkeep),                // I  4
                                           .ss_tlast     (ss_tlast),                // I  
@@ -802,9 +802,9 @@ USER_PRJ2 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .sm_tvalid    (sm_tvalid_2),             // O  
                                           .sm_tdata     (sm_tdata_2),              // O  pDATA_WIDTH
                                           .sm_tid       (sm_tid_2),                // O  3
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .sm_tupsb     (sm_tupsb_2),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .sm_tupsb     (sm_tupsb_2),                // I  5    
+                      `endif
                                           .sm_tstrb     (sm_tstrb_2),              // O  4
                                           .sm_tkeep     (sm_tkeep_2),              // O  4
                                           .sm_tlast     (sm_tlast_2),              // O  
@@ -826,9 +826,9 @@ USER_PRJ2 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 
 
 
-USER_PRJ3 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-				.pADDR_WIDTH( 12 ),
-				.pDATA_WIDTH( 32 )) U_USRPRJ3 (
+USER_PRJ3 #(  .pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
+        .pADDR_WIDTH( 12 ),
+        .pDATA_WIDTH( 32 )) U_USRPRJ3 (
                                           .awready      (awready_3),               // O  
                                           .arready      (arready_3),               // O  
                                           .wready       (wready_3),                // O  
@@ -845,9 +845,9 @@ USER_PRJ3 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .ss_tvalid    (ss_tvalid_3_ss_tvalid),   // I  
                                           .ss_tdata     (ss_tdata),                // I  pDATA_WIDTH
                                           .ss_tuser     (ss_tuser),                // I  2
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .ss_tupsb     (ss_tupsb),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .ss_tupsb     (ss_tupsb),                // I  5    
+                      `endif
                                           .ss_tstrb     (ss_tstrb),                // I  4
                                           .ss_tkeep     (ss_tkeep),                // I  4
                                           .ss_tlast     (ss_tlast),                // I  
@@ -856,9 +856,9 @@ USER_PRJ3 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                           .sm_tvalid    (sm_tvalid_3),             // O  
                                           .sm_tdata     (sm_tdata_3),              // O  pDATA_WIDTH
                                           .sm_tid       (sm_tid_3),                // O  3
-										  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											 .sm_tupsb     (sm_tupsb_3),                // I  5		
-										  `endif
+                      `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                       .sm_tupsb     (sm_tupsb_3),                // I  5    
+                      `endif
                                           .sm_tstrb     (sm_tstrb_3),              // O  4
                                           .sm_tkeep     (sm_tkeep_3),              // O  4
                                           .sm_tlast     (sm_tlast_3),              // O  
@@ -881,14 +881,14 @@ USER_PRJ3 #(	.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 
 
 AXIS_SLAV #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-			.pADDR_WIDTH( 12 ),
+      .pADDR_WIDTH( 12 ),
             .pDATA_WIDTH( 32 )) U_AXIS_SLAV0 (
                                               .ss_tvalid_0  (ss_tvalid_0_ss_tvalid),   // O  
                                               .ss_tdata     (ss_tdata),                // O  pDATA_WIDTH
                                               .ss_tuser     (ss_tuser),                // O  2
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											  	.ss_tupsb     (ss_tupsb),                // O  5		
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                          .ss_tupsb     (ss_tupsb),                // O  5    
+                        `endif
                                               .ss_tstrb     (ss_tstrb),                // O  4
                                               .ss_tkeep     (ss_tkeep),                // O  4
                                               .ss_tlast     (ss_tlast),                // O  
@@ -902,9 +902,9 @@ AXIS_SLAV #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                               .s_tvalid     (s_tvalid),                // I  
                                               .s_tdata      (s_tdata),                 // I  pDATA_WIDTH
                                               .s_tuser      (s_tuser),                 // I  2
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-												.s_tupsb      (s_tupsb),                 // I  4
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                        .s_tupsb      (s_tupsb),                 // I  4
+                        `endif
                                               .s_tstrb      (s_tstrb),                 // I  4
                                               .s_tkeep      (s_tkeep),                 // I  4
                                               .s_tlast      (s_tlast),                 // I  
@@ -923,42 +923,42 @@ AXIS_SLAV #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
 
 
 AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ), 
-			.pADDR_WIDTH( 12 ),
+      .pADDR_WIDTH( 12 ),
             .pDATA_WIDTH( 32 )) U_AXIS_MSTR0 (
                                               .sm_tready    (sm_tready),               // O  
                                               .sm_tvalid_0  (sm_tvalid_0),             // I  
                                               .sm_tdata_0   (sm_tdata_0),              // I  pDATA_WIDTH
                                               .sm_tid_0     (sm_tid_0),                // I  3
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											  	.sm_tupsb_0     (sm_tupsb_0),                // I  5		
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                          .sm_tupsb_0     (sm_tupsb_0),                // I  5    
+                        `endif
                                               .sm_tstrb_0   (sm_tstrb_0),              // I  4
                                               .sm_tkeep_0   (sm_tkeep_0),              // I  4
                                               .sm_tlast_0   (sm_tlast_0),              // I  
                                               .sm_tvalid_1  (sm_tvalid_1),             // I  
                                               .sm_tdata_1   (sm_tdata_1),              // I  pDATA_WIDTH
                                               .sm_tid_1     (sm_tid_1),                // I  3
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											  	.sm_tupsb_1     (sm_tupsb_1),                // I  5		
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                          .sm_tupsb_1     (sm_tupsb_1),                // I  5    
+                        `endif
                                               .sm_tstrb_1   (sm_tstrb_1),              // I  4
                                               .sm_tkeep_1   (sm_tkeep_1),              // I  4
                                               .sm_tlast_1   (sm_tlast_1),              // I  
                                               .sm_tvalid_2  (sm_tvalid_2),             // I  
                                               .sm_tdata_2   (sm_tdata_2),              // I  pDATA_WIDTH
                                               .sm_tid_2     (sm_tid_2),                // I  3
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											  	.sm_tupsb_2     (sm_tupsb_2),                // I  5		
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                          .sm_tupsb_2     (sm_tupsb_2),                // I  5    
+                        `endif
                                               .sm_tstrb_2   (sm_tstrb_2),              // I  4
                                               .sm_tkeep_2   (sm_tkeep_2),              // I  4
                                               .sm_tlast_2   (sm_tlast_2),              // I  
                                               .sm_tvalid_3  (sm_tvalid_3),             // I  
                                               .sm_tdata_3   (sm_tdata_3),              // I  pDATA_WIDTH
                                               .sm_tid_3     (sm_tid_3),                // I  3
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-											  	.sm_tupsb_3     (sm_tupsb_3),                // I  5		
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                          .sm_tupsb_3     (sm_tupsb_3),                // I  5    
+                        `endif
                                               .sm_tstrb_3   (sm_tstrb_3),              // I  4
                                               .sm_tkeep_3   (sm_tkeep_3),              // I  4
                                               .sm_tlast_3   (sm_tlast_3),              // I  
@@ -966,9 +966,9 @@ AXIS_MSTR #(.pUSER_PROJECT_SIDEBAND_WIDTH ( pUSER_PROJECT_SIDEBAND_WIDTH ),
                                               .m_tvalid     (m_tvalid),                // O  
                                               .m_tdata      (m_tdata),                 // O  pDATA_WIDTH
                                               .m_tuser      (m_tuser),                 // O  2
-											  `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-												.m_tupsb      (m_tupsb),                 // O  5
-											  `endif
+                        `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+                        .m_tupsb      (m_tupsb),                 // O  5
+                        `endif
                                               .m_tstrb      (m_tstrb),                 // O  4
                                               .m_tkeep      (m_tkeep),                 // O  4
                                               .m_tlast      (m_tlast),                 // O  

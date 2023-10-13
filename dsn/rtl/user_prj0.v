@@ -5,7 +5,7 @@
 
 
 module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
-					parameter pADDR_WIDTH   = 12,
+          parameter pADDR_WIDTH   = 12,
                    parameter pDATA_WIDTH   = 32
                  )
 (
@@ -26,7 +26,7 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire  [(pDATA_WIDTH-1) : 0] ss_tdata,
   input  wire                 [1: 0] ss_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
+  input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
   `endif
   input  wire                 [3: 0] ss_tstrb,
   input  wire                 [3: 0] ss_tkeep,
@@ -37,7 +37,7 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   output wire  [(pDATA_WIDTH-1) : 0] sm_tdata,
   output wire                 [2: 0] sm_tid,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
+  output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
   `endif
   output wire                 [3: 0] sm_tstrb,
   output wire                 [3: 0] sm_tkeep,
@@ -55,9 +55,9 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 
 //[TODO] does tlast from FPGA to SOC need send to UP? or use upsb as UP's tlast?
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	localparam	FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);		//upsb, tstrb, tkeep, tlast, tdata  
+  localparam  FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);    //upsb, tstrb, tkeep, tlast, tdata  
 `else
-	localparam	FIFO_WIDTH = (4 + 4 + 1 + pDATA_WIDTH);		//tstrb, tkeep, tlast, tdata
+  localparam  FIFO_WIDTH = (4 + 4 + 1 + pDATA_WIDTH);    //tstrb, tkeep, tlast, tdata
 `endif
 
 
@@ -67,12 +67,12 @@ wire wvalid_in;
 reg [31:0] RegisterData;
 
 //write addr channel
-assign 	awvalid_in	= awvalid; 
+assign   awvalid_in  = awvalid; 
 wire awready_out;
 assign awready = awready_out;
 
 //write data channel
-assign 	wvalid_in	= wvalid;
+assign   wvalid_in  = wvalid;
 wire wready_out;
 assign wready = wready_out;
 
@@ -91,7 +91,7 @@ always @(posedge axi_clk or negedge axi_reset_n)  begin
     RegisterData <= 32'haa55aa55;
   end
   else begin
-    if ( awvalid_in && wvalid_in ) begin		//when awvalid_in=1 and wvalid_in=1 means awready_out=1 and wready_out=1
+    if ( awvalid_in && wvalid_in ) begin    //when awvalid_in=1 and wvalid_in=1 means awready_out=1 and wready_out=1
       if (awaddr[11:2] == 10'h000 ) begin //offset 0
         if ( wstrb[0] == 1) RegisterData[7:0] <= wdata[7:0];
         if ( wstrb[1] == 1) RegisterData[15:8] <= wdata[15:8];
@@ -123,23 +123,23 @@ always @(posedge axis_clk or negedge axis_rst_n)  begin
     w_ptr <= 0;
   end
   else begin
-	if ( ss_tready && ss_tvalid) begin
-		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
-			fifo[w_ptr] <= {ss_tupsb, ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
-		`else
-			fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
-		`endif
-		w_ptr <= w_ptr + 1;
-	end
+  if ( ss_tready && ss_tvalid) begin
+    `ifdef USER_PROJECT_SIDEBAND_SUPPORT
+      fifo[w_ptr] <= {ss_tupsb, ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
+    `else
+      fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
+    `endif
+    w_ptr <= w_ptr + 1;
+  end
   end
 end  
 
 //for pop from fifo
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
-	assign {sm_tupsb, sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
+  assign {sm_tupsb, sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
 `else
-	assign {sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
+  assign {sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
 `endif
 
 assign sm_tvalid = !empty;
@@ -148,13 +148,13 @@ always @(posedge axis_clk or negedge axis_rst_n)  begin
     r_ptr <= 0;
   end
   else begin
-	if ( sm_tready && sm_tvalid) begin
-		r_ptr <= r_ptr + 1;
-	end
+  if ( sm_tready && sm_tvalid) begin
+    r_ptr <= r_ptr + 1;
+  end
   end
 end  
 
-assign sm_tid = 3'b000;		//[TODO] remove tid in user project.
+assign sm_tid = 3'b000;    //[TODO] remove tid in user project.
 assign low__pri_irq  = 1'b0;
 assign High_pri_req  = 1'b0;
 assign la_data_o     = 24'b0;
