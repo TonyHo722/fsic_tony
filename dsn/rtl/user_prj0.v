@@ -115,7 +115,18 @@ wire empty;
 assign empty = (r_ptr == w_ptr);
 assign full = (r_ptr == (w_ptr+1) );
 
-assign ss_tready = !full;
+reg [2:0] ss_tready_toggle;
+
+assign ss_tready = !full && (ss_tready_toggle != 3'b111) ;
+
+always @(posedge axis_clk or negedge axis_rst_n)  begin
+  if ( !axis_rst_n ) begin
+    ss_tready_toggle <= 0;
+  end
+  else begin
+    ss_tready_toggle <= ss_tready_toggle + 1;
+  end
+end  
 
 //for push to fifo
 always @(posedge axis_clk or negedge axis_rst_n)  begin
@@ -161,5 +172,6 @@ assign la_data_o     = 24'b0;
 
 
 endmodule // USER_PRJ0
+
 
 
