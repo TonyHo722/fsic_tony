@@ -28,54 +28,54 @@
 
 
 module fsic_clock_div (
-	in, out, resetb
+  in, out, resetb
 );
-	input in;			// input clock
-	input resetb;		// asynchronous reset (sense negative)
-	output out;			// divided output clock
+  input in;      // input clock
+  input resetb;    // asynchronous reset (sense negative)
+  output out;      // divided output clock
 
-	reg clk_out;
-	assign out = clk_out;
-	reg cnt;	 // use 1 bit for support div4
+  reg clk_out;
+  assign out = clk_out;
+  reg cnt;   // use 1 bit for support div4
 
-	always @(posedge in or negedge resetb) begin
-		if ( !resetb ) begin
-		  cnt <= 0;
-		end		  
-		else  begin
-			cnt <= cnt + 1;
-		end
-	end
+  always @(posedge in or negedge resetb) begin
+    if ( !resetb ) begin
+      cnt <= 0;
+    end      
+    else  begin
+      cnt <= cnt + 1;
+    end
+  end
 
-`ifdef 	USE_BLOCK_ASSIGNMENT
+`ifdef   USE_BLOCK_ASSIGNMENT
 
 //for use block assigmnet to avoid race condition in simulation
 
-	always @(posedge in or negedge resetb) begin
-		if ( !resetb ) begin
-		  clk_out = 1;
-		end		  
-		else  begin
-			if ( cnt == 0 ) clk_out = ~clk_out;
-			else clk_out = clk_out;
-		end
-	end
+  always @(posedge in or negedge resetb) begin
+    if ( !resetb ) begin
+      clk_out = 1;
+    end      
+    else  begin
+      if ( cnt == 0 ) clk_out = ~clk_out;
+      else clk_out = clk_out;
+    end
+  end
 
-`else	  //USE_BLOCK_ASSIGNMENT
+`else    //USE_BLOCK_ASSIGNMENT
 
 //for use non-block assigmnet
 
-	always @(posedge in or negedge resetb) begin
-		if ( !resetb ) begin
-		  clk_out <= 1;
-		end		  
-		else  begin
-			if ( cnt == 0 ) clk_out <= ~clk_out;
-			else clk_out <= clk_out;
-		end
-	end
+  always @(posedge in or negedge resetb) begin
+    if ( !resetb ) begin
+      clk_out <= 1;
+    end      
+    else  begin
+      if ( cnt == 0 ) clk_out <= ~clk_out;
+      else clk_out <= clk_out;
+    end
+  end
 
-`endif 		//USE_BLOCK_ASSIGNMENT
+`endif     //USE_BLOCK_ASSIGNMENT
 
 endmodule
 
