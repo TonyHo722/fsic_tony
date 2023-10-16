@@ -450,30 +450,30 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
       if (wr_ptr_reg != pre_rd_ptr_reg) begin  
           if(pre_m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) begin
               as_up_tvalid_reg <= 1;
-        rd_ptr_reg <= pre_rd_ptr_reg;  
+              rd_ptr_reg <= pre_rd_ptr_reg;  
               if(up_as_tready) begin
                   pre_rd_ptr_reg <= pre_rd_ptr_reg + 1;
-          if(delaynext == 1) begin
-            as_up_tvalid_reg <= 0;
-            delaynext <= 0;
-          end
+                  if(delaynext == 1) begin
+                      as_up_tvalid_reg <= 0;
+                      delaynext <= 0;
+                  end
               end else begin  
-                 pre_rd_ptr_reg <= pre_rd_ptr_reg;
-           delaynext <= 1;  
-        end  
+                  pre_rd_ptr_reg <= pre_rd_ptr_reg;
+                  delaynext <= 1;  
+              end  
           end else if(pre_m_axis[TID_OFFSET +: TID_WIDTH]==2'b01) begin  
               as_aa_tvalid_reg <= 1;
-        rd_ptr_reg <= pre_rd_ptr_reg;  
+              rd_ptr_reg <= pre_rd_ptr_reg;  
               if(aa_as_tready) begin
-          pre_rd_ptr_reg <= pre_rd_ptr_reg + 1;
-          if(delaynext == 1) begin
-            as_aa_tvalid_reg <= 0;
-            delaynext <= 0;
-          end
+                  pre_rd_ptr_reg <= pre_rd_ptr_reg + 1;
+                  if(delaynext == 1) begin
+                      as_aa_tvalid_reg <= 0;
+                      delaynext <= 0;
+                  end
               end else begin  
-                 pre_rd_ptr_reg <= pre_rd_ptr_reg;
-           delaynext <= 1;  
-        end         
+                  pre_rd_ptr_reg <= pre_rd_ptr_reg;
+                  delaynext <= 1;  
+              end         
           end else begin
               as_up_tvalid_reg <= 0;
               as_aa_tvalid_reg <= 0;
@@ -500,3 +500,4 @@ assign as_aa_tkeep = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b01) ? m_axis[KEEP_OFFS
 assign as_aa_tlast = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b01) ? m_axis[LAST_OFFSET]: 0;
 assign as_aa_tuser = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b01) ? m_axis[USER_OFFSET +: USER_WIDTH]: 0;
 endmodule
+
