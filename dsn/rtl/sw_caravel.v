@@ -450,11 +450,11 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
       if (wr_ptr_reg != pre_rd_ptr_reg) begin  
           if(pre_m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) begin
               as_up_tvalid_reg <= 1;
-              rd_ptr_reg <= pre_rd_ptr_reg;  
               if(up_as_tready) begin
+                  rd_ptr_reg <= pre_rd_ptr_reg;  
                   pre_rd_ptr_reg <= pre_rd_ptr_reg + 1;
                   if(delaynext == 1) begin
-                      as_up_tvalid_reg <= 0;
+                      //as_up_tvalid_reg <= 0;
                       delaynext <= 0;
                   end
               end else begin  
