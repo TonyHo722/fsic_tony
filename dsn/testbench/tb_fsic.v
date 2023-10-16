@@ -1348,7 +1348,7 @@ FSIC #(
       fpga_as_is_tready <= 1;
       
       for(idx3=0; idx3<fpga_axis_test_length; idx3=idx3+1)begin    //
-        fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP, 1);    //target to User Project
+        fpga_axis_req(32'h11111111 * (idx3 & 32'h0000_000F), TID_DN_UP, 0);    //target to User Project
       end
       
       $display($time, "=> test002_fpga_axis_req done");
@@ -1358,7 +1358,7 @@ FSIC #(
   task fpga_axis_req;
     input [31:0] data;
     input [1:0] tid;
-    input mode;  //o ffor noram, 1 for random data
+    input mode;  //0 for incremental data, 1 for random data
     reg [31:0] tdata;
     `ifdef USER_PROJECT_SIDEBAND_SUPPORT
       reg [pUSER_PROJECT_SIDEBAND_WIDTH-1:0]tupsb;
