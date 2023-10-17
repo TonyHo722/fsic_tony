@@ -438,7 +438,8 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
 end
 // Read logic
 wire empty = (wr_ptr_reg == pre_rd_ptr_reg);
-wire data_transfer = (as_up_tvalid_reg && up_as_tready);
+wire as_up_tvalid_out = as_up_tvalid_reg && !empty;
+wire data_transfer = (as_up_tvalid_out && up_as_tready);
 
 always @(posedge axis_clk or negedge axi_reset_n) begin
     if (!axi_reset_n) begin
@@ -480,7 +481,6 @@ always @(posedge axis_clk or negedge axi_reset_n) begin
       end       
     end
 end
-wire as_up_tvalid_out = as_up_tvalid_reg && !empty;
 
 assign as_up_tvalid = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? as_up_tvalid_out: 0;   
 assign as_up_tdata = (m_axis[TID_OFFSET +: TID_WIDTH]==2'b00) ? m_axis[pDATA_WIDTH - 1:0]: 0;
