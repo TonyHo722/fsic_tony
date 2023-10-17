@@ -117,7 +117,7 @@ assign full = (r_ptr == (w_ptr+1) );
 
 reg [2:0] ss_tready_toggle;
 
-assign ss_tready = !full && (ss_tready_toggle != 3'b111) ;
+assign ss_tready = !full && (ss_tready_toggle != 3'b111) && ss_tvalid;
 
 always @(posedge axis_clk or negedge axis_rst_n)  begin
   if ( !axis_rst_n ) begin
@@ -172,6 +172,7 @@ assign la_data_o     = 24'b0;
 
 
 endmodule // USER_PRJ0
+
 
 
 
