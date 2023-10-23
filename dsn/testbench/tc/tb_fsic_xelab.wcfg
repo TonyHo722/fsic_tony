@@ -10,12 +10,12 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="5,828.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="6,708.001 ns"></ZoomEndTime>
-      <Cursor1Time time="6,005.000 ns"></Cursor1Time>
+      <ZoomStartTime time="5,926.655 ns"></ZoomStartTime>
+      <ZoomEndTime time="6,522.000 ns"></ZoomEndTime>
+      <Cursor1Time time="6,725.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="258"></NameColumnWidth>
+      <NameColumnWidth column_width="242"></NameColumnWidth>
       <ValueColumnWidth column_width="66"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="15" />
@@ -3901,10 +3901,26 @@
          <obj_property name="ElementShortName">m_axis_tid_reg[1:0]</obj_property>
          <obj_property name="ObjectShortName">m_axis_tid_reg[1:0]</obj_property>
       </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/empty">
+         <obj_property name="ElementShortName">empty</obj_property>
+         <obj_property name="ObjectShortName">empty</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid_reg">
+         <obj_property name="ElementShortName">as_up_tvalid_reg</obj_property>
+         <obj_property name="ObjectShortName">as_up_tvalid_reg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid_out">
+         <obj_property name="ElementShortName">as_up_tvalid_out</obj_property>
+         <obj_property name="ObjectShortName">as_up_tvalid_out</obj_property>
+      </wvobject>
       <wvobject type="group" fp_name="group995">
          <obj_property name="label">AS to UP</obj_property>
          <obj_property name="DisplayName">label</obj_property>
          <obj_property name="isExpanded"></obj_property>
+         <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/axis_clk">
+            <obj_property name="ElementShortName">axis_clk</obj_property>
+            <obj_property name="ObjectShortName">axis_clk</obj_property>
+         </wvobject>
          <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid">
             <obj_property name="ElementShortName">as_up_tvalid</obj_property>
             <obj_property name="ObjectShortName">as_up_tvalid</obj_property>
@@ -3953,10 +3969,6 @@
       <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/up_as_tready">
          <obj_property name="ElementShortName">up_as_tready</obj_property>
          <obj_property name="ObjectShortName">up_as_tready</obj_property>
-      </wvobject>
-      <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/pre_up_as_tready">
-         <obj_property name="ElementShortName">pre_up_as_tready</obj_property>
-         <obj_property name="ObjectShortName">pre_up_as_tready</obj_property>
       </wvobject>
       <wvobject type="logic" fp_name="/tb_fsic/dut/AXIS_SW0/as_up_tvalid_reg">
          <obj_property name="ElementShortName">as_up_tvalid_reg</obj_property>
