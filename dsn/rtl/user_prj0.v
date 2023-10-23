@@ -88,6 +88,10 @@ reg         reg_sw_in;
 reg         reg_rst;
 wire [31:0] crc32_stream_in;
 wire [31:0] crc32_stream_out;
+wire        edgedetect_done;
+reg  [31:0] reg_crc32_stream_in;
+reg  [31:0] reg_crc32_stream_out;
+reg         reg_edgedetect_done;
 
 wire awvalid_in;
 wire wvalid_in;
@@ -112,10 +116,10 @@ assign wready_out = (awvalid_in && wvalid_in) ? 1 : 0;
 //write register
 always @(posedge axi_clk or negedge axi_reset_n)  begin
   if ( !axi_reset_n ) begin
-    reg_widthIn  <= 640;
-    reg_heightIn <= 480;
-    reg_sw_in    <= 1;
-    reg_rst      <= 0;
+    reg_widthIn         <= 640;
+    reg_heightIn        <= 480;
+    reg_sw_in           <= 1;
+    reg_rst             <= 0;
   end else begin
     if ( awvalid_in && wvalid_in ) begin		//when awvalid_in=1 and wvalid_in=1 means awready_out=1 and wready_out=1
       if          (awaddr[11:2] == 10'h000 ) begin //offset 0
@@ -133,6 +137,18 @@ always @(posedge axi_clk or negedge axi_reset_n)  begin
   end
 end
 
+always @(posedge axi_clk or negedge axi_reset_n)  begin
+  if ( !axi_reset_n ) begin
+      reg_edgedetect_done <= 0;
+  end else begin
+    if (edgedetect_done) 
+      reg_edgedetect_done <= 1;
+    else if (awaddr[11:2] == 10'h006 ) begin //offset 6
+      if ( wstrb[0] == 1) reg_edgedetect_done <= 0;
+    end
+  end
+end
+
 //read register
 reg [(pDATA_WIDTH-1) : 0] rdata_tmp;
 assign arready = 1; // ?
@@ -144,8 +160,9 @@ always @* begin
   else if (araddr[11:2] == 10'h001) rdata_tmp = reg_widthIn;
   else if (araddr[11:2] == 10'h002) rdata_tmp = reg_heightIn;
   else if (araddr[11:2] == 10'h003) rdata_tmp = reg_sw_in;
-  else if (araddr[11:2] == 10'h004) rdata_tmp = crc32_stream_in;
-  else if (araddr[11:2] == 10'h005) rdata_tmp = crc32_stream_out;
+  else if (araddr[11:2] == 10'h004) rdata_tmp = reg_crc32_stream_in;
+  else if (araddr[11:2] == 10'h005) rdata_tmp = reg_crc32_stream_out;
+  else if (araddr[11:2] == 10'h006) rdata_tmp = reg_edgedetect_done;
   else                              rdata_tmp = 0;
 end
 
@@ -160,7 +177,17 @@ assign {sm_tstrb, sm_tkeep, sm_tlast} = 0;
 
 wire dat_in_rsc_rdy;
 
-assign #1 ss_tready = dat_in_rsc_rdy;
+assign ss_tready = dat_in_rsc_rdy;
+
+always @(posedge axi_clk or negedge axi_reset_n)  begin
+  if ( !axi_reset_n ) begin
+    reg_crc32_stream_in  <= 0;
+    reg_crc32_stream_out <= 0;
+  end else if (edgedetect_done) begin
+    reg_crc32_stream_in  <= crc32_stream_in ;
+    reg_crc32_stream_out <= crc32_stream_out;
+  end
+end
 
 EdgeDetect_Top U_EdgeDetect (
 .clk                     (axi_clk           ), //user_clock2 ?
@@ -172,10 +199,10 @@ EdgeDetect_Top U_EdgeDetect (
 .crc32_pix_in_rsc_dat    (crc32_stream_in   ), //O
 .crc32_pix_in_triosy_lz  (),                   //O, not useful
 .crc32_dat_out_rsc_dat   (crc32_stream_out  ), //O
-.crc32_dat_out_triosy_lz (),                   //O, not useful
+.crc32_dat_out_triosy_lz (edgedetect_done   ), //O
 .dat_in_rsc_dat          (dat_in_rsc_dat    ), //I
 .dat_in_rsc_vld          (ss_tvalid         ), //I
-.dat_in_rsc_rdy          (dat_in_rsc_rdy         ), //O
+.dat_in_rsc_rdy          (dat_in_rsc_rdy    ), //O
 .dat_out_rsc_dat         (dat_out_rsc_dat   ), //O
 .dat_out_rsc_vld         (sm_tvalid         ), //O
 .dat_out_rsc_rdy         (sm_tready         ), //I

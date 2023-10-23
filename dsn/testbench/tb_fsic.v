@@ -43,12 +43,15 @@ module tb_fsic #( parameter BITS=32,
 (
 );
 `ifdef USE_EDGEDETECT_IP
-                localparam TST_TOTAL_FRAME_NUM = 1;
+		localparam CoreClkPhaseLoop    = 1;
+                localparam TST_TOTAL_FRAME_NUM = 2;
                 localparam TST_FRAME_WIDTH     = 640;
                 localparam TST_FRAME_HEIGHT    = 360;
                 localparam TST_TOTAL_PIXEL_NUM = TST_FRAME_WIDTH * TST_FRAME_HEIGHT;
-`endif
+                localparam TST_SW              = 1;
+`else
 		localparam CoreClkPhaseLoop	= 4;
+`endif
 		localparam UP_BASE=32'h3000_0000;
 		localparam AA_BASE=32'h3000_2000;
 		localparam IS_BASE=32'h3000_3000;
@@ -135,19 +138,36 @@ module tb_fsic #( parameter BITS=32,
 	reg [31:0] soc_to_fpga_axilite_read_cpl_captured;
 	event soc_to_fpga_axilite_read_cpl_event;
 
-    reg [6:0] soc_to_fpga_axis_expect_count;
-	
+    `ifdef USE_EDGEDETECT_IP	
+        reg [31:0] soc_to_fpga_axis_expect_count;
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_expect_value[fpga_axis_test_length-1:0];
+	`else
+		reg [(4+4+1+32-1):0] soc_to_fpga_axis_expect_value[fpga_axis_test_length-1:0];
+	`endif
+        
+        reg [31:0] soc_to_fpga_axis_captured_count;
+	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
+		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_captured[fpga_axis_test_length-1:0];
+	`else
+		reg [(4+4+1+32-1):0] soc_to_fpga_axis_captured[fpga_axis_test_length-1:0];
+	`endif
+    `else
+        reg [6:0] soc_to_fpga_axis_expect_count;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
 	`else
 		reg [(4+4+1+32-1):0] soc_to_fpga_axis_expect_value[127:0];
 	`endif
-    reg [6:0] soc_to_fpga_axis_captured_count;
+        
+        reg [6:0] soc_to_fpga_axis_captured_count;
 	`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 		reg [(pUSER_PROJECT_SIDEBAND_WIDTH+4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
 	`else
 		reg [(4+4+1+32-1):0] soc_to_fpga_axis_captured[127:0];
 	`endif
+
+    `endif
 	
 	event soc_to_fpga_axis_event;
 
@@ -749,7 +769,7 @@ FSIC #(
 			$display("-----------------");
 
                         //sw
-			cfg_read_data_expect_value = 32'd1;	
+			cfg_read_data_expect_value = TST_SW;	
 			soc_up_cfg_write('hc, 4'b0001, cfg_read_data_expect_value); 
 			soc_up_cfg_read('hc, 4'b0001);
 
@@ -1358,20 +1378,25 @@ FSIC #(
 
 `ifdef USE_EDGEDETECT_IP
 	reg[31:0] idx3;
+        reg[31:0] frm_cnt;
         reg[7:0]  tst_img_in_buf [TST_TOTAL_PIXEL_NUM];
         reg[7:0]  tst_img_out_buf[TST_TOTAL_PIXEL_NUM];
+        reg[31:0] tst_crc32_img_in_buf[1];
+        reg[31:0] tst_crc32_img_out_buf[1];
 
 	task test002;		//test002_fpga_axis_req
 		//input [7:0] compare_data;
 
 		begin
-			for (i=0;i<TST_TOTAL_FRAME_NUM;i=i+1) begin
-				$display("test002: fpga_axis_req - frame no %02d", i);
+			for (i=0;i<CoreClkPhaseLoop;i=i+1) begin
+				$display("test002: fpga_axis_req - loop %02d", i);
 				fork 
-					//soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
+					soc_apply_reset(40+i*10, 40);			//change coreclk phase in soc
 					fpga_apply_reset(40,40);		//fix coreclk phase in fpga
 				join
 				#40;
+
+                                test001_up_soc_cfg; //config again because of soc_apply_reset()
 
 				fpga_as_to_is_init();
 				
@@ -1396,9 +1421,15 @@ FSIC #(
 				fpga_as_is_tdata = 32'h5a5a5a5a;
 				#40;
 				#200;
+                        
+                                $readmemh("./pattern/in_img.hex",        tst_img_in_buf        );
+                                $readmemh("./pattern/out_img.hex",       tst_img_out_buf       );
+                                $readmemh("./pattern/crc32_in_img.hex",  tst_crc32_img_in_buf  );
+                                $readmemh("./pattern/crc32_out_img.hex", tst_crc32_img_out_buf );
+                                
 
-                                $readmemh("./pattern/in_img.hex",  tst_img_in_buf );
-                                $readmemh("./pattern/out_img.hex", tst_img_out_buf);
+			     for (frm_cnt=0;frm_cnt<TST_TOTAL_FRAME_NUM;frm_cnt=frm_cnt+1) begin
+				$display("test002: fpga_axis_req - frame no %02d", frm_cnt);
                                 
                                 soc_to_fpga_axis_expect_count = 0;
 				test002_fpga_axis_req();		//target to Axis Switch
@@ -1407,7 +1438,54 @@ FSIC #(
                                 @(soc_to_fpga_axis_event);
                                 $display($time, "=> soc_to_fpga_axis_expect_count = %d", soc_to_fpga_axis_expect_count);
                                 $display($time, "=> soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_captured_count);
-                
+			        $display("-----------------");
+              
+                                //report check
+                                //check edgedetect_done
+			        cfg_read_data_expect_value = 32'h1;	
+			        soc_up_cfg_read('h18, 4'b0001);
+
+			        check_cnt = check_cnt + 1;
+			        if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
+			        	$display($time, "=> test002_up_soc_rpt [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        	error_cnt = error_cnt + 1;
+			        end	
+			        else
+			        	$display($time, "=> test002_up_soc_rpt [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        $display("-----------------");
+			
+                                //check crc32_img_in
+			        cfg_read_data_expect_value = tst_crc32_img_in_buf[0];	
+			        soc_up_cfg_read('h10, 4'b1111);
+
+			        check_cnt = check_cnt + 1;
+			        if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
+			        	$display($time, "=> test002_up_soc_rpt [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        	error_cnt = error_cnt + 1;
+			        end	
+			        else
+			        	$display($time, "=> test002_up_soc_rpt [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        $display("-----------------");
+
+                                //check crc32_img_out
+			        cfg_read_data_expect_value = tst_crc32_img_out_buf[0];	
+			        soc_up_cfg_read('h14, 4'b1111);
+
+			        check_cnt = check_cnt + 1;
+			        if (cfg_read_data_captured !== cfg_read_data_expect_value) begin
+			        	$display($time, "=> test002_up_soc_rpt [ERROR] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        	error_cnt = error_cnt + 1;
+			        end	
+			        else
+			        	$display($time, "=> test002_up_soc_rpt [PASS] cfg_read_data_expect_value=%x, cfg_read_data_captured=%x", cfg_read_data_expect_value, cfg_read_data_captured);
+			        $display("-----------------");
+                                
+                                //clear edgedetect_done
+			        soc_up_cfg_write('h18, 4'b0001, 1); 
+			        $display("-----------------");
+                                
+                                //~report check
+
 				check_cnt = check_cnt + 1;
 				if ( soc_to_fpga_axis_expect_count != fpga_axis_test_length) begin
                                         $display($time, "=> test002 [ERROR] soc_to_fpga_axis_expect_count = %d, soc_to_fpga_axis_captured_count = %d", soc_to_fpga_axis_expect_count, soc_to_fpga_axis_captured_count);
@@ -1431,6 +1509,7 @@ FSIC #(
 
 				#200;
 			end
+                     end
 		end
 	endtask
 
@@ -1506,10 +1585,10 @@ FSIC #(
 					//tupsb = tdata[4:0];
                                         tupsb = upsb;
 				`endif
-				//tstrb = 4'b0000;
-				//tkeep = 4'b0000;
-				tstrb = 4'b1111;
-				tkeep = 4'b1111;
+				tstrb = 4'b0000;
+				tkeep = 4'b0000;
+				//tstrb = 4'b1111;
+				//tkeep = 4'b1111;
 				tlast = 1'b0;
                                 exp_data = {tst_img_out_buf[idx3+3], tst_img_out_buf[idx3+2], tst_img_out_buf[idx3+1], tst_img_out_buf[idx3+0]};
 			end
