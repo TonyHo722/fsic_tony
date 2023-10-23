@@ -5936,6 +5936,7 @@ module EdgeDetect_Top (
 endmodule
 
 
+/*
 module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 					parameter pADDR_WIDTH   = 12,
                    parameter pDATA_WIDTH   = 32
@@ -6050,11 +6051,12 @@ output [33:0] dat_out_rsc_dat;
 output dat_out_rsc_vld;
   input dat_out_rsc_rdy;
 
+*/
+
 // 2x external line buffer
 // data-width : 64bit
 // depth : 128   - widthIn/8  ~640x480  640/8 -> 80
 //  pixel data: 8-bit gray level - 
 //  kernel : 3x3 
-
 
 
