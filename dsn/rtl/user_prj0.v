@@ -56,6 +56,9 @@ module USER_PRJ0 #(parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire                        uck2_rst_n
 );
 
+localparam	RD_IDLE = 1'b0;
+localparam	RD_ADDR_DONE = 1'b1;
+
 //[TODO] does tlast from FPGA to SOC need send to UP? or use upsb as UP's tlast?
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	localparam	FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);		//upsb, tstrb, tkeep, tlast, tdata  
@@ -141,28 +144,73 @@ always @(posedge axi_clk or negedge axi_reset_n)  begin
   if ( !axi_reset_n ) begin
       reg_edgedetect_done <= 0;
   end else begin
-    if (edgedetect_done) 
+    if (edgedetect_done)
       reg_edgedetect_done <= 1;
-    else if (awaddr[11:2] == 10'h006 ) begin //offset 6
-      if ( wstrb[0] == 1) reg_edgedetect_done <= 0;
+    else if ( awvalid_in && wvalid_in ) begin        //when awvalid_in=1 and wvalid_in=1 means awready_out=1 and wready_out=1 
+      if (awaddr[11:2] == 10'h006 ) begin //offset 6
+        if ( wstrb[0] == 1) reg_edgedetect_done <= 0;
+      end
     end
   end
 end
 
+
 //read register
 reg [(pDATA_WIDTH-1) : 0] rdata_tmp;
-assign arready = 1; // ?
-assign rvalid  = 1; // ?
+assign arready = 1; //always assigned to 1, limitation: only support 1T in arvalid, if master issue 2T in arvalid then only 1st raddr is captured.
+reg rvalid_out ;
+assign rvalid = rvalid_out;
 assign rdata =  rdata_tmp;
+reg rd_state;
+reg rd_next_state;
+reg [pADDR_WIDTH-1:0] rd_addr;
 
+////
+always @(posedge axi_clk or negedge axi_reset_n)  begin
+  if ( !axi_reset_n ) 
+    rd_state <= RD_IDLE;
+  else
+    rd_state <= rd_next_state;
+end
+
+always@(*)begin
+  case(rd_state)
+    RD_IDLE:
+      if(arvalid && arready) rd_next_state = RD_ADDR_DONE;
+      else      rd_next_state = RD_IDLE;
+    RD_ADDR_DONE:
+      if(rready && rvalid_out) rd_next_state = RD_IDLE;
+      else    rd_next_state = RD_ADDR_DONE;
+    default:rd_next_state = RD_IDLE;
+  endcase
+end 
+
+always @(posedge axi_clk or negedge axi_reset_n)  begin
+  if ( !axi_reset_n ) begin
+    rd_addr <= 0;
+	rvalid_out <= 0;
+  end	
+  else begin
+    if (rd_state == RD_IDLE )
+	  if(arvalid && arready) begin
+		rd_addr <= araddr;
+		rvalid_out <= 1;
+	  end	
+	if (rd_state == RD_ADDR_DONE ) 
+	  if(rready && rvalid_out)
+		rvalid_out <= 0;
+  end	
+end
+
+////
 always @* begin
-  if      (araddr[11:2] == 10'h000) rdata_tmp = reg_rst;
-  else if (araddr[11:2] == 10'h001) rdata_tmp = reg_widthIn;
-  else if (araddr[11:2] == 10'h002) rdata_tmp = reg_heightIn;
-  else if (araddr[11:2] == 10'h003) rdata_tmp = reg_sw_in;
-  else if (araddr[11:2] == 10'h004) rdata_tmp = reg_crc32_stream_in;
-  else if (araddr[11:2] == 10'h005) rdata_tmp = reg_crc32_stream_out;
-  else if (araddr[11:2] == 10'h006) rdata_tmp = reg_edgedetect_done;
+  if      (rd_addr[11:2] == 10'h000) rdata_tmp = reg_rst;
+  else if (rd_addr[11:2] == 10'h001) rdata_tmp = reg_widthIn;
+  else if (rd_addr[11:2] == 10'h002) rdata_tmp = reg_heightIn;
+  else if (rd_addr[11:2] == 10'h003) rdata_tmp = reg_sw_in;
+  else if (rd_addr[11:2] == 10'h004) rdata_tmp = reg_crc32_stream_in;
+  else if (rd_addr[11:2] == 10'h005) rdata_tmp = reg_crc32_stream_out;
+  else if (rd_addr[11:2] == 10'h006) rdata_tmp = reg_edgedetect_done;
   else                              rdata_tmp = 0;
 end
 
@@ -399,4 +447,5 @@ assign la_data_o     = 24'b0;
 
 endmodule // USER_PRJ0
 `endif
+
 
