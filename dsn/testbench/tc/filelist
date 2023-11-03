@@ -24,3 +24,5 @@
 ../../rtl/user_prj1.v
 ../../rtl/user_prj2.v
 ../../rtl/user_prj3.v
+../../rtl/spram.v
+../../rtl/concat_EdgeDetect_Top_fsic.v
