@@ -14,7 +14,8 @@
 ../../rtl/fsic_io_serdes_rx.v
 ../../rtl/fsic.v
 ../../rtl/io_serdes.v
-../../rtl/logic_anlz.dummy_io.v
+../../rtl/LogicAnalyzer.v
+../../rtl/Sram.v
 //../../rtl/logic_anlz.dummy_io.vd
 // ../../rtl/mprj_io.dummy_io.v
 // ../../rtl/mprj_io.dummy_io.vd

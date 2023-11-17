@@ -39,7 +39,19 @@ module MPRJ_IO #(   parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   localparam IOCLK_OFFSET = TXCLK_OFFSET + 1;
   localparam TXRX_WIDTH = IOCLK_OFFSET - BASE_OFFSET + 1;
 
-// MPRJ_IO PIN PLANNING
+// MPRJ_IO PIN PLANNING when pSERIALIO_WIDTH=13
+// --------------------------------
+// [20: 8]  I   RXD
+// [   21]  I   RXCLK
+
+// --------------------------------
+// [34:22]  O   TXD
+// [   35]  O   TXCLK
+
+// --------------------------------
+// [   36]  I   IO_CLK
+
+// MPRJ_IO PIN PLANNING when pSERIALIO_WIDTH=12
 // --------------------------------
 // [19: 8]  I   RXD
 // [   20]  I   RXCLK
@@ -49,7 +61,7 @@ module MPRJ_IO #(   parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 // [   33]  O   TXCLK
 
 // --------------------------------
-// [   37]  I   IO_CLK
+// [   34]  I   IO_CLK
 
 /*
 assign serial_rxd    = 12'b0;
@@ -62,14 +74,13 @@ assign io_clk = io_in[IOCLK_OFFSET];
 
 assign io_oeb[ 7: 0]   =  8'h00;
 
-assign io_oeb[RXD_OFFSET +: pSERIALIO_WIDTH]   = 0;  // RXD
-assign io_oeb[RXCLK_OFFSET]   =  0;    // RX_CLK
+assign io_oeb[RXD_OFFSET +: pSERIALIO_WIDTH]   = ~32'b0;  // RXD
+assign io_oeb[RXCLK_OFFSET]   =  1'b1;    // RX_CLK
 
-//assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = 13'h1FFF;  // TXD    //[TODO]
-assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = ~32'b0;  // TXD    //[TODO]
-assign io_oeb[TXCLK_OFFSET]   =  1'b1;    // TX_CLK
+assign io_oeb[TXD_OFFSET +: pSERIALIO_WIDTH]   = 32'b0;  // TXD
+assign io_oeb[TXCLK_OFFSET]   =  1'b0;    // TX_CLK
 
-assign io_oeb[IOCLK_OFFSET]   =  1'b0;    // IO_CLK (from FPGA)
+assign io_oeb[IOCLK_OFFSET]   =  1'b1;    // IO_CLK (from FPGA)
 
 
 assign serial_rxd  = io_in[RXD_OFFSET +: pSERIALIO_WIDTH];
