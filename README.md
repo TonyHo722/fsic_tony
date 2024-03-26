@@ -26,7 +26,7 @@ git clone https://github.com/TonyHo722/fsic_tony
 # run testbench
 ```
 $ cd fsic_tony/dsn/testbench/tc
-$ ./run_xsim 
+$ make sim
 ```
 
 ## testbench log file for reference
@@ -34,7 +34,7 @@ $ ./run_xsim
 
 ## use open_wave script to check the waverform
 ```
-$ ./open_wave 
+$ make wave
 ```
 
 # Step 2. update your module code to [fsic_fpga](https://github.com/bol-edu/fsic_fpga)

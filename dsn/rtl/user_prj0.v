@@ -30,7 +30,7 @@ module USER_PRJ0 #(parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire                 [1: 0] ss_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
   input  wire  [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
-  `endif
+  `endif //USER_PROJECT_SIDEBAND_SUPPORT
   input  wire                 [3: 0] ss_tstrb,
   input  wire                 [3: 0] ss_tkeep,
   input  wire                        ss_tlast,
@@ -41,7 +41,7 @@ module USER_PRJ0 #(parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   output wire                 [2: 0] sm_tid,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
   output  wire [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
-  `endif
+  `endif //USER_PROJECT_SIDEBAND_SUPPORT
   output wire                 [3: 0] sm_tstrb,
   output wire                 [3: 0] sm_tkeep,
   output wire                        sm_tlast,
@@ -62,15 +62,15 @@ localparam	RD_ADDR_DONE = 1'b1;
 //[TODO] does tlast from FPGA to SOC need send to UP? or use upsb as UP's tlast?
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	localparam	FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);		//upsb, tstrb, tkeep, tlast, tdata  
-`else
+`else //USER_PROJECT_SIDEBAND_SUPPORT
 	localparam	FIFO_WIDTH = (4 + 4 + 1 + pDATA_WIDTH);		//tstrb, tkeep, tlast, tdata
-`endif
+`endif //USER_PROJECT_SIDEBAND_SUPPORT
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 wire [33:0] dat_in_rsc_dat = {ss_tupsb[1:0], ss_tdata[31:0]};
-`else
+`else //USER_PROJECT_SIDEBAND_SUPPORT
 wire [33:0] dat_in_rsc_dat = {2'b00,         ss_tdata[31:0]};
-`endif
+`endif //USER_PROJECT_SIDEBAND_SUPPORT
 
 wire [33:0] dat_out_rsc_dat;
 
@@ -219,7 +219,7 @@ assign sm_tdata  = dat_out_rsc_dat[31: 0];
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 assign sm_tupsb = dat_out_rsc_dat[33:32];
-`endif
+`endif //USER_PROJECT_SIDEBAND_SUPPORT
 
 assign {sm_tstrb, sm_tkeep, sm_tlast} = 0;
 
@@ -288,7 +288,7 @@ SPRAM #(.data_width(64),.addr_width(7),.depth(80)) U_SPRAM_1(
 
 endmodule
 
-`else
+`else //USE_EDGEDETECT_IP
 module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 					parameter pADDR_WIDTH   = 12,
                    parameter pDATA_WIDTH   = 32
@@ -312,7 +312,7 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   input  wire                 [1: 0] ss_tuser,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	input  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] ss_tupsb,
-  `endif
+  `endif //USER_PROJECT_SIDEBAND_SUPPORT
   input  wire                 [3: 0] ss_tstrb,
   input  wire                 [3: 0] ss_tkeep,
   input  wire                        ss_tlast,
@@ -323,7 +323,7 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
   output wire                 [2: 0] sm_tid,
   `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	output  wire                 [pUSER_PROJECT_SIDEBAND_WIDTH-1: 0] sm_tupsb,
-  `endif
+  `endif //USER_PROJECT_SIDEBAND_SUPPORT
   output wire                 [3: 0] sm_tstrb,
   output wire                 [3: 0] sm_tkeep,
   output wire                        sm_tlast,
@@ -341,9 +341,9 @@ module USER_PRJ0 #( parameter pUSER_PROJECT_SIDEBAND_WIDTH   = 5,
 //[TODO] does tlast from FPGA to SOC need send to UP? or use upsb as UP's tlast?
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	localparam	FIFO_WIDTH = (pUSER_PROJECT_SIDEBAND_WIDTH + 4 + 4 + 1 + pDATA_WIDTH);		//upsb, tstrb, tkeep, tlast, tdata  
-`else
+`else //USER_PROJECT_SIDEBAND_SUPPORT
 	localparam	FIFO_WIDTH = (4 + 4 + 1 + pDATA_WIDTH);		//tstrb, tkeep, tlast, tdata
-`endif
+`endif //USER_PROJECT_SIDEBAND_SUPPORT
 
 
 wire awvalid_in;
@@ -411,9 +411,9 @@ always @(posedge axis_clk or negedge axis_rst_n)  begin
 	if ( ss_tready && ss_tvalid) begin
 		`ifdef USER_PROJECT_SIDEBAND_SUPPORT
 			fifo[w_ptr] <= {ss_tupsb, ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
-		`else
+		`else //USER_PROJECT_SIDEBAND_SUPPORT
 			fifo[w_ptr] <= {ss_tstrb, ss_tkeep, ss_tlast, ss_tdata}; 
-		`endif
+		`endif //USER_PROJECT_SIDEBAND_SUPPORT
 		w_ptr <= w_ptr + 1;
 	end
   end
@@ -423,9 +423,9 @@ end
 
 `ifdef USER_PROJECT_SIDEBAND_SUPPORT
 	assign {sm_tupsb, sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
-`else
+`else //USER_PROJECT_SIDEBAND_SUPPORT
 	assign {sm_tstrb, sm_tkeep, sm_tlast, sm_tdata} = fifo[r_ptr];
-`endif
+`endif //USER_PROJECT_SIDEBAND_SUPPORT
 
 assign sm_tvalid = !empty;
 always @(posedge axis_clk or negedge axis_rst_n)  begin
@@ -446,6 +446,6 @@ assign la_data_o     = 24'b0;
 
 
 endmodule // USER_PRJ0
-`endif
+`endif //USE_EDGEDETECT_IP
 
 

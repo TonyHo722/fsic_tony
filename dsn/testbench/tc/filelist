@@ -1,10 +1,11 @@
 ../fpga.v
-../../rtl/axi_ctrl_logic.sv
-../../rtl/axil_axis.sv
-../../rtl/axilite_master.sv
-../../rtl/axilite_slave.sv
-../../rtl/axis_master.sv
-../../rtl/axis_slave.sv
+//../../rtl/axi_ctrl_logic.sv
+//../../rtl/axil_axis.sv
+//../../rtl/axilite_master.sv
+//../../rtl/axilite_slave.sv
+//../../rtl/axis_master.sv
+//../../rtl/axis_slave.sv
+../../rtl/axil_axis.v
 // ../../rtl/axis_switch.v
 ../../rtl/sw_caravel.v
 ../../rtl/config_ctrl.v
